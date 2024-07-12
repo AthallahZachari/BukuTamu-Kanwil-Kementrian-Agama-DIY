@@ -1,0 +1,8 @@
+RewriteEngine On
+RewriteRule ^about$ about.php [L]
+
+<Files "sensitive-file.txt">
+    Order Allow,Deny
+    Deny from all
+</Files>
+    
