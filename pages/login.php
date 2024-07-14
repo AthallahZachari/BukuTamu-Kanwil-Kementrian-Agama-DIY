@@ -1,6 +1,6 @@
 <?php include '../includes/header.php' ?>
 
-<body class="min-h-[100vh] w-full flex flex-col justify-center items-center">
+<body class="min-h-screen w-full flex flex-col items-center justify-center relative bg-fixed bg-center bg-repeat" style="background-image: url('../assets/belakang.avif');">
     <div class=" w-[50%] bg-white px-10 py-8 m-10 rounded-md shadow-xl">
         <section class=" flex flex-col justify-center items-center">
             <a href="../index.php" class="flex justify-center">
