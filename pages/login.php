@@ -36,14 +36,6 @@
         $query->execute([$_POST['username'], $_POST['nip'], $_POST['password']]);
         if ($query->rowCount() > 0) {
             $_SESSION['pegawai'] = $_POST['username'];
-            // echo '<script>
-            //       var snackbar = document.getElementById("snackbar");
-            //       snackbar.className = "show";
-            //       setTimeout(function() {
-            //           snackbar.className = snackbar.className.replace("show", "");
-            //           window.location.href = "pegawai.php";
-            //       }, 3000);
-            //   </script>';
             header("Location: ./admin/dashboard.php");
         } else {
             echo "Username, NIP, atau Password salah.";

@@ -25,7 +25,8 @@ $visitorCount = $result['visitors'];
           Selamat Datang di Buku Tamu Kanwil Kemenag D.I.Yogyakarta
         </h1>
         <div class="pt-5 flex justify-center">
-          <a href="./pages/pengunjung/pengunjung.php" class="text-slate-300 bg-green-800 hover:bg-green-950 font-semibold px-8 py-3 rounded-md transition-all duration-300">
+          <!-- ./pages/pengunjung/pengunjung.php -->
+          <a href="./pages/mainmenu.php" class="text-slate-300 bg-green-800 hover:bg-green-950 font-semibold px-8 py-3 rounded-md transition-all duration-300">
             <i class="fa-regular fa-user pr-2"></i>Klik Disini
           </a>
         </div>
