@@ -1,4 +1,7 @@
-<?php include '../../includes/connection/admincontrol.php';?>
+<?php
+include '../../includes/connection/admincontrol.php';
+include '../../includes/header.php';
+?>
 
 <!-- Tampilkan form pencarian -->
 <div class="min-h-[60vh] mx-auto pb-6">
@@ -10,16 +13,20 @@
                 <option value="today" <?= $filter === 'today' ? 'selected' : '' ?>>Hari Ini</option>
                 <option value="month" <?= $filter === 'month' ? 'selected' : '' ?>>Bulan Ini</option>
                 <option value="year" <?= $filter === 'year' ? 'selected' : '' ?>>Tahun Ini</option>
-                 <!-- Add your filter options here -->
+                <!-- Add your filter options here -->
             </select>
             <input type="text" name="searchbox" value="<?= htmlspecialchars($searchbox) ?>" placeholder="Cari nama..." class="w-[30%] px-4 py-1 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400">
             <button type="submit" class="bg-green-700 hover:bg-green-800 text-slate-100 font-semibold px-4 py-[4.7px] rounded-tr-md rounded-br-md transition-all duration-300">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
         </form>
-        <button class=" bg-green-700 hover:bg-green-900 px-4 py-2 rounded-md text-slate-100 font-semibold transition-all duration-300">
-            <i class="fa-regular fa-pen-to-square mr-3"></i>Edit
-        </button>
+        <nav class=" text-slate-100 ">
+            <ul class=" bg-green-700 rounded-md flex justify-center items-center align-middle">
+                <li class="px-5 py-2 hover:bg-green-900 cursor-pointer rounded-tl-md rounded-bl-md transition-all duration-300">Keagamaan</li>
+                <li class="px-5 py-2 hover:bg-green-900 cursor-pointer transition-all duration-300">Umum</li>
+                <li class="px-5 py-2 hover:bg-green-900 cursor-pointer rounded-tr-md rounded-br-md transition-all duration-300">Administratif</li>
+            </ul>
+        </nav>
     </section>
 
 
@@ -35,6 +42,7 @@
                     <th class="py-4 px-4 text-left font-medium border-b border-slate-400 text-slate-500">Instansi</th>
                     <th class="py-4 px-4 text-left font-medium border-b border-slate-400 text-slate-500">Alamat</th>
                     <th class="py-4 px-4 text-left font-medium border-b border-slate-400 text-slate-500">Nomor HP</th>
+                    <th class="py-4 px-4 text-left font-medium border-b border-slate-400 text-slate-500">Bidang</th>
                     <th class="py-4 px-4 text-left font-medium border-b border-slate-400 text-slate-500 w-[40%]">Keperluan</th>
                 </tr>
             </thead>
@@ -50,6 +58,7 @@
                             <td class="py-4 px-4 text-md text-left font-semibold text-black"><?= htmlspecialchars($row["instansi"]); ?></td>
                             <td class="py-4 px-4 text-md text-left font-semibold text-black"><?= htmlspecialchars($row["alamat"]); ?></td>
                             <td class="py-4 px-4 text-md text-left font-semibold text-black"><?= htmlspecialchars($row["nomor_hp"]); ?></td>
+                            <td class="py-4 px-4 text-md text-left font-semibold text-black"><?= htmlspecialchars($row['bidang']); ?></td>
                             <td class="py-4 px-4 text-md text-left font-semibold text-black"><?= htmlspecialchars($row["keperluan"]); ?></td>
                         </tr>
                     <?php endforeach; ?>
