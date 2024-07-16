@@ -103,9 +103,9 @@ function getBgColor($kepentingan)
         case 'Permohonan Audiensi':
             return 'emerald-400';
         case 'Permohonan Penelitian':
-            return 'amber-400';
+            return 'lime-300';
         case 'Permohonan Magang':
-            return 'orange-400';
+            return 'sky-300';
         case 'Konsultasi Haji':
             return 'yellow-500';
         case 'Konsultasi Halal':
@@ -114,6 +114,11 @@ function getBgColor($kepentingan)
             # code...
             break;
     }
+}
+
+// [ SET ] warna untuk kolom data KEPENTINGAN/BIDANG 
+function getGenderColor($gender){
+
 }
 
 // [ DROPDOWN ] Menu filter dropdown
