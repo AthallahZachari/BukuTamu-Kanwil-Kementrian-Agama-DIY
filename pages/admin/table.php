@@ -32,18 +32,18 @@ include '../../includes/header.php';
 
     <!-- Tampilkan tabel dengan hasil pencarian -->
     <div class="shadow-xl rounded-lg py-6 px-5 ">
-        <table class="min-w-full">
+        <table class="min-w-full text-sm overflow-x-auto">
             <!-- Tabel header -->
             <thead>
                 <tr>
-                    <th class="py-4 px-4 text-left font-medium border-b border-slate-400 text-slate-500"></th>
-                    <th class="py-4 px-4 text-left font-medium border-b border-slate-400 text-slate-500 ">Nama</th>
-                    <th class="py-4 px-4 text-left font-medium border-b border-slate-400 text-slate-500">Gender</th>
-                    <th class="py-4 px-4 text-left font-medium border-b border-slate-400 text-slate-500">Instansi</th>
-                    <th class="py-4 px-4 text-left font-medium border-b border-slate-400 text-slate-500">Alamat</th>
-                    <th class="py-4 px-4 text-left font-medium border-b border-slate-400 text-slate-500">Nomor HP</th>
-                    <th class="py-4 px-4 text-left font-medium border-b border-slate-400 text-slate-500">Bidang</th>
-                    <th class="py-4 px-4 text-left font-medium border-b border-slate-400 text-slate-500 w-[40%]">Keperluan</th>
+                    <th class="py-4 px-4 text-left font-medium border-b border-slate-400 text-slate-500 w-[30px]"></th>
+                    <th class="py-4 px-4 text-left font-medium border-b border-slate-400 text-slate-500 w-1/6">Nama</th>
+                    <th class="py-4 px-4 text-left font-medium border-b border-slate-400 text-slate-500 w-1/12">Gender</th>
+                    <th class="py-4 px-4 text-left font-medium border-b border-slate-400 text-slate-500 w-1/12">Instansi</th>
+                    <th class="py-4 px-4 text-left font-medium border-b border-slate-400 text-slate-500 w-1/16">Alamat</th>
+                    <th class="py-4 px-4 text-left font-medium border-b border-slate-400 text-slate-500 w-1/12">Nomor HP</th>
+                    <th class="py-4 px-4 text-left font-medium border-b border-slate-400 text-slate-500 w-1/6">Bidang</th>
+                    <th class="py-4 px-4 text-left font-medium border-b border-slate-400 text-slate-500 w-1/6">Keperluan</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,13 +53,13 @@ include '../../includes/header.php';
                             <td class="text-center">
                                 <a href="#" class="px-3 py-2 rounded-md hover:bg-gray-200 transition-all duration-300"><i class="fa-solid fa-ellipsis"></i></a>
                             </td>
-                            <td class="py-4 px-4 text-md text-left font-semibold text-black"><?= htmlspecialchars($row["nama"]); ?></td>
-                            <td class="py-4 px-4 text-md text-left font-semibold text-black"><?= htmlspecialchars($row["jenis_kelamin"]); ?></td>
-                            <td class="py-4 px-4 text-md text-left font-semibold text-black"><?= htmlspecialchars($row["instansi"]); ?></td>
-                            <td class="py-4 px-4 text-md text-left font-semibold text-black"><?= htmlspecialchars($row["alamat"]); ?></td>
-                            <td class="py-4 px-4 text-md text-left font-semibold text-black"><?= htmlspecialchars($row["nomor_hp"]); ?></td>
-                            <td class="py-4 px-4 text-md text-left font-semibold text-black"><?= htmlspecialchars($row['bidang']); ?></td>
-                            <td class="py-4 px-4 text-md text-left font-semibold text-black"><?= htmlspecialchars($row["keperluan"]); ?></td>
+                            <td class="py-4 px-4 text-md text-left text-black"><?= htmlspecialchars($row["nama"]); ?></td>
+                            <td class="py-4 px-4 text-md text-left text-black"><?= htmlspecialchars($row["jenis_kelamin"]); ?></td>
+                            <td class="py-4 px-4 text-md text-left text-black"><?= htmlspecialchars($row["instansi"]); ?></td>
+                            <td class="py-4 px-4 text-md text-left text-black"><?= htmlspecialchars($row["alamat"]); ?></td>
+                            <td class="py-4 px-4 text-md text-left text-black"><?= htmlspecialchars($row["nomor_hp"]); ?></td>
+                            <td class="py-4 px-4 text-md text-left text-black"><?= htmlspecialchars($row['kepentingan']); ?></td>
+                            <td class="py-4 px-4 text-md text-left text-black"><?= htmlspecialchars($row["keperluan"]); ?></td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else : ?>

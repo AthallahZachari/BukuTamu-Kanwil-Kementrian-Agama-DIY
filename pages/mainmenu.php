@@ -5,7 +5,7 @@ $data = [
     ["judul" => "Permohonan Rohaniwan", "deskripsi" => "For users who wants to do more", "icon" => "fa-brands fa-slack"],
     ["judul" => "Permohonan Audiensi", "deskripsi" => "For users who wants to do more", "icon" => "fa-solid fa-magnet"],
     ["judul" => "Permohonan Penelitian", "deskripsi" => "For users who wants to do more", "icon" => "fa-solid fa-paper-plane"],
-    ["judul" => "Permohonan Magang", "deskripsi" => "For users who wants to do more", "icon" => "fa-solid fa-users"],
+    ["judul" => "Permohonan Magang", "deskripsi" => "Exploring your interest, broaden your vision", "icon" => "fa-solid fa-users"],
     ["judul" => "Konsultasi Haji", "deskripsi" => "For users who wants to do more", "icon" => "fa-solid fa-kaaba"],
     ["judul" => "Konsultasi Halal", "deskripsi" => "For users who wants to do more", "icon" => "fa-solid fa-shield-virus"],
 ];
