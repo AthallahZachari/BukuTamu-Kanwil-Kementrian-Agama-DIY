@@ -74,6 +74,7 @@ $options = [
             <label for="telephone" class="block text-slate-800 font-semibold px-1 pb-2">Nomor Telephone</label>
             <input required type="text" name="telepon" id="telepon" class="w-[70%] rounded-md px-4 py-1 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400">
         </div>
+
         <div class="min-w-[30%] text-sm font-semibold">
             <a id="dropdownButton" class="w-full px-3 py-2 rounded-md border border-gray-300 hover:cursor-pointer focus:outline-none focus:ring-1 focus:ring-emerald-400">
                 Bidang Kepentingan <i class="fa-solid fa-chevron-down ml-2"></i>
@@ -87,6 +88,7 @@ $options = [
             </div>
             <input type="hidden" name="kepentingan" id="kepentinganID" />
         </div>
+        
     </section>
 
     <!-- KEPERLUAN -->

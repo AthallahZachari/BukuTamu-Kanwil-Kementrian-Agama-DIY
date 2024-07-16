@@ -2,13 +2,13 @@
 include '../../includes/connection/admincontrol.php';
 include '../../includes/header.php';
 
-
 ?>
 
 <!-- Tampilkan form pencarian -->
 <div class="min-h-[60vh] mx-auto pb-6">
     <section class="shadow-lg rounded-md my-4 py-3 px-5 w-full flex justify-between ">
-        <form method="GET" action="dashboard.php" class="w-[80%] flex items-center ">
+
+        <form method="GET" action="" class="w-[80%] flex items-center ">
             <select name="filter" id="filter" class=" appearance-none rounded-tl-lg rounded-bl-md px-4 py-[4.0px] border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400">
                 <option value="" disabled <?= $filter === 'all' ? 'selected' : '' ?>>Filter</option>
                 <option value="all" <?= $filter === 'all' ? 'selected' : '' ?>>Semua</option>
@@ -22,13 +22,21 @@ include '../../includes/header.php';
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
         </form>
-        <nav class=" text-slate-100 ">
-            <ul class=" bg-green-700 rounded-md flex justify-center items-center align-middle">
-                <li class="px-5 py-2 hover:bg-green-900 cursor-pointer rounded-tl-md rounded-bl-md transition-all duration-300">Keagamaan</li>
-                <li class="px-5 py-2 hover:bg-green-900 cursor-pointer transition-all duration-300">Umum</li>
-                <li class="px-5 py-2 hover:bg-green-900 cursor-pointer rounded-tr-md rounded-br-md transition-all duration-300">Administratif</li>
-            </ul>
-        </nav>
+        <form id="filterBidang" method="POST" action="">
+            <nav class=" text-sm text-slate-900 ">
+                <a id="dropdownButton" class="w-full px-3 py-2 rounded-md border border-gray-300 hover:bg-slate-100 transition-all duration-300 hover:cursor-pointer focus:outline-none focus:ring-1 focus:ring-emerald-400">
+                    Filter Bidang <i class="fa-solid fa-chevron-down ml-2"></i>
+                </a>
+                <div id="dropdownMenu" class="hidden absolute mt-2 z-10 bg-white border border-gray-300 rounded-md shadow-lg">
+                    <ul>
+                        <?php foreach ($options as $option) { ?>
+                            <li class="px-4 py-2 cursor-pointer hover:bg-gray-100" data-value="<?= $option['text']; ?>"><?= $option['text']; ?></li>
+                        <?php } ?>
+                    </ul>
+                </div>
+                <input type="hidden" name="kepentingan" id="kepentinganID" />
+            </nav>
+        </form>
     </section>
 
 
@@ -102,3 +110,4 @@ include '../../includes/header.php';
         </section>
     </div>
 </div>
+<script src="./script.js"></script>
