@@ -1,6 +1,8 @@
 <?php
 include '../../includes/connection/admincontrol.php';
 include '../../includes/header.php';
+
+
 ?>
 
 <!-- Tampilkan form pencarian -->
@@ -32,34 +34,47 @@ include '../../includes/header.php';
 
     <!-- Tampilkan tabel dengan hasil pencarian -->
     <div class="shadow-xl rounded-lg py-6 px-5 ">
-        <table class="min-w-full text-sm overflow-x-auto">
+        <table class="text-sm overflow-x-auto table-auto">
             <!-- Tabel header -->
             <thead>
                 <tr>
-                    <th class="py-4 px-4 text-left font-medium border-b border-slate-400 text-slate-500 w-[30px]"></th>
-                    <th class="py-4 px-4 text-left font-medium border-b border-slate-400 text-slate-500 w-1/6">Nama</th>
-                    <th class="py-4 px-4 text-left font-medium border-b border-slate-400 text-slate-500 w-1/12">Gender</th>
-                    <th class="py-4 px-4 text-left font-medium border-b border-slate-400 text-slate-500 w-1/12">Instansi</th>
-                    <th class="py-4 px-4 text-left font-medium border-b border-slate-400 text-slate-500 w-1/16">Alamat</th>
-                    <th class="py-4 px-4 text-left font-medium border-b border-slate-400 text-slate-500 w-1/12">Nomor HP</th>
-                    <th class="py-4 px-4 text-left font-medium border-b border-slate-400 text-slate-500 w-1/6">Bidang</th>
-                    <th class="py-4 px-4 text-left font-medium border-b border-slate-400 text-slate-500 w-1/6">Keperluan</th>
+                    <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[2%] "></th>
+                    <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[12.5%]">
+                        </">Nama</th>
+                    <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[5%] ">
+                        </">Gender</th>
+                    <th class="py-4 px-2 text-center font-medium border-b border-slate-400 text-slate-500 w-[5%]">
+                        </">Instansi</th>
+                    <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[12.5%]">
+                        </">Alamat</th>
+                    <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[5%] ">
+                        </">Nomor HP</th>
+                    <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[13%] ">
+                        </">Bidang</th>
+                    <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[15%]">
+                        </">Keperluan</th>
                 </tr>
             </thead>
             <tbody>
                 <?php if ($stmt->rowCount() > 0) : ?>
                     <?php foreach ($rows as $row) : ?>
-                        <tr class="hover:bg-gray-100">
-                            <td class="text-center">
+                        <tr class="hover:bg-gray-100 px-2 py-2 align-text-top text-md text-black">
+                            <td class="text-center align-text-top">
                                 <a href="#" class="px-3 py-2 rounded-md hover:bg-gray-200 transition-all duration-300"><i class="fa-solid fa-ellipsis"></i></a>
                             </td>
-                            <td class="py-4 px-4 text-md text-left text-black"><?= htmlspecialchars($row["nama"]); ?></td>
-                            <td class="py-4 px-4 text-md text-left text-black"><?= htmlspecialchars($row["jenis_kelamin"]); ?></td>
-                            <td class="py-4 px-4 text-md text-left text-black"><?= htmlspecialchars($row["instansi"]); ?></td>
-                            <td class="py-4 px-4 text-md text-left text-black"><?= htmlspecialchars($row["alamat"]); ?></td>
-                            <td class="py-4 px-4 text-md text-left text-black"><?= htmlspecialchars($row["nomor_hp"]); ?></td>
-                            <td class="py-4 px-4 text-md text-left text-black"><?= htmlspecialchars($row['kepentingan']); ?></td>
-                            <td class="py-4 px-4 text-md text-left text-black"><?= htmlspecialchars($row["keperluan"]); ?></td>
+                            <td><?= htmlspecialchars($row["nama"]); ?></td>
+                            <td><?= htmlspecialchars($row["jenis_kelamin"]); ?></td>
+                            <td><?= htmlspecialchars($row["instansi"]); ?></td>
+                            <td><?= htmlspecialchars($row["alamat"]); ?></td>
+                            <td><?= htmlspecialchars($row["nomor_hp"]); ?></td>
+                            <td class=" py-2">
+                                <?php
+                                $instansi = htmlspecialchars($row['kepentingan']);
+                                $setBgColor = getBgColor($instansi);
+                                ?>
+                                <p class=" bg-<?= $setBgColor ?> p-2 rounded-md"><?= $instansi ?></p>
+                            </td>
+                            <td class=" px-2 py-2 text-md align-text-top text-left text-black"><?= htmlspecialchars($row["keperluan"]); ?></td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else : ?>

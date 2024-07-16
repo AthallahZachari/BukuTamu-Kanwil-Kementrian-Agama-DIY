@@ -75,13 +75,13 @@ $options = [
             <input required type="text" name="telepon" id="telepon" class="w-[70%] rounded-md px-4 py-1 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400">
         </div>
         <div class="min-w-[30%] text-sm font-semibold">
-            <button id="dropdownButton" class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400">
+            <a id="dropdownButton" class="w-full px-3 py-2 rounded-md border border-gray-300 hover:cursor-pointer focus:outline-none focus:ring-1 focus:ring-emerald-400">
                 Bidang Kepentingan <i class="fa-solid fa-chevron-down ml-2"></i>
-            </button>
+            </a>
             <div id="dropdownMenu" class="hidden absolute mt-2 z-10 bg-white border border-gray-300 rounded-md shadow-lg">
                 <ul>
                     <?php foreach ($options as $option) { ?>
-                        <li class="px-4 py-2 cursor-pointer hover:bg-gray-100" data-value="<?=$option['text'];?>"><?= $option['text'];?></li>
+                        <li class="px-4 py-2 cursor-pointer hover:bg-gray-100" data-value="<?= $option['text']; ?>"><?= $option['text']; ?></li>
                     <?php } ?>
                 </ul>
             </div>

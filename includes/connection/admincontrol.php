@@ -65,4 +65,26 @@ $total_stmt->bindValue(':searchbox', '%' . $searchbox . '%', PDO::PARAM_STR);
 $total_stmt->execute();
 $total_rows = $total_stmt->fetchColumn();
 $total_pages = ceil($total_rows / $limit);
-?>
+
+function getBgColor($instansi)
+{
+    switch ($instansi) {
+        case 'Permohonan Rekomendasi':
+            return 'red-400';
+        case 'Permohonan Rohaniwan':
+            return 'violet-400';
+        case 'Permohonan Audiensi':
+            return 'emerald-400';
+        case 'Permohonan Penelitian':
+            return 'amber-400';
+        case 'Permohonan Magang':
+            return 'orange-400';
+        case 'Konsultasi Haji':
+            return 'yellow-500';
+        case 'Konsultasi Halal':
+            return 'emerald-300';
+        default:
+            # code...
+            break;
+    }
+}
