@@ -14,7 +14,7 @@ include 'includes/header.php';
         <ul class="flex">
             <li><a href="../login.php" class=" text-sm px-3 text-slate-600 hover:text-black hover:font-semibold">About Us</a></li>
             <li><a href="#" class=" text-sm px-3 text-slate-600 hover:text-black hover:font-semibold">Contact Us</a></li>
-            <li><a href="./pages/admin/login.php" class=" bg-slate-100 hover:bg-slate-200 text-green-800 font-semibold border border-slate-400 px-5 py-2 ml-2 rounded-md transition-all duration-300"><i class="fa-solid fa-user-tie pr-2"></i>Admin</a></li>
+            <li><a href="./pages/admin/login.php" class=" bg-slate-100 hover:bg-slate-200 text-green-800 font-semibold border border-slate-400 px-5 py-2 ml-2 rounded-md transition-all duration-300"><i class="fa-solid fa-user-tie pr-2"></i>Login</a></li>
         </ul>
     </nav>
 </div>

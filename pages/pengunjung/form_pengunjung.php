@@ -69,15 +69,15 @@ $options = [
     </section>
 
     <!-- telepon -->
-    <section class="w-full mb-3 flex justify-between">
-        <div class="w-[60%] mr-3 pr-5">
+    <section class="w-full mb-3 flex justify-between" >
+        <div class=" mr-3 pr-5 min-w-[70%]">
             <label for="telephone" class="block text-slate-800 font-semibold px-1 pb-2">Nomor Telephone</label>
             <input required type="text" name="telepon" id="telepon" class="w-[70%] rounded-md px-4 py-1 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400">
         </div>
 
-        <div class="min-w-[30%] text-sm font-semibold pt-9">
+        <div class=" text-sm font-semibold pt-9 text-center">
             <a id="dropdownButton" class="w-full px-3 py-2 mb-10 rounded-md border border-gray-300 hover:cursor-pointer focus:outline-none focus:ring-1 focus:ring-emerald-400">
-                Bidang Kepentingan <i class="fa-solid fa-chevron-down ml-2"></i>
+                Layanan <i class="fa-solid fa-chevron-down ml-2"></i>
             </a>
             <div id="dropdownMenu" class="hidden absolute mt-3 z-10 bg-white border border-gray-300 rounded-md shadow-lg">
                 <ul>
