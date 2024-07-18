@@ -46,15 +46,15 @@ if (!empty($kepentingan)) {
 $sql .= " ORDER BY id DESC LIMIT :start, :limit";
 
 // [ EXECUTE ] query execute menggunakan PDO (PHP Data Object)
-$stmt = $pdo->prepare($sql);
-$stmt->bindValue(':searchbox', '%' . $searchbox . '%', PDO::PARAM_STR);
-$stmt->bindValue(':start', $start, PDO::PARAM_INT);
-$stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+$query = $pdo->prepare($sql);
+$query->bindValue(':searchbox', '%' . $searchbox . '%', PDO::PARAM_STR);
+$query->bindValue(':start', $start, PDO::PARAM_INT);
+$query->bindValue(':limit', $limit, PDO::PARAM_INT);
 if (!empty($kepentingan)) {
-    $stmt->bindValue(':kepentingan', $kepentingan, PDO::PARAM_STR);
+    $query->bindValue(':kepentingan', $kepentingan, PDO::PARAM_STR);
 }
-$stmt->execute();
-$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$query->execute();
+$rows = $query->fetchAll(PDO::FETCH_ASSOC);
 
 // [ COUNT ] total baris data untuk pagination
 $total_sql = "SELECT COUNT(*) FROM pengunjung WHERE nama LIKE :searchbox";

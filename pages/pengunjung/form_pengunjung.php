@@ -8,7 +8,7 @@ if (isset($_POST['submit'])) {
     $query = $pdo->prepare("INSERT INTO pengunjung (tanggal, nama, jenis_kelamin, umur, instansi, alamat, nomor_hp, kepentingan, keperluan) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
     $query->execute([$currentDate, $_POST['nama'], $_POST['gender'], $_POST['umur'], $_POST['instansi'], $_POST['alamat'], $_POST['telepon'], $_POST['kepentingan'], $_POST['keperluan']]);
 
-    // REDIRECT ke halaman utama
+    // // REDIRECT ke halaman utama
     header("Location: ../../index.php");
     exit();
 }
@@ -69,17 +69,17 @@ $options = [
     </section>
 
     <!-- telepon -->
-    <section class="w-full mb-3 flex justify-between items-end">
+    <section class="w-full mb-3 flex justify-between">
         <div class="w-[60%] mr-3 pr-5">
             <label for="telephone" class="block text-slate-800 font-semibold px-1 pb-2">Nomor Telephone</label>
             <input required type="text" name="telepon" id="telepon" class="w-[70%] rounded-md px-4 py-1 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400">
         </div>
 
-        <div class="min-w-[30%] text-sm font-semibold">
-            <a id="dropdownButton" class="w-full px-3 py-2 rounded-md border border-gray-300 hover:cursor-pointer focus:outline-none focus:ring-1 focus:ring-emerald-400">
+        <div class="min-w-[30%] text-sm font-semibold pt-9">
+            <a id="dropdownButton" class="w-full px-3 py-2 mb-10 rounded-md border border-gray-300 hover:cursor-pointer focus:outline-none focus:ring-1 focus:ring-emerald-400">
                 Bidang Kepentingan <i class="fa-solid fa-chevron-down ml-2"></i>
             </a>
-            <div id="dropdownMenu" class="hidden absolute mt-2 z-10 bg-white border border-gray-300 rounded-md shadow-lg">
+            <div id="dropdownMenu" class="hidden absolute mt-3 z-10 bg-white border border-gray-300 rounded-md shadow-lg">
                 <ul>
                     <?php foreach ($options as $option) { ?>
                         <li class="px-4 py-2 cursor-pointer hover:bg-gray-100" data-value="<?= $option['text']; ?>"><?= $option['text']; ?></li>
@@ -88,7 +88,7 @@ $options = [
             </div>
             <input type="hidden" name="kepentingan" id="kepentinganID" />
         </div>
-        
+
     </section>
 
     <!-- KEPERLUAN -->

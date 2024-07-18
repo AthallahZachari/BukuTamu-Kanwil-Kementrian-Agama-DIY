@@ -19,6 +19,11 @@ if (isset($_POST['login'])) {
 
 <body class="min-h-screen w-full flex flex-col items-center justify-center relative bg-fixed bg-center bg-repeat" style="background-image: url('../../assets/belakang.avif');">
     <div class=" w-[50%] bg-white px-10 py-8 m-10 rounded-md shadow-xl">
+        <section>
+            <a href="../../index.php" class="block text-end text-slate-700">
+                <i class="fa-solid fa-xmark"></i>
+            </a>
+        </section>
         <section class=" flex flex-col justify-center items-center mb-5">
             <a href="../../index.php" class="flex justify-center">
                 <div class="w-[100px] h-[100px] mr-2 bg-cover bg-center ">

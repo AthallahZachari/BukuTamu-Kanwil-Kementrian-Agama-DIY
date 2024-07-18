@@ -4,7 +4,7 @@
     
     <div class="w-[50%] px-10 py-6 my-6 rounded-sm shadow-xl bg-white">
         <section class="items-center border-b-[1.5px] border-gray-400 pb-4">
-            <section class="">
+            <section class=" bg">
                 <h1 class="text-3xl text-slate-700 font-bold">
                     <i class="fa-regular fa-address-book mr-2 p-4 rounded-[50%] text-green-700 border border-slate-700"></i>
                     Form Pengunjung

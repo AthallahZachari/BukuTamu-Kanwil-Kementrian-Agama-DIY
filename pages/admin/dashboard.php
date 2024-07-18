@@ -11,22 +11,30 @@ if (!isset($_SESSION['pegawai'])) {
 // Tanggal yang ingin Anda hitung jumlah respondennya
 $tanggal = date('Y-m-d');
 
-// Query untuk menghitung jumlah responden berdasarkan tanggal
-$stmt = $pdo->prepare("SELECT COUNT(*) AS visitors FROM pengunjung WHERE tanggal = ?");
-$stmt->execute([$tanggal]);
-$result = $stmt->fetch(PDO::FETCH_ASSOC);
+// Query untuk menghitung jumlah responden berdasarkan tanggal dan jumlah gender
+$query = $pdo->prepare("
+    SELECT
+        COUNT(*) AS total_visitors,
+        SUM(CASE WHEN tanggal = ? THEN 1 ELSE 0 END) AS today_visitors,
+        SUM(CASE WHEN jenis_kelamin = 'pria' THEN 1 ELSE 0 END) AS males,
+        SUM(CASE WHEN jenis_kelamin = 'wanita' THEN 1 ELSE 0 END) AS females
+    FROM pengunjung
+");
+$query->execute([$tanggal]);
+$result = $query->fetch(PDO::FETCH_ASSOC);
 
 // Mengambil jumlah responden dari hasil query
-$visitorCount = $result['visitors'];
+$totalVisitors = $result['total_visitors']; //jml total pengunjung
+$visitorCount = $result['today_visitors']; //pengunjung hari ini
+$maleCount = $result['males']; //pengunjung pria
+$femaleCount = $result['females']; //pengunjung wanita
 $sessionAdmin = $_SESSION['pegawai'];
-
 
 ?>
 
 </head>
 
 <body>
-
     <body class=" min-h-[100vh] w-full">
         <?php include 'navbar_admin.php' ?>
         <section class=" min-h-[20vh] flex justify-between items-start px-10 pt-6 ">
@@ -41,17 +49,43 @@ $sessionAdmin = $_SESSION['pegawai'];
                 </div>
             </div>
         </section>
-        <section class=" w-[60%] min-h-[30vh] flex justify-between px-10">
-            <div class=" min-w-[50%] flex flex-col rounded-md px-3 py-2 bg-white shadow-lg">
-                <h1 class=" text-lg text-center font-semibold ">Tamu Hari Ini</h1>
-                <h1><?php echo $visitorCount; ?></h1>
+        <section class=" w-full flex px-10">
+
+            <div class="grid grid-cols-2 gap-3 w-[50%] ">
+                <div class="flex items-center p-4 rounded-md shadow-md">
+                    <i class="fa-solid fa-user-group text-xl mr-3 p-4 rounded-[50%] border border-slate-300 "></i>
+                    <div class="flex flex-col">
+                        <p class=" text-xl text-slate-800 font-semibold "><?= $visitorCount ?> orang</p>
+                        <p class=" text-sm text-slate-400">Jumlah pengunjung hari ini</p>
+                    </div>
+                </div>
+                <div class="flex items-center p-4 rounded-md shadow-md">
+                    <i class="fa-solid fa-layer-group text-xl mr-3 p-4 rounded-[50%] border border-slate-300 "></i>
+                    <div class="flex flex-col">
+                        <p class=" text-xl text-slate-800 font-semibold "><?= $maleCount ?> orang</p>
+                        <p class=" text-sm text-slate-400">Jumlah pengunjung pria</p>
+                    </div>
+                </div>
+                <div class="flex items-center p-4 rounded-md shadow-md">
+                    <i class="fa-solid fa-layer-group text-xl mr-3 p-4 rounded-[50%] border border-slate-300 "></i>
+                    <div class="flex flex-col">
+                        <p class=" text-xl text-slate-800 font-semibold "><?= $femaleCount ?> orang</p>
+                        <p class=" text-sm text-slate-400">Jumlah pengunjung wanita</p>
+                    </div>
+                </div>
+                <div class="flex items-center p-4 rounded-md shadow-md">
+                    <i class="fa-solid fa-layer-group text-xl mr-3 p-4 rounded-[50%] border border-slate-300 "></i>
+                    <div class="flex flex-col">
+                        <p class=" text-xl text-slate-800 font-semibold "><?= $totalVisitors ?> orang</p>
+                        <p class=" text-sm text-slate-400">Jumlah total pengunjung</p>
+                    </div>
+                </div>
+                <!-- <div class="bg-gray-400 p-4">Item 3</div>
+                <div class="bg-gray-500 p-4">Item 4</div> -->
             </div>
         </section>
-        <section>
-
-        </section>
         <section class=" px-10">
-            <?php include './table.php' ?>
+            <?php include './table.php';?>
         </section>
     </body>
     <div class=" w-full bg-violet-300">

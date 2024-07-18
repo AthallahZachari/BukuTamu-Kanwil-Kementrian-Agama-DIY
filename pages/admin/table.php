@@ -64,7 +64,7 @@ include '../../includes/header.php';
                 </tr>
             </thead>
             <tbody>
-                <?php if ($stmt->rowCount() > 0) : ?>
+                <?php if ($query->rowCount() > 0) : ?>
                     <?php foreach ($rows as $row) : ?>
                         <tr class="hover:bg-gray-100 px-2 py-2 align-text-top text-md text-black">
                             <td class="text-center align-text-top">

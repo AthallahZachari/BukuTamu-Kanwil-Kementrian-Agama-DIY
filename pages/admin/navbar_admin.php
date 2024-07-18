@@ -23,15 +23,15 @@ $sessionAdmin = $_SESSION['pegawai'];
     </nav>
 </div>
 <div id="popup-form" class="fixed inset-0 items-center justify-center z-20 bg-black bg-opacity-50 hidden">
-        <div class=" bg-white flex flex-col justify-center items-center px-7 py-7 rounded-lg shadow-xl w-[70%] md:w-[35%]">
-            <div class=" min-h-48 w-[50%] bg-black bg-cover bg-center"  style="background-image: url('../../assets/logout.avif')"></div>
-            <h2 class=" text-slate-700 text-2xl font-bold mb-5">Anda yakin keluar?</h2>
-            <div class=" w-full flex justify-around font-medium">
-                <a href="#" onclick="togglePopup()" class=" hover:bg-slate-100 transition-all duration-300 border border-slate-300 rounded-md text-slate-500 text-center min-w-[45%] px-5 py-2">Batal</a>
-                <a href="../../includes/connection/logout.php" class=" bg-red-500 hover:bg-red-600 transition-all duration-300 rounded-md text-slate-200 text-center min-w-[45%] px-5 py-2">Logout</a>
-            </div>
+    <div class=" bg-white flex flex-col justify-center items-center px-7 py-7 rounded-lg shadow-xl w-[70%] md:w-[35%]">
+        <div class=" min-h-48 w-[50%] bg-black bg-cover bg-center" style="background-image: url('../../assets/logout.avif')"></div>
+        <h2 class=" text-slate-700 text-2xl font-bold mb-5">Anda yakin keluar?</h2>
+        <div class=" w-full flex justify-around font-medium">
+            <a href="#" onclick="togglePopup()" class=" hover:bg-slate-100 transition-all duration-300 border border-slate-300 rounded-md text-slate-500 text-center min-w-[45%] px-5 py-2">Batal</a>
+            <a href="../../includes/connection/logout.php" class=" bg-red-500 hover:bg-red-600 transition-all duration-300 rounded-md text-slate-200 text-center min-w-[45%] px-5 py-2">Logout</a>
         </div>
     </div>
+</div>
 <script>
     function togglePopup() {
         var popup = document.getElementById("popup-form");

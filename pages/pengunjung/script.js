@@ -10,3 +10,9 @@ document.querySelectorAll('#dropdownMenu li').forEach(function(item) {
         document.getElementById('dropdownMenu').classList.add('hidden');
     });
 });
+
+function togglePopup() {
+    var popup = document.getElementById("popup-form");
+    popup.classList.toggle("hidden");
+    popup.classList.toggle("flex");
+}
