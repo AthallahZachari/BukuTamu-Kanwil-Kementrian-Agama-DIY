@@ -9,7 +9,7 @@ include '../../includes/header.php';
     <section class="shadow-lg rounded-md my-4 py-3 px-5 w-full flex justify-between ">
 
         <form method="GET" action="" class="w-[80%] flex items-center ">
-            <select name="filter" id="filter" class=" appearance-none rounded-tl-lg rounded-bl-md px-4 py-[4.0px] border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400">
+            <select name="filter" id="filter" class=" appearance-none rounded-tl-lg rounded-bl-md px-4 py-[4.0px] border border-gray-300 hover:cursor-pointer hover:bg-slate-100 transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-emerald-400">
                 <option value="" disabled <?= $filter === 'all' ? 'selected' : '' ?>>Filter</option>
                 <option value="all" <?= $filter === 'all' ? 'selected' : '' ?>>Semua</option>
                 <option value="today" <?= $filter === 'today' ? 'selected' : '' ?>>Hari Ini</option>
@@ -25,16 +25,16 @@ include '../../includes/header.php';
         <form id="filterBidang" method="POST" action="">
             <nav class=" text-sm text-slate-900 ">
                 <a id="dropdownButton" class="w-full px-3 py-2 rounded-md border border-gray-300 hover:bg-slate-100 transition-all duration-300 hover:cursor-pointer focus:outline-none focus:ring-1 focus:ring-emerald-400">
-                    Filter Bidang <i class="fa-solid fa-chevron-down ml-2"></i>
+                    Filter Layanan<i class="fa-solid fa-chevron-down ml-2"></i>
                 </a>
                 <div id="dropdownMenu" class="hidden absolute mt-2 z-10 bg-white border border-gray-300 rounded-md shadow-lg">
                     <ul>
-                        <?php foreach ($options as $option) { ?>
-                            <li class="px-4 py-2 cursor-pointer hover:bg-gray-100" data-value="<?= $option['text']; ?>"><?= $option['text']; ?></li>
+                        <?php foreach ($listLayanan as $list) { ?>
+                            <li class="px-4 py-2 cursor-pointer hover:bg-gray-100" data-value="<?= $list['id_layanan']; ?>"><?= $list['layanan']; ?></li>
                         <?php } ?>
                     </ul>
                 </div>
-                <input type="hidden" name="kepentingan" id="kepentinganID" />
+                <input type="hidden" name="filterLayanan" id="kepentinganID" />
             </nav>
         </form>
     </section>
@@ -51,6 +51,8 @@ include '../../includes/header.php';
                         </">Nama</th>
                     <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[5%] ">
                         </">Gender</th>
+                    <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[5%] ">
+                        </">Umur</th>
                     <th class="py-4 px-2 text-center font-medium border-b border-slate-400 text-slate-500 w-[5%]">
                         </">Instansi</th>
                     <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[12.5%]">
@@ -58,9 +60,9 @@ include '../../includes/header.php';
                     <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[5%] ">
                         </">Nomor HP</th>
                     <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[13%] ">
-                        </">Bidang</th>
+                        </">Layanan</th>
                     <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[15%]">
-                        </">Keperluan</th>
+                        </">Deskripsi</th>
                 </tr>
             </thead>
             <tbody>
@@ -72,17 +74,12 @@ include '../../includes/header.php';
                             </td>
                             <td><?= htmlspecialchars($row["nama"]); ?></td>
                             <td><?= htmlspecialchars($row["jenis_kelamin"]); ?></td>
+                            <td><?= htmlspecialchars($row["umur"]); ?></td>
                             <td><?= htmlspecialchars($row["instansi"]); ?></td>
                             <td><?= htmlspecialchars($row["alamat"]); ?></td>
                             <td><?= htmlspecialchars($row["nomor_hp"]); ?></td>
-                            <td class=" py-2">
-                                <?php
-                                $instansi = htmlspecialchars($row['kepentingan']);
-                                $setBgColor = getBgColor($instansi);
-                                ?>
-                                <p class=" bg-<?= $setBgColor ?> p-2 rounded-md"><?= $instansi ?></p>
-                            </td>
-                            <td class=" px-2 py-2 text-md align-text-top text-left text-black"><?= htmlspecialchars($row["keperluan"]); ?></td>
+                            <td><?= htmlspecialchars($row["layanan"]); ?></td>
+                            <td class=" px-2 py-2 text-md align-text-top text-left text-black"><?= htmlspecialchars($row["deskripsi"]); ?></td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else : ?>

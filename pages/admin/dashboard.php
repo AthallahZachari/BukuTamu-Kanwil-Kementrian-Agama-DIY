@@ -20,15 +20,15 @@ $query = $pdo->prepare("
     FROM pengunjung
 ");
 $query->execute();
-$result = $query->fetch(PDO::FETCH_ASSOC);
+$resultCountVisitor = $query->fetch(PDO::FETCH_ASSOC);
 
 // Mengambil jumlah responden dari hasil query
-$totalVisitors = $result['total_visitors']; //jml total pengunjung
-$weeklyCount = $result['weekly_visitor']; //jml total pengunjung
-$monthlyCount = $result['monthly_visitor']; //pengunjung hari ini
-$dailyCount = $result['daily_visitor']; //pengunjung hari ini
-$maleCount = $result['males']; //pengunjung pria
-$femaleCount = $result['females']; //pengunjung wanita
+$totalVisitors = $resultCountVisitor['total_visitors']; //jml total pengunjung
+$weeklyCount = $resultCountVisitor['weekly_visitor']; //jml total pengunjung
+$monthlyCount = $resultCountVisitor['monthly_visitor']; //pengunjung hari ini
+$dailyCount = $resultCountVisitor['daily_visitor']; //pengunjung hari ini
+$maleCount = $resultCountVisitor['males']; //pengunjung pria
+$femaleCount = $resultCountVisitor['females']; //pengunjung wanita
 $sessionAdmin = $_SESSION['pegawai'];
 
 ?>

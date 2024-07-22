@@ -5,20 +5,26 @@ include 'connection.php';
 //
 // 
 // [ SET ] jumlah halaman
-$limit = 8;
-
+$limit = 20;
 
 // [ REQ ] params URL
 $searchbox = isset($_GET['searchbox']) ? $_GET['searchbox'] : '';
 $filter = isset($_GET['filter']) ? $_GET['filter'] : 'all';
-$kepentingan = isset($_POST['kepentingan']) ? $_POST['kepentingan'] : '';
+$filterLayanan = isset($_POST['filterLayanan']) ? $_POST['filterLayanan'] : '';
 
 // [ SET ] current page
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $start = ($page - 1) * $limit;
 
+// [ QUERY ] list layanan
+$layanan = "SELECT * FROM layanan";
+$queryLayanan = $pdo->prepare($layanan);
+$queryLayanan->execute();
+$listLayanan = $queryLayanan->fetchAll(PDO::FETCH_ASSOC);
+
 // [ QUERY ] base query
-$sql = "SELECT * FROM pengunjung WHERE nama LIKE :searchbox";
+// $sql = "SELECT * FROM pengunjung WHERE nama LIKE :searchbox";
+$sql = "SELECT pengunjung.*, layanan.layanan FROM pengunjung JOIN layanan ON pengunjung.layanan = layanan.id_layanan WHERE pengunjung.nama LIKE :searchbox";
 
 // [ FILTER ] Filter hasil pencarian berdasarkan HARI/BULAN/TAHUN saat ini
 switch ($filter) {
@@ -31,27 +37,27 @@ switch ($filter) {
     case 'year':
         $sql .= " AND YEAR(tanggal) = YEAR(CURDATE())";
         break;
-    case 'all':
+    case 'all': //menampilkan semua data
     default:
         // Tidak ada tambahan filter
         break;
 }
 
 // [ FILTER ] Filter bidang jika ada
-if (!empty($kepentingan)) {
-    $sql .= " AND kepentingan = :kepentingan";
+if (!empty($filterLayanan)) {
+    $sql .= " AND pengunjung.layanan = :filterLayanan";
 }
 
-// [ CONCAT ] contatenation untuk pencarian berdasarkan query dengan order 
-$sql .= " ORDER BY id DESC LIMIT :start, :limit";
+// [ CONCAT ] concatenation untuk pencarian berdasarkan query dengan order 
+$sql .= " ORDER BY id_pengunjung DESC LIMIT :start, :limit";
 
 // [ EXECUTE ] query execute menggunakan PDO (PHP Data Object)
 $query = $pdo->prepare($sql);
 $query->bindValue(':searchbox', '%' . $searchbox . '%', PDO::PARAM_STR);
 $query->bindValue(':start', $start, PDO::PARAM_INT);
 $query->bindValue(':limit', $limit, PDO::PARAM_INT);
-if (!empty($kepentingan)) {
-    $query->bindValue(':kepentingan', $kepentingan, PDO::PARAM_STR);
+if (!empty($filterLayanan)) {
+    $query->bindValue(':filterLayanan', $filterLayanan, PDO::PARAM_STR);
 }
 $query->execute();
 $rows = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -74,14 +80,14 @@ switch ($filter) {
         break;
 }
 
-if (!empty($kepentingan)) {
-    $total_sql .= " AND kepentingan = :kepentingan";
+if (!empty($filterLayanan)) {
+    $total_sql .= " AND pengunjung.layanan = :filterLayanan";
 }
 
 $total_stmt = $pdo->prepare($total_sql);
 $total_stmt->bindValue(':searchbox', '%' . $searchbox . '%', PDO::PARAM_STR);
-if (!empty($kepentingan)) {
-    $total_stmt->bindValue(':kepentingan', $kepentingan, PDO::PARAM_STR);
+if (!empty($filterLayanan)) {
+    $total_stmt->bindValue(':filterLayanan', $filterLayanan, PDO::PARAM_STR);
 }
 $total_stmt->execute();
 $total_rows = $total_stmt->fetchColumn();
@@ -89,46 +95,4 @@ $total_pages = ceil($total_rows / $limit);
 
 
 
-// === VARIABLES AND UTILS ===
-// 
-// 
-// [ SET ] warna untuk kolom data KEPENTINGAN/BIDANG 
-function getBgColor($kepentingan)
-{
-    switch ($kepentingan) {
-        case 'Permohonan Rekomendasi':
-            return 'red-400';
-        case 'Permohonan Rohaniwan':
-            return 'violet-400';
-        case 'Permohonan Audiensi':
-            return 'emerald-400';
-        case 'Permohonan Penelitian':
-            return 'lime-300';
-        case 'Permohonan Magang':
-            return 'sky-300';
-        case 'Konsultasi Haji':
-            return 'yellow-500';
-        case 'Konsultasi Halal':
-            return 'emerald-300';
-        default:
-            # code...
-            break;
-    }
-}
-
-// [ SET ] warna untuk kolom data KEPENTINGAN/BIDANG 
-function getGenderColor($gender){
-
-}
-
-// [ DROPDOWN ] Menu filter dropdown
-$options = [
-    ["id" => "1", "text" => "Permohonan Rekomendasi"],
-    ["id" => "2", "text" => "Permohonan Rohaniwan"],
-    ["id" => "3", "text" => "Permohonan Audiensi"],
-    ["id" => "4", "text" => "Permohonan Penelitian"],
-    ["id" => "5", "text" => "Permohonan Magang"],
-    ["id" => "6", "text" => "Konsultasi Haji"],
-    ["id" => "7", "text" => "Konsultasi Halal"]
-];
 

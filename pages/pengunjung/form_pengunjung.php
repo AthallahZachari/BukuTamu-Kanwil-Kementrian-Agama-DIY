@@ -1,17 +1,24 @@
 <?php
+include '../../includes/connection/connection.php';
 include '../../includes/header.php';
 
 if (isset($_POST['submit'])) {
     include '../../includes/connection/connection.php';
     $currentDate = date('Y-m-d');
 
-    $query = $pdo->prepare("INSERT INTO pengunjung (tanggal, nama, jenis_kelamin, umur, instansi, alamat, nomor_hp, kepentingan, keperluan) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $query->execute([$currentDate, $_POST['nama'], $_POST['gender'], $_POST['umur'], $_POST['instansi'], $_POST['alamat'], $_POST['telepon'], $_POST['kepentingan'], $_POST['keperluan']]);
+    $query = $pdo->prepare("INSERT INTO pengunjung (tanggal, nama, jenis_kelamin, umur, instansi, alamat, nomor_hp, layanan, deskripsi) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $query->execute([$currentDate, $_POST['nama'], $_POST['gender'], $_POST['umur'], $_POST['instansi'], $_POST['alamat'], $_POST['telepon'], $_POST['layanan'], $_POST['deskripsi']]);
 
     // // REDIRECT ke halaman utama
     header("Location: ../../index.php");
     exit();
 }
+
+// [ QUERY ] list layanan
+$layanan = "SELECT * FROM layanan";
+$queryLayanan = $pdo->prepare($layanan);
+$queryLayanan->execute();
+$listLayanan = $queryLayanan->fetchAll(PDO::FETCH_ASSOC);
 
 $options = [
     ["id" => "1", "text" => "Permohonan Rekomendasi"],
@@ -69,24 +76,24 @@ $options = [
     </section>
 
     <!-- telepon -->
-    <section class="w-full mb-3 flex justify-between" >
-        <div class=" mr-3 pr-5 min-w-[70%]">
+    <section class="w-full mb-3 flex justify-between">
+        <div class=" mr-3 pr-5 min-w-[65%]">
             <label for="telephone" class="block text-slate-800 font-semibold px-1 pb-2">Nomor Telephone</label>
             <input required type="text" name="telepon" id="telepon" class="w-[70%] rounded-md px-4 py-1 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400">
         </div>
 
-        <div class=" text-sm font-semibold pt-9 text-center">
+        <div class=" text-sm font-semibold pt-9 min-w-[30%]">
             <a id="dropdownButton" class="w-full px-3 py-2 mb-10 rounded-md border border-gray-300 hover:cursor-pointer focus:outline-none focus:ring-1 focus:ring-emerald-400">
                 Layanan <i class="fa-solid fa-chevron-down ml-2"></i>
             </a>
             <div id="dropdownMenu" class="hidden absolute mt-3 z-10 bg-white border border-gray-300 rounded-md shadow-lg">
                 <ul>
-                    <?php foreach ($options as $option) { ?>
-                        <li class="px-4 py-2 cursor-pointer hover:bg-gray-100" data-value="<?= $option['text']; ?>"><?= $option['text']; ?></li>
+                    <?php foreach ($listLayanan as $list) { ?>
+                        <li class="px-4 py-2 cursor-pointer hover:bg-gray-100" data-value="<?= $list['id_layanan']; ?>"><?= $list['layanan']; ?></li>
                     <?php } ?>
                 </ul>
             </div>
-            <input type="hidden" name="kepentingan" id="kepentinganID" />
+            <input type="hidden" name="layanan" id="kepentinganID" />
         </div>
 
     </section>
@@ -94,7 +101,7 @@ $options = [
     <!-- KEPERLUAN -->
     <!-- TEXT AREA -->
     <label for="keperluan" class="block text-slate-800 font-semibold px-1 pb-2">Keperluan</label>
-    <textarea required name="keperluan" id="keperluan" placeholder="Masukkan teks..." rows="10" class=" resize-none rounded-md px-4 py-1 mb-3 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400"></textarea>
+    <textarea required name="deskripsi" id="keperluan" placeholder="Masukkan teks..." rows="10" class=" resize-none rounded-md px-4 py-1 mb-3 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400"></textarea>
 
     <section class=" flex justify-between">
         <a href="../../index.php" class="  hover:bg-slate-100 text-green-800 font-semibold border border-slate-400 px-4 py-2 rounded-md transition-all duration-300"><i class="fa-solid fa-chevron-left mr-3"></i>Kembali</a>
