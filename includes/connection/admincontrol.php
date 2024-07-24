@@ -16,15 +16,23 @@ $filterLayanan = isset($_POST['filterLayanan']) ? $_POST['filterLayanan'] : '';
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $start = ($page - 1) * $limit;
 
-// [ QUERY ] list layanan
+// [ GET ] list layanan
 $layanan = "SELECT * FROM layanan";
 $queryLayanan = $pdo->prepare($layanan);
 $queryLayanan->execute();
 $listLayanan = $queryLayanan->fetchAll(PDO::FETCH_ASSOC);
 
+// [ GET ] list bidang
+$bidang = "SELECT * FROM bidang";
+$queryBidang = $pdo->prepare($bidang);
+$queryBidang->execute();
+$listBidang = $queryBidang->fetchAll(PDO::FETCH_ASSOC);
+
 // [ QUERY ] base query
-// $sql = "SELECT * FROM pengunjung WHERE nama LIKE :searchbox";
-$sql = "SELECT pengunjung.*, layanan.layanan FROM pengunjung JOIN layanan ON pengunjung.layanan = layanan.id_layanan WHERE pengunjung.nama LIKE :searchbox";
+$sql =
+    " SELECT pengunjung.*, layanan.layanan, bidang.bidang FROM pengunjung 
+    JOIN layanan ON pengunjung.layanan = layanan.id_layanan 
+    JOIN bidang ON pengunjung.bidang = bidang.id_bidang WHERE pengunjung.nama LIKE :searchbox";
 
 // [ FILTER ] Filter hasil pencarian berdasarkan HARI/BULAN/TAHUN saat ini
 switch ($filter) {
@@ -93,6 +101,28 @@ $total_stmt->execute();
 $total_rows = $total_stmt->fetchColumn();
 $total_pages = ceil($total_rows / $limit);
 
+// [ UPDATE ] update value kolom bidang
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['id_pengunjung']) && isset($_POST['selectedOption'])) {
+        $id_pengunjung = $_POST['id_pengunjung'];
+        $selectedOption = $_POST['selectedOption'];
 
+        $sql = "UPDATE pengunjung SET bidang = :selectedOption, progres = 'assigned' WHERE id_pengunjung = :id_pengunjung";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            ':selectedOption' => $selectedOption,
+            ':id_pengunjung' => $id_pengunjung,
+        ]);
 
+        // Check if update was successful
+        if ($stmt->rowCount() > 0) {
+            header('Location: ../../pages/admin/dashboard.php');
+            exit;
+        } else {
+            echo "Update failed.";
+        }
+    } else {
+        echo "Required POST data is missing.";
+    }
+}
 

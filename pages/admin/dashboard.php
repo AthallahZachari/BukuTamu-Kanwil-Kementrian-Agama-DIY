@@ -1,6 +1,7 @@
 <?php
 session_start();
 include '../../includes/connection/connection.php';
+include '../../includes/connection/admincontrol.php';
 include '../../includes/header.php';
 
 if (!isset($_SESSION['pegawai'])) {
@@ -17,7 +18,7 @@ $query = $pdo->prepare("
         SUM(CASE WHEN MONTH(tanggal) = MONTH(CURDATE()) AND YEAR(tanggal) = YEAR(CURDATE()) THEN 1 ELSE 0 END) AS monthly_visitor,
         SUM(CASE WHEN jenis_kelamin = 'pria' THEN 1 ELSE 0 END) AS males,
         SUM(CASE WHEN jenis_kelamin = 'wanita' THEN 1 ELSE 0 END) AS females,
-        SUM(CASE WHEN status = 'unassigned' THEN 1 ELSE 0 END) AS new_entries
+        SUM(CASE WHEN progres = 'unassigned' THEN 1 ELSE 0 END) AS new_entries
     FROM pengunjung
 ");
 $query->execute();
@@ -32,6 +33,8 @@ $maleCount = $resultCountVisitor['males']; //pengunjung pria
 $femaleCount = $resultCountVisitor['females']; //pengunjung wanita
 $newEntriesCount = $resultCountVisitor['new_entries']; //pengunjung wanita
 $sessionAdmin = $_SESSION['pegawai'];
+
+
 
 ?>
 
@@ -54,32 +57,32 @@ $sessionAdmin = $_SESSION['pegawai'];
         </section>
         <section class=" w-full flex px-10">
 
-            <div class="grid grid-cols-2 gap-3 w-[50%] ">
+            <div class="grid grid-cols-4 gap-3 w-[80%] ">
                 <div class="flex items-center p-4 rounded-md shadow-md">
                     <i class="fa-solid fa-user-group text-xl mr-3 p-4 rounded-[50%] border border-slate-300 "></i>
                     <div class="flex flex-col">
-                        <p class=" text-xl text-slate-800 font-semibold "><?= $dailyCount ?> orang</p>
-                        <p class=" text-sm text-slate-400">Jumlah pengunjung hari ini</p>
+                        <p class=" text-xl text-slate-800 font-bold "><?= $dailyCount ?> orang</p>
+                        <p class=" text-sm text-slate-400">Pengunjung hari ini</p>
                     </div>
                 </div>
                 <div class="flex items-center p-4 rounded-md shadow-md">
                     <i class="fa-solid fa-layer-group text-xl mr-3 p-4 rounded-[50%] border border-slate-300 "></i>
                     <div class="flex flex-col">
-                        <p class=" text-xl text-slate-800 font-semibold "><?= $weeklyCount ?> orang</p>
+                        <p class=" text-xl text-slate-800 font-bold "><?= $newEntriesCount ?> form</p>
+                        <p class=" text-sm text-slate-400">Formulir baru masuk</p>
+                    </div>
+                </div>
+                <div class="flex items-center p-4 rounded-md shadow-md">
+                    <i class="fa-solid fa-layer-group text-xl mr-3 p-4 rounded-[50%] border border-slate-300 "></i>
+                    <div class="flex flex-col">
+                        <p class=" text-xl text-slate-800 font-bold "><?= $weeklyCount ?> orang</p>
                         <p class=" text-sm text-slate-400">Jumlah pengunjung minggu ini</p>
                     </div>
                 </div>
                 <div class="flex items-center p-4 rounded-md shadow-md">
                     <i class="fa-solid fa-layer-group text-xl mr-3 p-4 rounded-[50%] border border-slate-300 "></i>
                     <div class="flex flex-col">
-                        <p class=" text-xl text-slate-800 font-semibold "><?= $newEntriesCount ?> form</p>
-                        <p class=" text-sm text-slate-400">Jumlah formulir tanpa bidang</p>
-                    </div>
-                </div>
-                <div class="flex items-center p-4 rounded-md shadow-md">
-                    <i class="fa-solid fa-layer-group text-xl mr-3 p-4 rounded-[50%] border border-slate-300 "></i>
-                    <div class="flex flex-col">
-                        <p class=" text-xl text-slate-800 font-semibold "><?= $totalVisitors ?> orang</p>
+                        <p class=" text-xl text-slate-800 font-bold "><?= $totalVisitors ?> orang</p>
                         <p class=" text-sm text-slate-400">Jumlah total pengunjung</p>
                     </div>
                 </div>

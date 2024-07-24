@@ -6,7 +6,7 @@ include '../../includes/header.php';
 
 <!-- Tampilkan form pencarian -->
 <div class="min-h-[60vh] mx-auto pb-6">
-    <section class="shadow-lg rounded-md my-4 py-3 px-5 w-full flex justify-between ">
+    <section class="shadow-lg rounded-md my-4 py-3 px-5 w-full flex justify-between items-center">
 
         <form method="GET" action="" class="w-[80%] flex items-center ">
             <select name="filter" id="filter" class=" appearance-none rounded-tl-lg rounded-bl-md px-4 py-[4.0px] border border-gray-300 hover:cursor-pointer hover:bg-slate-100 transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-emerald-400">
@@ -22,21 +22,24 @@ include '../../includes/header.php';
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
         </form>
-        <form id="filterBidang" method="POST" action="">
-            <nav class=" text-sm text-slate-900 ">
-                <a id="dropdownButton" class="w-full px-3 py-2 rounded-md border border-gray-300 hover:bg-slate-100 transition-all duration-300 hover:cursor-pointer focus:outline-none focus:ring-1 focus:ring-emerald-400">
-                    Filter Layanan<i class="fa-solid fa-chevron-down ml-2"></i>
-                </a>
-                <div id="dropdownMenu" class="hidden absolute mt-2 z-10 bg-white border border-gray-300 rounded-md shadow-lg">
-                    <ul>
-                        <?php foreach ($listLayanan as $list) { ?>
-                            <li class="px-4 py-2 cursor-pointer hover:bg-gray-100" data-value="<?= $list['id_layanan']; ?>"><?= $list['layanan']; ?></li>
-                        <?php } ?>
-                    </ul>
-                </div>
-                <input type="hidden" name="filterLayanan" id="kepentinganID" />
-            </nav>
-        </form>
+        <div class="flex justify-between items-center">
+            <form id="filterBidang" method="POST" action="">
+                <nav class=" text-sm text-slate-900 ">
+                    <a id="dropdownButton" class="w-full px-3 py-2 rounded-md border border-gray-300 hover:bg-slate-100 transition-all duration-300 hover:cursor-pointer focus:outline-none focus:ring-1 focus:ring-emerald-400">
+                        Filter Layanan<i class="fa-solid fa-chevron-down ml-2"></i>
+                    </a>
+                    <div id="dropdownMenu" class="hidden absolute mt-2 z-10 bg-white border border-gray-300 rounded-md shadow-lg">
+                        <ul>
+                            <?php foreach ($listLayanan as $list) { ?>
+                                <li class="px-4 py-2 cursor-pointer hover:bg-gray-100" data-value="<?= $list['id_layanan']; ?>"><?= $list['layanan']; ?></li>
+                            <?php } ?>
+                        </ul>
+                    </div>
+                    <input type="hidden" name="filterLayanan" id="kepentinganID" />
+                </nav>
+            </form>
+            <a href="" class=" text-green-700 text-sm ml-2 px-3 py-2 border border-gray-300 hover:bg-slate-100 rounded-md transition-all duration-300 "><i class="fa-solid fa-file-export"></i></a>
+        </div>
     </section>
 
 
@@ -47,57 +50,81 @@ include '../../includes/header.php';
             <thead>
                 <tr>
                     <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[12.5%]">
-                        </">Nama</th>
+                        Nama
+                    </th>
                     <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[5%] ">
-                        </">Gender</th>
-                    <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[5%] ">
-                        </">Umur</th>
-                    <th class="py-4 px-2 text-center font-medium border-b border-slate-400 text-slate-500 w-[5%]">
-                        </">Instansi</th>
-                    <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[12.5%]">
-                        </">Alamat</th>
-                    <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[5%] ">
-                        </">Nomor HP</th>
-                    <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[10%] ">
-                        </">Layanan</th>
-                    <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[15%]">
-                        </">Deskripsi</th>
-                    <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[10%] "></th>
+                        Gender
+                    </th>
+                    <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-auto ">
+                        Umur
+                    </th>
+                    <th class="py-4 px-2 text-center font-medium border-b border-slate-400 text-slate-500 w-auto">
+                        Instansi
+                    </th>
+                    <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-auto%]">
+                        Alamat
+                    </th>
+                    <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-auto ">
+                        Nomor HP
+                    </th>
+                    <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-auto ">
+                        Layanan
+                    </th>
+                    <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-auto ">
+                        Bidang
+                    </th>
+                    <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-auto">
+                        Deskripsi
+                    </th>
+                    <th class="py-4 px-2 font-medium border-b border-slate-400 text-slate-500 w-[150px]">
+                        Action
+                    </th>
                     <!-- <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[2%] "></th> -->
                 </tr>
             </thead>
             <tbody>
                 <?php if ($query->rowCount() > 0) : ?>
                     <?php foreach ($rows as $row) : ?>
-                        <tr class="hover:bg-gray-100 px-2 py-2 align-text-top text-md text-black">
-                            <td class=" px-2"><?= htmlspecialchars($row["nama"]); ?></td>
-                            <td><?= htmlspecialchars($row["jenis_kelamin"]); ?></td>
-                            <td><?= htmlspecialchars($row["umur"]); ?></td>
-                            <td><?= htmlspecialchars($row["instansi"]); ?></td>
-                            <td><?= htmlspecialchars($row["alamat"]); ?></td>
-                            <td><?= htmlspecialchars($row["nomor_hp"]); ?></td>
-                            <td><?= htmlspecialchars($row["layanan"]); ?></td>
-                            <td class=" px-2 py-2 text-md align-text-top text-left text-black"><?= htmlspecialchars($row["deskripsi"]); ?></td>
-                            <td class=" px-2 py-2 text-center align-text-top">
-                                <button class=" bg-green-700 hover:bg-green-800 text-slate-200 px-3 py-2 rounded-md transition-all duration-300">
-                                    <i class="fa-solid fa-pen-to-square mr-2"></i>Bidang
-                                </button>
+                        <?php $bgClass = ($row['progres'] == 'unassigned' ? 'bg-red-500 mt-3' : '')?>
+                        <tr class="hover:bg-gray-100 px-2 py-2 text-md text-black" id="row-<?= $row['id_pengunjung']; ?>">
+                            <input type="hidden" name="id_pengunjung" value="<?= htmlspecialchars($row["id_pengunjung"]); ?>">
+                            <td class="px-2 align-text-top"><?= htmlspecialchars($row["nama"]); ?></td>
+                            <td class="px-2 align-text-top"><?= htmlspecialchars($row["jenis_kelamin"]); ?></td>
+                            <td class="text-center align-text-top"><?= htmlspecialchars($row["umur"]); ?></td>
+                            <td class="px-2 align-text-top text-center"><?= htmlspecialchars($row["instansi"]); ?></td>
+                            <td class="align-text-top"><?= htmlspecialchars($row["alamat"]); ?></td>
+                            <td class="p-2 align-text-top"><?= htmlspecialchars($row["nomor_hp"]); ?></td>
+                            <td class="p-2 align-text-top"><?= htmlspecialchars($row["layanan"]); ?></td>
+                            <td id="bidang-cell-<?= htmlspecialchars($row["id_pengunjung"]); ?>" class=" align-text-top"><div class="p-2 rounded-md <?=$bgClass?>"><?= htmlspecialchars($row["bidang"]); ?></div></td>
+                            <td class="px-2 py-2 text-md align-text-top text-left text-black"><?= htmlspecialchars($row["deskripsi"]); ?></td>
+                            <td class="py-5 text-sm text-center align-text-top">
+                                <form action="../../includes/connection/admincontrol.php" method="post">
+                                    <a id="btnDropdownBidang" class="btnDropdownBidang px-3 py-2 rounded-md text-slate-200 bg-green-700 hover:bg-green-800 transition-all duration-300 hover:cursor-pointer focus:outline-none focus:ring-1 focus:ring-emerald-">
+                                        Tambah Bidang <i class="fa-solid fa-chevron-down ml-2"></i>
+                                    </a>
+                                    <div id="listDropdownBidang" class="listDropdownBidang hidden absolute mt-3 z-30 bg-white border border-gray-300 rounded-md shadow-lg">
+                                        <ul class=" text-left">
+                                            <?php foreach ($listBidang as $data) { ?>
+                                                <li class="px-4 py-2 cursor-pointer hover:bg-gray-100" data-value="<?= $data['id_bidang']; ?>"><?= $data['bidang']; ?></li>
+                                            <?php } ?>
+                                        </ul>
+                                    </div>
+                                    <input type="hidden" name="selectedOption" class="bidangID">
+                                    <input type="hidden" name="id_pengunjung" value="<?= $row['id_pengunjung'] ?>" />
+                                </form>
                             </td>
-                            <!-- <td class="text-center align-text-top">
-                                <a href="#" class="px-3 py-2 rounded-md hover:bg-gray-200 transition-all duration-300"><i class="fa-solid fa-ellipsis"></i></a>
-                            </td> -->
                         </tr>
                     <?php endforeach; ?>
                 <?php else : ?>
                     <tr>
-                        <td colspan="7" class="py-2 px-4 text-center text-gray-700">No results found</td>
+                        <td colspan="10" class="py-2 px-4 text-center text-gray-700">No results found</td>
                     </tr>
                 <?php endif; ?>
             </tbody>
         </table>
 
         <!-- Pagination -->
-        <section class="min-h-16 mt-3 flex justify-between items-center">
+        <section class="min-h-16 mt-3 flex justify-between items-center border-t border-slate-400">
             <p class="text-slate-400 text-sm font-semibold">Showing page <?= $page; ?> of <?= $total_pages; ?> pages</p>
             <div>
                 <a href="dashboard.php?page=<?= max(1, $page - 1); ?>" class="hover:bg-slate-200 text-green-800 font-semibold border border-slate-400 px-4 py-2 mr-3 rounded-md transition-all duration-300">
@@ -114,3 +141,32 @@ include '../../includes/header.php';
     </div>
 </div>
 <script src="./script.js"></script>
+<script>
+    document.addEventListener("click", function(e) {
+        // Toggle the dropdown menu
+        if (e.target && e.target.classList.contains("btnDropdownBidang")) {
+            const dropdown = e.target.nextElementSibling;
+            if (dropdown) {
+                dropdown.classList.toggle("hidden");
+            }
+        }
+
+        // Handle selection of items in dynamically added dropdowns
+        if (e.target && e.target.tagName === "LI" && e.target.parentElement.parentElement.id.includes("listDropdownBidang")) {
+            const selectedValue = e.target.getAttribute("data-value");
+            const form = e.target.closest("form");
+
+            if (form) {
+                const bidangIDInput = form.querySelector('.bidangID');
+                if (bidangIDInput) {
+                    bidangIDInput.value = selectedValue;
+                    form.submit();
+                } else {
+                    console.error("Hidden input with class 'bidangID' not found.");
+                }
+            } else {
+                console.error("Form element not found.");
+            }
+        }
+    });
+</script>
