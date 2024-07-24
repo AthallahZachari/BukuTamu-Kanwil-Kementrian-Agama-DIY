@@ -85,19 +85,20 @@ $sessionAdmin = $_SESSION['pegawai'];
                 </div>
             </div>
         </section>
-        
-        <!-- Tombol pilihan -->
-        <section class=" px-3 py-5 mt-3 shadow-md mx-10 rounded-md">
-            <button id="tableBtn" class=" text-slate-800 px-4 py-2  border-b-2 border-green-500">Tampilkan Tabel</button>
-            <button id="editBtn" class=" text-slate-800 px-4 py-2 ">Tampilkan Edit</button>
-        </section>
 
-        <section id="admin-table" class="px-10">
-            <?php include './table.php'; ?>
+        <!-- Tombol pilihan -->
+        <section class=" w-[30%] px-3 mt-3 flex justify-evenly shadow-md mx-10 rounded-md">
+            <button id="tableBtn" class=" text-slate-800 px-4 py-3  border-b-2 border-green-500">Tampilkan Tabel</button>
+            <button id="editBtn" class=" text-slate-800 px-4 py-3 ">Tampilkan Edit</button>
         </section>
-        <section id="show-edit" class=" px-10 hidden">
-            <?php include './admin_edit.php'; ?>
-        </section>
+        <div class="my-3">
+            <section id="admin-table" class="px-10">
+                <?php include './table.php'; ?>
+            </section>
+            <section id="show-edit" class=" px-10 hidden">
+                <?php include './admin_edit.php'; ?>
+            </section>
+        </div>
     </div>
 </body>
 
@@ -106,17 +107,17 @@ $sessionAdmin = $_SESSION['pegawai'];
 </div>
 
 <script>
-document.getElementById('tableBtn').addEventListener('click', function() {
-    document.getElementById('admin-table').classList.remove('hidden');
-    document.getElementById('show-edit').classList.add('hidden');
-    document.getElementById('tableBtn').classList.add('border-b-2', 'border-green-500');
-    document.getElementById('editBtn').classList.remove('border-b-2', 'border-green-500');
-});
+    document.getElementById('tableBtn').addEventListener('click', function() {
+        document.getElementById('admin-table').classList.remove('hidden');
+        document.getElementById('show-edit').classList.add('hidden');
+        document.getElementById('tableBtn').classList.add('border-b-2', 'border-green-500');
+        document.getElementById('editBtn').classList.remove('border-b-2', 'border-green-500');
+    });
 
-document.getElementById('editBtn').addEventListener('click', function() {
-    document.getElementById('show-edit').classList.remove('hidden');
-    document.getElementById('admin-table').classList.add('hidden');
-    document.getElementById('editBtn').classList.add('border-b-2', 'border-green-500');
-    document.getElementById('tableBtn').classList.remove('border-b-2', 'border-green-500');
-});
+    document.getElementById('editBtn').addEventListener('click', function() {
+        document.getElementById('show-edit').classList.remove('hidden');
+        document.getElementById('admin-table').classList.add('hidden');
+        document.getElementById('editBtn').classList.add('border-b-2', 'border-green-500');
+        document.getElementById('tableBtn').classList.remove('border-b-2', 'border-green-500');
+    });
 </script>
