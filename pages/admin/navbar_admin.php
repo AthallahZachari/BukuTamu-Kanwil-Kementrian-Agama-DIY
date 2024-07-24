@@ -16,8 +16,9 @@ $sessionAdmin = $_SESSION['pegawai'];
     </div>
     <nav>
         <ul class="flex">
-            <li><a href="../login.php" class=" text-sm px-3 text-slate-600 hover:text-black hover:font-semibold">About Us</a></li>
-            <li><a href="#" class=" text-sm px-3 text-slate-600 hover:text-black hover:font-semibold">Contact Us</a></li>
+            <li><a href="#aboutus" class=" text-sm px-3 text-slate-600 hover:text-black hover:font-semibold">Tentang Kami</a></li>
+            <li><a href="#kontakkami" class=" text-sm px-3 text-slate-600 hover:text-black hover:font-semibold">Kontak Kami</a></li>
+            <li><a href="#media" class=" text-sm px-3 text-slate-600 hover:text-black hover:font-semibold">Link Kami</a></li>
             <li><a href="#" onclick="togglePopup()" class=" hover:bg-slate-100 text-green-800 font-semibold border hover:border-slate-400 px-4 py-2 ml-2 rounded-md transition-all duration-300"><i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
         </ul>
     </nav>
@@ -32,6 +33,7 @@ $sessionAdmin = $_SESSION['pegawai'];
         </div>
     </div>
 </div>
+<script src="./script.js"></script>
 <script>
     function togglePopup() {
         var popup = document.getElementById("popup-form");

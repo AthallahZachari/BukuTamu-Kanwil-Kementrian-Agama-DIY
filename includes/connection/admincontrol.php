@@ -5,16 +5,18 @@ include 'connection.php';
 //
 // 
 // [ SET ] jumlah halaman
-$limit = 20;
+$limit = 10;
 
 // [ REQ ] params URL
 $searchbox = isset($_GET['searchbox']) ? $_GET['searchbox'] : '';
 $filter = isset($_GET['filter']) ? $_GET['filter'] : 'all';
 $filterLayanan = isset($_POST['filterLayanan']) ? $_POST['filterLayanan'] : '';
 
+
 // [ SET ] current page
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $start = ($page - 1) * $limit;
+
 
 // [ GET ] list layanan
 $layanan = "SELECT * FROM layanan";
@@ -22,11 +24,13 @@ $queryLayanan = $pdo->prepare($layanan);
 $queryLayanan->execute();
 $listLayanan = $queryLayanan->fetchAll(PDO::FETCH_ASSOC);
 
+
 // [ GET ] list bidang
 $bidang = "SELECT * FROM bidang";
 $queryBidang = $pdo->prepare($bidang);
 $queryBidang->execute();
 $listBidang = $queryBidang->fetchAll(PDO::FETCH_ASSOC);
+
 
 // [ QUERY ] base query
 $sql =
@@ -125,4 +129,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "Required POST data is missing.";
     }
 }
+
+
 

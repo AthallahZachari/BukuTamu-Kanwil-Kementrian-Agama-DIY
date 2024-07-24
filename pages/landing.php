@@ -37,7 +37,7 @@ $visitorCount = $result['visitors'];
         </div>
         <div class=" row-span-2 mt-5 text-center">
           <p class="text-6xl text-slate-300 font-bold"><?php echo $visitorCount; ?></p>
-          <p class="text-slate-400 mt-2">Visitor's Count</p>
+          <p class="text-slate-400 mt-2">Pengunjung Hari Ini</p>
         </div>
       </section>
     </div>

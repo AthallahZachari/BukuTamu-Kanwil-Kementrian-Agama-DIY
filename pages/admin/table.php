@@ -6,77 +6,77 @@ include '../../includes/header.php';
 
 <!-- Tampilkan form pencarian -->
 <div class="min-h-[60vh] mx-auto pb-6">
-    <section class="shadow-lg rounded-md my-4 py-3 px-5 w-full flex justify-between items-center">
-
-        <form method="GET" action="" class="w-[80%] flex items-center ">
-            <select name="filter" id="filter" class=" appearance-none rounded-tl-lg rounded-bl-md px-4 py-[4.0px] border border-gray-300 hover:cursor-pointer hover:bg-slate-100 transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-emerald-400">
-                <option value="" disabled <?= $filter === 'all' ? 'selected' : '' ?>>Filter</option>
-                <option value="all" <?= $filter === 'all' ? 'selected' : '' ?>>Semua</option>
-                <option value="today" <?= $filter === 'today' ? 'selected' : '' ?>>Hari Ini</option>
-                <option value="month" <?= $filter === 'month' ? 'selected' : '' ?>>Bulan Ini</option>
-                <option value="year" <?= $filter === 'year' ? 'selected' : '' ?>>Tahun Ini</option>
-                <!-- Add your filter options here -->
-            </select>
-            <input type="text" name="searchbox" value="<?= htmlspecialchars($searchbox) ?>" placeholder="Cari nama..." class="w-[30%] px-4 py-1 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400">
-            <button type="submit" class="bg-green-700 hover:bg-green-800 text-slate-100 font-semibold px-4 py-[4.7px] rounded-tr-md rounded-br-md transition-all duration-300">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
-        </form>
-        <div class="flex justify-between items-center">
-            <form id="filterBidang" method="POST" action="">
-                <nav class=" text-sm text-slate-900 ">
-                    <a id="dropdownButton" class="w-full px-3 py-2 rounded-md border border-gray-300 hover:bg-slate-100 transition-all duration-300 hover:cursor-pointer focus:outline-none focus:ring-1 focus:ring-emerald-400">
-                        Filter Layanan<i class="fa-solid fa-chevron-down ml-2"></i>
-                    </a>
-                    <div id="dropdownMenu" class="hidden absolute mt-2 z-10 bg-white border border-gray-300 rounded-md shadow-lg">
-                        <ul>
-                            <?php foreach ($listLayanan as $list) { ?>
-                                <li class="px-4 py-2 cursor-pointer hover:bg-gray-100" data-value="<?= $list['id_layanan']; ?>"><?= $list['layanan']; ?></li>
-                            <?php } ?>
-                        </ul>
-                    </div>
-                    <input type="hidden" name="filterLayanan" id="kepentinganID" />
-                </nav>
-            </form>
-            <a href="" class=" text-green-700 text-sm ml-2 px-3 py-2 border border-gray-300 hover:bg-slate-100 rounded-md transition-all duration-300 "><i class="fa-solid fa-file-export"></i></a>
-        </div>
-    </section>
 
 
     <!-- Tampilkan tabel dengan hasil pencarian -->
     <div class="shadow-xl rounded-lg py-6 px-5 ">
+        <section class="my-4 w-full flex justify-between items-center">
+            <form method="GET" action="" class="w-[80%] flex items-center ">
+                <select name="filter" id="filter" class=" appearance-none rounded-tl-lg rounded-bl-md px-4 py-[4.0px] border border-gray-300 hover:cursor-pointer hover:bg-slate-100 transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-emerald-400">
+                    <option value="" disabled <?= $filter === 'all' ? 'selected' : '' ?>>Filter</option>
+                    <option value="all" <?= $filter === 'all' ? 'selected' : '' ?>>Semua</option>
+                    <option value="today" <?= $filter === 'today' ? 'selected' : '' ?>>Hari Ini</option>
+                    <option value="month" <?= $filter === 'month' ? 'selected' : '' ?>>Bulan Ini</option>
+                    <option value="year" <?= $filter === 'year' ? 'selected' : '' ?>>Tahun Ini</option>
+                    <!-- Add your filter options here -->
+                </select>
+                <input type="text" name="searchbox" value="<?= htmlspecialchars($searchbox) ?>" placeholder="Cari nama..." class="w-[30%] px-4 py-1 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400">
+                <button type="submit" class="bg-green-700 hover:bg-green-800 text-slate-100 font-semibold px-4 py-[4.7px] rounded-tr-md rounded-br-md transition-all duration-300">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+            <div class="flex justify-between items-center">
+                <form id="filterBidang" method="POST" action="">
+                    <nav class=" text-sm text-slate-900 ">
+                        <a id="dropdownButton" class="w-full px-3 py-2 rounded-md border border-gray-300 hover:bg-slate-100 transition-all duration-300 hover:cursor-pointer focus:outline-none focus:ring-1 focus:ring-emerald-400">
+                            Filter Layanan<i class="fa-solid fa-chevron-down ml-2"></i>
+                        </a>
+                        <div id="dropdownMenu" class="hidden absolute mt-2 z-10 bg-white border border-gray-300 rounded-md shadow-lg">
+                            <ul>
+                                <?php foreach ($listLayanan as $list) { ?>
+                                    <li class="px-4 py-2 cursor-pointer hover:bg-gray-100" data-value="<?= $list['id_layanan']; ?>"><?= $list['layanan']; ?></li>
+                                <?php } ?>
+                            </ul>
+                        </div>
+                        <input type="hidden" name="filterLayanan" id="kepentinganID" />
+                    </nav>
+                </form>
+                <a href="" class=" text-green-700 text-sm ml-2 px-3 py-2 border border-gray-300 hover:bg-slate-100 rounded-md transition-all duration-300 "><i class="fa-solid fa-file-export"></i></a>
+            </div>
+        </section>
+
         <table class="text-sm overflow-x-auto table-auto">
             <!-- Tabel header -->
             <thead>
                 <tr>
-                    <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[12.5%]">
+                    <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-[12.5%]">
                         Nama
                     </th>
-                    <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[5%] ">
+                    <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-[5%] ">
                         Gender
                     </th>
-                    <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-auto ">
+                    <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-auto ">
                         Umur
                     </th>
-                    <th class="py-4 px-2 text-center font-medium border-b border-slate-400 text-slate-500 w-auto">
+                    <th class="py-4 px-2 text-center font-medium border-y border-slate-400 text-slate-500 w-auto">
                         Instansi
                     </th>
-                    <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-auto%]">
+                    <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-auto%]">
                         Alamat
                     </th>
-                    <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-auto ">
+                    <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-auto ">
                         Nomor HP
                     </th>
-                    <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-auto ">
+                    <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-auto ">
                         Layanan
                     </th>
-                    <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-auto ">
+                    <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-auto ">
                         Bidang
                     </th>
-                    <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-auto">
+                    <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-auto">
                         Deskripsi
                     </th>
-                    <th class="py-4 px-2 font-medium border-b border-slate-400 text-slate-500 w-[150px]">
+                    <th class="py-4 px-2 font-medium border-y border-slate-400 text-slate-500 w-[150px]">
                         Action
                     </th>
                     <!-- <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[2%] "></th> -->
@@ -85,7 +85,7 @@ include '../../includes/header.php';
             <tbody>
                 <?php if ($query->rowCount() > 0) : ?>
                     <?php foreach ($rows as $row) : ?>
-                        <?php $bgClass = ($row['progres'] == 'unassigned' ? 'bg-red-500 mt-3' : '')?>
+                        <?php $bgClass = ($row['progres'] == 'unassigned' ? 'bg-red-500 mt-3' : '') ?>
                         <tr class="hover:bg-gray-100 px-2 py-2 text-md text-black" id="row-<?= $row['id_pengunjung']; ?>">
                             <input type="hidden" name="id_pengunjung" value="<?= htmlspecialchars($row["id_pengunjung"]); ?>">
                             <td class="px-2 align-text-top"><?= htmlspecialchars($row["nama"]); ?></td>
@@ -95,7 +95,9 @@ include '../../includes/header.php';
                             <td class="align-text-top"><?= htmlspecialchars($row["alamat"]); ?></td>
                             <td class="p-2 align-text-top"><?= htmlspecialchars($row["nomor_hp"]); ?></td>
                             <td class="p-2 align-text-top"><?= htmlspecialchars($row["layanan"]); ?></td>
-                            <td id="bidang-cell-<?= htmlspecialchars($row["id_pengunjung"]); ?>" class=" align-text-top"><div class="p-2 rounded-md <?=$bgClass?>"><?= htmlspecialchars($row["bidang"]); ?></div></td>
+                            <td id="bidang-cell-<?= htmlspecialchars($row["id_pengunjung"]); ?>" class=" align-text-top">
+                                <div class="p-2 rounded-md <?= $bgClass ?>"><?= htmlspecialchars($row["bidang"]); ?></div>
+                            </td>
                             <td class="px-2 py-2 text-md align-text-top text-left text-black"><?= htmlspecialchars($row["deskripsi"]); ?></td>
                             <td class="py-5 text-sm text-center align-text-top">
                                 <form action="../../includes/connection/admincontrol.php" method="post">

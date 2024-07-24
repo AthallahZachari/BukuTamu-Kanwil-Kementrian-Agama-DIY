@@ -31,7 +31,7 @@ if (isset($_POST['login'])) {
                 </div>
             </a>
             <h1 class=" text-3xl text-slate-900 font-bold mt-2">Login</h1>
-            <p class=" text-sm text-slate-500 text-center ">Login to your account below</p>
+            <p class=" text-sm text-slate-500 text-center ">Silahkan Login terlebih dahulu</p>
         </section>
         <form action="login.php" method="POST" class=" flex flex-col rounded-b-lg px-4 py-4">
 

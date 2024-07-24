@@ -20,16 +20,6 @@ $queryLayanan = $pdo->prepare($layanan);
 $queryLayanan->execute();
 $listLayanan = $queryLayanan->fetchAll(PDO::FETCH_ASSOC);
 
-$options = [
-    ["id" => "1", "text" => "Permohonan Rekomendasi"],
-    ["id" => "2", "text" => "Permohonan Rohaniwan"],
-    ["id" => "3", "text" => "Permohonan Audiensi"],
-    ["id" => "4", "text" => "Permohonan Penelitian"],
-    ["id" => "5", "text" => "Permohonan Magang"],
-    ["id" => "6", "text" => "Konsultasi Haji"],
-    ["id" => "7", "text" => "Konsultasi Halal"]
-];
-
 ?>
 
 <form action="" method="POST" class=" flex flex-col">
@@ -50,7 +40,7 @@ $options = [
         </div>
         <div class="w-[30%]">
             <!-- jenis kelamin -->
-            <label for="gender" class="block text-slate-800 font-semibold px-1 pb-2">Gender </label>
+            <label for="gender" class="block text-slate-800 font-semibold px-1 pb-2">Jenis Kelamin</label>
             <input type="radio" name="gender" id="pria" value="pria">
             <label for="pria">Pria</label>
             <input type="radio" name="gender" id="wanita" value="wanita">
@@ -62,7 +52,7 @@ $options = [
     <section class="w-full flex justify-start items-start ">
         <div class="w-[70%] mr-3 pr-5">
             <!-- alamat -->
-            <label for="alamat" class="block text-slate-800 font-semibold px-1 pb-2">Alamat</label>
+            <label for="alamat" class="block text-slate-800 font-semibold px-1 pb-2">Alamat Instansi/Pribadi</label>
             <input required type="text" name="alamat" placeholder="Alamat..." class="w-full rounded-md px-4 py-1 mb-4 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400">
         </div>
         <div class="w-[30%]">
@@ -78,8 +68,8 @@ $options = [
     <!-- telepon -->
     <section class="w-full mb-3 flex justify-between">
         <div class=" mr-3 pr-5 min-w-[60%]">
-            <label for="telephone" class="block text-slate-800 font-semibold px-1 pb-2">Nomor Telephone</label>
-            <input required type="text" name="telepon" id="telepon" class="w-[80%] rounded-md px-4 py-1 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400">
+            <label for="telephone" class="block text-slate-800 font-semibold px-1 pb-2">Nomor HP/Telephone</label>
+            <input required type="text" name="telepon" placeholder="No. Aktif..." id="telepon" onkeypress="validateNumberInput(event)" class="w-[80%] rounded-md px-4 py-1 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400">
         </div>
 
         <div class=" text-sm font-semibold pt-9 min-w-[30%] ">
@@ -100,7 +90,7 @@ $options = [
 
     <!-- KEPERLUAN -->
     <!-- TEXT AREA -->
-    <label for="keperluan" class="block text-slate-800 font-semibold px-1 pb-2">Keperluan</label>
+    <label for="keperluan" class="block text-slate-800 font-semibold px-1 pb-2">Deskripsi</label>
     <textarea required name="deskripsi" id="keperluan" placeholder="Masukkan teks..." rows="10" class=" resize-none rounded-md px-4 py-1 mb-3 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400"></textarea>
 
     <section class=" flex justify-between">
@@ -110,3 +100,11 @@ $options = [
     </section>
 </form>
 <script src="./script.js"></script>
+<script>
+    function validateNumberInput(evt) {
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        evt.preventDefault();
+    }
+}
+</script>
