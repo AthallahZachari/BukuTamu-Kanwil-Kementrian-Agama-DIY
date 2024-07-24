@@ -16,7 +16,8 @@ $query = $pdo->prepare("
         SUM(CASE WHEN YEARWEEK(tanggal, 1) = YEARWEEK(CURDATE(), 1) THEN 1 ELSE 0 END) AS weekly_visitor,
         SUM(CASE WHEN MONTH(tanggal) = MONTH(CURDATE()) AND YEAR(tanggal) = YEAR(CURDATE()) THEN 1 ELSE 0 END) AS monthly_visitor,
         SUM(CASE WHEN jenis_kelamin = 'pria' THEN 1 ELSE 0 END) AS males,
-        SUM(CASE WHEN jenis_kelamin = 'wanita' THEN 1 ELSE 0 END) AS females
+        SUM(CASE WHEN jenis_kelamin = 'wanita' THEN 1 ELSE 0 END) AS females,
+        SUM(CASE WHEN status = 'unassigned' THEN 1 ELSE 0 END) AS new_entries
     FROM pengunjung
 ");
 $query->execute();
@@ -29,6 +30,7 @@ $monthlyCount = $resultCountVisitor['monthly_visitor']; //pengunjung hari ini
 $dailyCount = $resultCountVisitor['daily_visitor']; //pengunjung hari ini
 $maleCount = $resultCountVisitor['males']; //pengunjung pria
 $femaleCount = $resultCountVisitor['females']; //pengunjung wanita
+$newEntriesCount = $resultCountVisitor['new_entries']; //pengunjung wanita
 $sessionAdmin = $_SESSION['pegawai'];
 
 ?>
@@ -70,8 +72,8 @@ $sessionAdmin = $_SESSION['pegawai'];
                 <div class="flex items-center p-4 rounded-md shadow-md">
                     <i class="fa-solid fa-layer-group text-xl mr-3 p-4 rounded-[50%] border border-slate-300 "></i>
                     <div class="flex flex-col">
-                        <p class=" text-xl text-slate-800 font-semibold "><?= $monthlyCount ?> orang</p>
-                        <p class=" text-sm text-slate-400">Jumlah pengunjung bulanan</p>
+                        <p class=" text-xl text-slate-800 font-semibold "><?= $newEntriesCount ?> form</p>
+                        <p class=" text-sm text-slate-400">Jumlah formulir tanpa bidang</p>
                     </div>
                 </div>
                 <div class="flex items-center p-4 rounded-md shadow-md">

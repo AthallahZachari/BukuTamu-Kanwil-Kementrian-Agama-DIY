@@ -12,7 +12,7 @@
                 Email : <a href="mailto:ptspkemenagdiy@gmail.com">kanwildiy@kemenag.go.id</a>
             </p>
         </div>
-        <div class=" h-[150px] w-[25%] px-3">
+        <div class=" h-[150px] w-[20%] px-3">
             <h1 class=" font-bold text-xl text-slate-600 mb-2">Link Kami</h1>
             <div class=" flex">
                 <div class="bg-slate-600 border border-gray-300 rounded h-6 w-6 flex items-center justify-center mr-2 hover:cursor-pointer">
@@ -35,6 +35,16 @@
                 </div>
 
             </div>
+        </div>
+        <div class=" min-h-[150px] w-[30%]">
+            <h1 class=" font-bold text-xl text-slate-600 mb-2">Maps</h1>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3944.117237560774!2d110.36285271509258!3d-7.788831579695105!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a5754d0197a9b%3A0x6d8b2ffbcac0f7f7!2sJl.%20Sukonandi%20No.8%2C%20Semaki%2C%20Umbulharjo%2C%20Kota%20Yogyakarta%2C%20Daerah%20Istimewa%20Yogyakarta%2055166!5e0!3m2!1sen!2sid!4v1628104901665!5m2!1sen!2sid" 
+                width="250" 
+                height="250" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy">
+            </iframe>
         </div>
     </div>
     <hr class="my-3 border-t-1 border-gray-300">

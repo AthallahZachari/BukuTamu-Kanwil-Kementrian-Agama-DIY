@@ -46,7 +46,6 @@ include '../../includes/header.php';
             <!-- Tabel header -->
             <thead>
                 <tr>
-                    <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[2%] "></th>
                     <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[12.5%]">
                         </">Nama</th>
                     <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[5%] ">
@@ -59,20 +58,19 @@ include '../../includes/header.php';
                         </">Alamat</th>
                     <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[5%] ">
                         </">Nomor HP</th>
-                    <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[13%] ">
+                    <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[10%] ">
                         </">Layanan</th>
                     <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[15%]">
                         </">Deskripsi</th>
+                    <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[10%] "></th>
+                    <!-- <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[2%] "></th> -->
                 </tr>
             </thead>
             <tbody>
                 <?php if ($query->rowCount() > 0) : ?>
                     <?php foreach ($rows as $row) : ?>
                         <tr class="hover:bg-gray-100 px-2 py-2 align-text-top text-md text-black">
-                            <td class="text-center align-text-top">
-                                <a href="#" class="px-3 py-2 rounded-md hover:bg-gray-200 transition-all duration-300"><i class="fa-solid fa-ellipsis"></i></a>
-                            </td>
-                            <td><?= htmlspecialchars($row["nama"]); ?></td>
+                            <td class=" px-2"><?= htmlspecialchars($row["nama"]); ?></td>
                             <td><?= htmlspecialchars($row["jenis_kelamin"]); ?></td>
                             <td><?= htmlspecialchars($row["umur"]); ?></td>
                             <td><?= htmlspecialchars($row["instansi"]); ?></td>
@@ -80,6 +78,14 @@ include '../../includes/header.php';
                             <td><?= htmlspecialchars($row["nomor_hp"]); ?></td>
                             <td><?= htmlspecialchars($row["layanan"]); ?></td>
                             <td class=" px-2 py-2 text-md align-text-top text-left text-black"><?= htmlspecialchars($row["deskripsi"]); ?></td>
+                            <td class=" px-2 py-2 text-center align-text-top">
+                                <button class=" bg-green-700 hover:bg-green-800 text-slate-200 px-3 py-2 rounded-md transition-all duration-300">
+                                    <i class="fa-solid fa-pen-to-square mr-2"></i>Bidang
+                                </button>
+                            </td>
+                            <!-- <td class="text-center align-text-top">
+                                <a href="#" class="px-3 py-2 rounded-md hover:bg-gray-200 transition-all duration-300"><i class="fa-solid fa-ellipsis"></i></a>
+                            </td> -->
                         </tr>
                     <?php endforeach; ?>
                 <?php else : ?>
