@@ -12,13 +12,12 @@ $sessionAdmin = $_SESSION['pegawai'];
         <div class="w-[40px] h-[40px] mr-2 bg-cover bg-center ">
             <img src="https://gunungkidul.kemenag.go.id/asset/file_info/LOGO_KEMENAG.png" alt="logo" class=" w-full h-full object-cover ">
         </div>
-        <h1 class=" font-bold text-slate-700 text-lg">KANWIL KEMENAG DIY</h1>
+        <h1 class=" font-bold text-slate-700 text-lg">KANTOR WILAYAH KEMENTRIAN D.I.YOGYAKARTA</h1>
     </div>
     <nav>
         <ul class="flex">
-            <li><a href="#aboutus" class=" text-sm px-3 text-slate-600 hover:text-black hover:font-semibold">Tentang Kami</a></li>
-            <li><a href="#kontakkami" class=" text-sm px-3 text-slate-600 hover:text-black hover:font-semibold">Kontak Kami</a></li>
-            <li><a href="#media" class=" text-sm px-3 text-slate-600 hover:text-black hover:font-semibold">Link Kami</a></li>
+            <li><a href="./dashboard.php" class=" text-sm px-3 text-slate-600 hover:text-black hover:font-semibold">Dashboard</a></li>
+            <li><a href="./admin_edit.php" class=" text-sm px-3 text-slate-600 hover:text-black hover:font-semibold">Edit Menu</a></li>
             <li><a href="#" onclick="togglePopup()" class=" hover:bg-slate-100 text-green-800 font-semibold border hover:border-slate-400 px-4 py-2 ml-2 rounded-md transition-all duration-300"><i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
         </ul>
     </nav>

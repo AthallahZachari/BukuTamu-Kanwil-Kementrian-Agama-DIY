@@ -4,7 +4,7 @@ include '../../includes/header.php';
 ?>
 
 <!-- Tampilkan form pencarian -->
-<div class="min-h-[60vh] mx-auto pb-6">
+<div class="min-h-[60vh] mx-auto ">
     <!-- Tampilkan tabel dengan hasil pencarian -->
     <div class="shadow-xl rounded-lg py-6 px-5 ">
         <section class="my-4 w-full flex justify-between items-center">

@@ -85,20 +85,21 @@ $sessionAdmin = $_SESSION['pegawai'];
                 </div>
             </div>
         </section>
-
-        <!-- Tombol pilihan -->
+        <section class=" px-10">
+            <?php include './table.php'; ?>
+        </section>
+        <!-- Tombol pilihan
         <section class=" w-[35%] px-3 mt-3 flex justify-evenly shadow-md mx-10 rounded-md">
             <button id="tableBtn" class=" text-slate-800 px-4 py-3  border-b-2 border-green-500">Daftar Pengunjung</button>
             <button id="editBtn" class=" text-slate-800 px-4 py-3 ">Update Bidang & Layanan</button>
         </section>
         <div class="my-3 w-full ">
-            <section id="admin-table" class="px-10 hidden">
-                <?php include './table.php'; ?>
+            <section id="admin-table" class="px-10">
             </section>
-            <section id="show-edit" class=" px-10 ">
-                <?php include './admin_edit.php'; ?>
+            <section id="show-edit" class=" px-10 hidden">
+                <?php // include './admin_edit.php'; ?>
             </section>
-        </div>
+        </div> -->
     </div>
 </body>
 
