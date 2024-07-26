@@ -15,6 +15,7 @@ $filterLayanan = isset($_POST['filterLayanan']) ? $_POST['filterLayanan'] : '';
 
 // [ SET ] current page
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$currentPage = 0;
 $start = ($page - 1) * $limit;
 
 
@@ -31,6 +32,10 @@ $queryBidang = $pdo->prepare($bidang);
 $queryBidang->execute();
 $listBidang = $queryBidang->fetchAll(PDO::FETCH_ASSOC);
 
+
+// [ POST ] list layanan
+// [ UPDATE ] list bidang
+// [ UPDATE ] list layanan
 
 // [ QUERY ] base query
 $sql =
@@ -120,15 +125,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Check if update was successful
         if ($stmt->rowCount() > 0) {
-            header('Location: ../../pages/admin/dashboard.php');
+            $location = 'Location: ../../pages/admin/dashboard.php?page=' . $page;
+            header($location);
             exit;
         } else {
             echo "Update failed.";
         }
-    } else {
-        echo "Required POST data is missing.";
     }
 }
-
-
-

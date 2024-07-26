@@ -1,6 +1,6 @@
 <?php
 $host = 'localhost';  // Nama host database
-$db = 'bukutamu';     // Nama database
+$db = 'bukutamu_db';     // Nama database
 $user = 'root';       // Username database
 $pass = '';           // Password database (sementara kosong tidak ada password)
 

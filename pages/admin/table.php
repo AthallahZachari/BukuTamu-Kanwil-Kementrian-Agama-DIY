@@ -1,24 +1,20 @@
 <?php
 include '../../includes/connection/admincontrol.php';
 include '../../includes/header.php';
-
 ?>
 
 <!-- Tampilkan form pencarian -->
 <div class="min-h-[60vh] mx-auto pb-6">
-
-
     <!-- Tampilkan tabel dengan hasil pencarian -->
     <div class="shadow-xl rounded-lg py-6 px-5 ">
         <section class="my-4 w-full flex justify-between items-center">
             <form method="GET" action="" class="w-[80%] flex items-center ">
-                <select name="filter" id="filter" class=" appearance-none rounded-tl-lg rounded-bl-md px-4 py-[4.0px] border border-gray-300 hover:cursor-pointer hover:bg-slate-100 transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-emerald-400">
+                <select name="filter" id="filter" class="appearance-none rounded-tl-lg rounded-bl-md px-4 py-[4.0px] border border-gray-300 hover:cursor-pointer hover:bg-slate-100 transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-emerald-400">
                     <option value="" disabled <?= $filter === 'all' ? 'selected' : '' ?>>Filter</option>
                     <option value="all" <?= $filter === 'all' ? 'selected' : '' ?>>Semua</option>
                     <option value="today" <?= $filter === 'today' ? 'selected' : '' ?>>Hari Ini</option>
                     <option value="month" <?= $filter === 'month' ? 'selected' : '' ?>>Bulan Ini</option>
                     <option value="year" <?= $filter === 'year' ? 'selected' : '' ?>>Tahun Ini</option>
-                    <!-- Add your filter options here -->
                 </select>
                 <input type="text" name="searchbox" value="<?= htmlspecialchars($searchbox) ?>" placeholder="Cari nama..." class="w-[30%] px-4 py-1 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400">
                 <button type="submit" class="bg-green-700 hover:bg-green-800 text-slate-100 font-semibold px-4 py-[4.7px] rounded-tr-md rounded-br-md transition-all duration-300">
@@ -27,8 +23,8 @@ include '../../includes/header.php';
             </form>
             <div class="flex justify-between items-center">
                 <form id="filterBidang" method="POST" action="">
-                    <nav class=" text-sm text-slate-900 ">
-                        <a id="dropdownButton" class="w-full px-3 py-2 rounded-md border border-gray-300 hover:bg-slate-100 transition-all duration-300 hover:cursor-pointer focus:outline-none focus:ring-1 focus:ring-emerald-400">
+                    <nav class="text-sm text-slate-900">
+                        <a id="dropdownButton" class="dropdownButton w-full px-3 py-2 rounded-md border border-gray-300 hover:bg-slate-100 transition-all duration-300 hover:cursor-pointer focus:outline-none focus:ring-1 focus:ring-emerald-400">
                             Filter Layanan<i class="fa-solid fa-chevron-down ml-2"></i>
                         </a>
                         <div id="dropdownMenu" class="hidden absolute mt-2 z-10 bg-white border border-gray-300 rounded-md shadow-lg">
@@ -41,7 +37,9 @@ include '../../includes/header.php';
                         <input type="hidden" name="filterLayanan" id="kepentinganID" />
                     </nav>
                 </form>
-                <a href="" class=" text-green-700 text-sm ml-2 px-3 py-2 border border-gray-300 hover:bg-slate-100 rounded-md transition-all duration-300 "><i class="fa-solid fa-file-export"></i></a>
+                <a href="" class="text-green-700 text-sm ml-2 px-3 py-2 border border-gray-300 hover:bg-slate-100 rounded-md transition-all duration-300">
+                    <i class="fa-solid fa-file-export"></i>
+                </a>
             </div>
         </section>
 
@@ -49,37 +47,16 @@ include '../../includes/header.php';
             <!-- Tabel header -->
             <thead>
                 <tr>
-                    <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-[12.5%]">
-                        Nama
-                    </th>
-                    <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-[5%] ">
-                        Gender
-                    </th>
-                    <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-auto ">
-                        Umur
-                    </th>
-                    <th class="py-4 px-2 text-center font-medium border-y border-slate-400 text-slate-500 w-auto">
-                        Instansi
-                    </th>
-                    <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-auto%]">
-                        Alamat
-                    </th>
-                    <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-auto ">
-                        Nomor HP
-                    </th>
-                    <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-auto ">
-                        Layanan
-                    </th>
-                    <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-auto ">
-                        Bidang
-                    </th>
-                    <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-auto">
-                        Deskripsi
-                    </th>
-                    <th class="py-4 px-2 font-medium border-y border-slate-400 text-slate-500 w-[150px]">
-                        Action
-                    </th>
-                    <!-- <th class="py-4 px-2 text-left font-medium border-b border-slate-400 text-slate-500 w-[2%] "></th> -->
+                    <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-[12.5%]">Nama</th>
+                    <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-[5%]">Gender</th>
+                    <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-auto">Umur</th>
+                    <th class="py-4 px-2 text-center font-medium border-y border-slate-400 text-slate-500 w-auto">Instansi</th>
+                    <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-auto">Alamat</th>
+                    <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-auto">Nomor HP</th>
+                    <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-auto">Layanan</th>
+                    <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-auto">Bidang</th>
+                    <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-auto">Deskripsi</th>
+                    <th class="py-4 px-2 font-medium border-y border-slate-400 text-slate-500 w-[150px]">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -95,19 +72,21 @@ include '../../includes/header.php';
                             <td class="align-text-top"><?= htmlspecialchars($row["alamat"]); ?></td>
                             <td class="p-2 align-text-top"><?= htmlspecialchars($row["nomor_hp"]); ?></td>
                             <td class="p-2 align-text-top"><?= htmlspecialchars($row["layanan"]); ?></td>
-                            <td id="bidang-cell-<?= htmlspecialchars($row["id_pengunjung"]); ?>" class=" align-text-top">
+                            <td id="bidang-cell-<?= htmlspecialchars($row["id_pengunjung"]); ?>" class="align-text-top">
                                 <div class="p-2 rounded-md <?= $bgClass ?>"><?= htmlspecialchars($row["bidang"]); ?></div>
                             </td>
                             <td class="px-2 py-2 text-md align-text-top text-left text-black"><?= htmlspecialchars($row["deskripsi"]); ?></td>
                             <td class="py-5 text-sm text-center align-text-top">
                                 <form action="../../includes/connection/admincontrol.php" method="post">
-                                    <a id="btnDropdownBidang" class="btnDropdownBidang px-3 py-2 rounded-md text-slate-200 bg-green-700 hover:bg-green-800 transition-all duration-300 hover:cursor-pointer focus:outline-none focus:ring-1 focus:ring-emerald-">
+                                    <a id="btnDropdownBidang-<?= $row['id_pengunjung']; ?>" class="btnDropdownBidang px-3 py-2 rounded-md text-slate-200 bg-green-700 hover:bg-green-800 transition-all duration-300 hover:cursor-pointer focus:outline-none focus:ring-1 focus:ring-emerald-">
                                         Tambah Bidang <i class="fa-solid fa-chevron-down ml-2"></i>
                                     </a>
-                                    <div id="listDropdownBidang" class="listDropdownBidang hidden absolute mt-3 z-30 bg-white border border-gray-300 rounded-md shadow-lg">
-                                        <ul class=" text-left">
-                                            <?php foreach ($listBidang as $data) { ?>
-                                                <li class="px-4 py-2 cursor-pointer hover:bg-gray-100" data-value="<?= $data['id_bidang']; ?>"><?= $data['bidang']; ?></li>
+                                    <div id="listDropdownBidang-<?= $row['id_pengunjung']; ?>" class="listDropdownBidang hidden absolute mt-3 z-9 bg-white border border-gray-300 rounded-md shadow-lg">
+                                        <ul class="text-left">
+                                            <?php foreach ($listBidang as $index => $data) { ?>
+                                                <li class="px-4 py-2 cursor-pointer hover:bg-gray-100" data-value="<?= $data['id_bidang']; ?>">
+                                                    <?= $index == 0 ? '' : htmlspecialchars($data['bidang']); ?>
+                                                </li>
                                             <?php } ?>
                                         </ul>
                                     </div>
@@ -135,40 +114,76 @@ include '../../includes/header.php';
                 <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
                     <a href="dashboard.php?page=<?= $i; ?>" class="px-3 py-2 font-semibold rounded-md border border-slate-400 hover:bg-gray-200 transition-all duration-300"><?= $i; ?></a>
                 <?php endfor; ?>
-                <a href="dashboard.php?page=<?= ($page + 1 <= $total_pages) ? $page + 1 : $total_pages; ?>" class="bg-green-700 hover:bg-green-800 text-slate-100 font-semibold border border-slate-400 px-4 py-2 ml-3 rounded-md transition-all duration-300">
+                <a href="dashboard.php?page=<?= min($total_pages, $page + 1); ?>" class="bg-green-700 hover:bg-green-800 text-slate-100 font-semibold border border-slate-400 px-4 py-2 ml-3 rounded-md transition-all duration-300">
                     Next<i class="fa-solid fa-chevron-right ml-3"></i>
                 </a>
             </div>
         </section>
     </div>
 </div>
-<script src="./script.js"></script>
+
 <script>
-    document.addEventListener("click", function(e) {
-        // Toggle the dropdown menu
-        if (e.target && e.target.classList.contains("btnDropdownBidang")) {
-            const dropdown = e.target.nextElementSibling;
-            if (dropdown) {
-                dropdown.classList.toggle("hidden");
-            }
+    // Function to toggle the visibility of an element
+    function toggleVisibility(element) {
+        if (element) {
+            element.classList.toggle("hidden");
+        } else {
+            console.error("Element not found.");
         }
+    }
 
-        // Handle selection of items in dynamically added dropdowns
-        if (e.target && e.target.tagName === "LI" && e.target.parentElement.parentElement.id.includes("listDropdownBidang")) {
+    // Function to handle dropdown selection
+    function handleDropdownSelection(e) {
+        const selectedValue = e.target.getAttribute("data-value");
+        const dropdownButton = document.getElementById("dropdownButton");
+        const hiddenInput = document.getElementById("kepentinganID");
+        const dropdownMenu = document.getElementById("dropdownMenu");
+        const form = document.getElementById("filterBidang");
+
+        if (selectedValue && hiddenInput && dropdownButton && dropdownMenu && form) {
+            hiddenInput.value = selectedValue;
+            dropdownButton.textContent = e.target.textContent;
+            dropdownMenu.classList.add("hidden");
+            form.submit();
+        } else {
+            console.error("One or more elements not found.");
+        }
+    }
+
+    // Attach event listener to the dropdown filter button
+    document.getElementById("dropdownButton").addEventListener("click", function() {
+        const dropdownMenu = document.getElementById("dropdownMenu");
+        toggleVisibility(dropdownMenu);
+    });
+
+    // Attach event listeners to the dropdown menu items
+    document.querySelectorAll("#dropdownMenu li").forEach(function(item) {
+        item.addEventListener("click", handleDropdownSelection);
+    });
+
+    // Handle btnDropdownBidang click
+    document.querySelectorAll(".btnDropdownBidang").forEach(function(button) {
+        button.addEventListener("click", function(e) {
+            e.preventDefault();
+            const id = e.target.id.split('-')[1];
+            const listDropdown = document.getElementById(`listDropdownBidang-${id}`);
+            toggleVisibility(listDropdown);
+        });
+    });
+
+    // Handle dropdown items for btnDropdownBidang
+    document.querySelectorAll(".listDropdownBidang li").forEach(function(item) {
+        item.addEventListener("click", function(e) {
             const selectedValue = e.target.getAttribute("data-value");
-            const form = e.target.closest("form");
+            const parentForm = e.target.closest("form");
+            const hiddenInput = parentForm.querySelector(".bidangID");
 
-            if (form) {
-                const bidangIDInput = form.querySelector('.bidangID');
-                if (bidangIDInput) {
-                    bidangIDInput.value = selectedValue;
-                    form.submit();
-                } else {
-                    console.error("Hidden input with class 'bidangID' not found.");
-                }
+            if (selectedValue && hiddenInput) {
+                hiddenInput.value = selectedValue;
+                parentForm.submit();
             } else {
-                console.error("Form element not found.");
+                console.error("Selected value or hidden input not found.");
             }
-        }
+        });
     });
 </script>
