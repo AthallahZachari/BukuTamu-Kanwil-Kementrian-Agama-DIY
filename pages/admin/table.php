@@ -6,7 +6,7 @@ include '../../includes/header.php';
 <!-- Tampilkan form pencarian -->
 <div class="min-h-[60vh] mx-auto ">
     <!-- Tampilkan tabel dengan hasil pencarian -->
-    <div class="shadow-xl rounded-lg py-6 px-5 ">
+    <div class="shadow-xl rounded-lg py-6 px-5 my-5">
         <section class="my-4 w-full flex justify-between items-center">
             <form method="GET" action="" class="w-[80%] flex items-center ">
                 <select name="filter" id="filter" class="appearance-none rounded-tl-lg rounded-bl-md px-4 py-[4.0px] border border-gray-300 hover:cursor-pointer hover:bg-slate-100 transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-emerald-400">
@@ -106,7 +106,8 @@ include '../../includes/header.php';
 
         <!-- Pagination -->
         <section class="min-h-16 mt-3 flex justify-between items-center border-t border-slate-400">
-            <p class="text-slate-400 text-sm font-semibold">Showing page <?= $page; ?> of <?= $total_pages; ?> pages</p>
+            <p class="text-slate-600 text-sm ">Showing <?= $start_row;?> - <?= $end_row?> row of total <?= $total_rows; ?> rows</p>
+            <p class="text-slate-600 text-sm ">Page <?= $page; ?> of <?= $total_pages; ?> pages</p>
             <div>
                 <a href="dashboard.php?page=<?= max(1, $page - 1); ?>" class="hover:bg-slate-200 text-green-800 font-semibold border border-slate-400 px-4 py-2 mr-3 rounded-md transition-all duration-300">
                     <i class="fa-solid fa-chevron-left mr-3"></i>Prev

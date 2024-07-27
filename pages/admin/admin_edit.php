@@ -70,9 +70,17 @@ $listBidang = $query->fetchAll(PDO::FETCH_ASSOC);
 <body class=" w-full min-h-[100vh]">
     <!-- TABLE BIDANG -->
     <?php include 'navbar_admin.php' ?>
-    <div class=" px-10 py-5">
-        <p class="text-slate-500"><?php echo date('l, F j, Y'); ?></p>
-        <h1 class=" text-5xl font-bold">Edit Menu</h1>
+    <div class="flex justify-between items-start px-10 py-6">
+        <div>
+            <p class="text-slate-500"><?php echo date('l, F j, Y'); ?></p>
+            <h1 class="text-5xl font-bold">Edit Menu</h1>
+        </div>
+        <div class="flex items-center">
+            <h1 class="text-xl font-semibold">Hi, <?php echo $sessionAdmin ?>!</h1>
+            <div class="bg-slate-100 rounded-[50%] min-h-[30px] min-w-[30px] items-center ml-3">
+                <i class="fa-solid fa-user text-center p-3"></i>
+            </div>
+        </div>
     </div>
     <section class=" w-full px-10 pb-10 my-5 flex">
         <div class=" w-[57%] mr-10 px-5 pb-6 rounded-lg shadow-xl">

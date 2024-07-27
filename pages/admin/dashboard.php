@@ -43,8 +43,8 @@ $sessionAdmin = $_SESSION['pegawai'];
         <?php include 'navbar_admin.php' ?>
         <section class="min-h-[20vh] flex justify-between items-start px-10 pt-6">
             <div>
-                <h1 class="text-5xl font-bold">Dashboard</h1>
                 <p class="text-slate-500"><?php echo date('l, F j, Y'); ?></p>
+                <h1 class="text-5xl font-bold">Dashboard</h1>
             </div>
             <div class="flex items-center">
                 <h1 class="text-xl font-semibold">Hi, <?php echo $sessionAdmin ?>!</h1>
@@ -53,7 +53,7 @@ $sessionAdmin = $_SESSION['pegawai'];
                 </div>
             </div>
         </section>
-        <section class="w-full flex px-10">
+        <section class="w-full flex px-10 pb-6">
             <div class="grid grid-cols-4 gap-3 w-[80%]">
                 <div class="flex items-center p-4 rounded-md shadow-md">
                     <i class="fa-solid fa-user-group text-xl mr-3 p-4 rounded-[50%] border border-slate-300"></i>
@@ -85,21 +85,12 @@ $sessionAdmin = $_SESSION['pegawai'];
                 </div>
             </div>
         </section>
+        <section class="px-10">
+            <?php include './graph.php';?>
+        </section>
         <section class=" px-10">
             <?php include './table.php'; ?>
         </section>
-        <!-- Tombol pilihan
-        <section class=" w-[35%] px-3 mt-3 flex justify-evenly shadow-md mx-10 rounded-md">
-            <button id="tableBtn" class=" text-slate-800 px-4 py-3  border-b-2 border-green-500">Daftar Pengunjung</button>
-            <button id="editBtn" class=" text-slate-800 px-4 py-3 ">Update Bidang & Layanan</button>
-        </section>
-        <div class="my-3 w-full ">
-            <section id="admin-table" class="px-10">
-            </section>
-            <section id="show-edit" class=" px-10 hidden">
-                <?php // include './admin_edit.php'; ?>
-            </section>
-        </div> -->
     </div>
 </body>
 

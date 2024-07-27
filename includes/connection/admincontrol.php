@@ -110,6 +110,11 @@ $total_stmt->execute();
 $total_rows = $total_stmt->fetchColumn();
 $total_pages = ceil($total_rows / $limit);
 
+
+//Menghitung Jarak informasi row yang ditampilkan
+$start_row = $start + 1;
+$end_row = min($start+$limit, $total_rows);
+
 // [ UPDATE ] update value kolom bidang
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['id_pengunjung']) && isset($_POST['selectedOption'])) {
