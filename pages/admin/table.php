@@ -1,6 +1,31 @@
 <?php
 include '../../includes/connection/admincontrol.php';
 include '../../includes/header.php';
+
+// [ UPDATE ] update value kolom bidang
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['id_pengunjung']) && isset($_POST['selectedOption'])) {
+        $id_pengunjung = $_POST['id_pengunjung'];
+        $selectedOption = $_POST['selectedOption'];
+
+        $sql = "UPDATE pengunjung SET bidang = :selectedOption, progres = 'assigned' WHERE id_pengunjung = :id_pengunjung";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            ':selectedOption' => $selectedOption,
+            ':id_pengunjung' => $id_pengunjung,
+        ]);
+
+        // Check if update was successful
+        if ($stmt->rowCount() > 0) {
+            $location = 'Location: ../../pages/admin/dashboard.php?page=' . $page;
+            header($location);
+            exit;
+        } else {
+            echo "Update failed.";
+        }
+    }
+}
+
 ?>
 
 <!-- Tampilkan form pencarian -->
@@ -106,7 +131,7 @@ include '../../includes/header.php';
 
         <!-- Pagination -->
         <section class="min-h-16 mt-3 flex justify-between items-center border-t border-slate-400">
-            <p class="text-slate-600 text-sm ">Showing <?= $start_row;?> - <?= $end_row?> row of total <?= $total_rows; ?> rows</p>
+            <p class="text-slate-600 text-sm ">Showing <?= $start_row; ?> - <?= $end_row ?> row of total <?= $total_rows; ?> rows</p>
             <p class="text-slate-600 text-sm ">Page <?= $page; ?> of <?= $total_pages; ?> pages</p>
             <div>
                 <a href="dashboard.php?page=<?= max(1, $page - 1); ?>" class="hover:bg-slate-200 text-green-800 font-semibold border border-slate-400 px-4 py-2 mr-3 rounded-md transition-all duration-300">

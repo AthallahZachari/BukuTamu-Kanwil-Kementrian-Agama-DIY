@@ -22,13 +22,13 @@ $listLayanan = $queryLayanan->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
-<form action="" method="POST" class=" flex flex-col">
+<form action="" method="POST" id="myForm" class="flex flex-col">
     <!-- [ BIODATA ] -->
-    <section class=" w-full flex justify-start mt-3">
+    <section class="w-full flex justify-start mt-3">
         <!-- [ INPUT ] NAMA LENGKAP -->
-        <div class=" w-full "> <!-- Adjust input width -->
+        <div class="w-full">
             <label for="nama" class="block text-slate-800 font-semibold px-1 pb-2">Nama Lengkap</label>
-            <input required type="text" name="nama" id="nama" placeholder="Nama lengkap..." class=" w-full rounded-md px-4 py-1 mb-4 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400">
+            <input type="text" name="nama" id="nama" placeholder="Nama lengkap..." class="w-full rounded-md px-4 py-1 mb-4 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400">
         </div>
     </section>
 
@@ -36,7 +36,7 @@ $listLayanan = $queryLayanan->fetchAll(PDO::FETCH_ASSOC);
         <div class="w-[70%] mr-3 pr-5">
             <!-- umur -->
             <label for="umur" class="block text-slate-800 font-semibold px-1 pb-2">Umur</label>
-            <input required type="number" name="umur" id="umur" min="1" max="100" placeholder="Umur..." class="w-full rounded-md px-4 py-1 mb-4 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400">
+            <input type="number" name="umur" id="umur" min="1" max="100" placeholder="Umur..." class="w-full rounded-md px-4 py-1 mb-4 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400">
         </div>
         <div class="w-[30%]">
             <!-- jenis kelamin -->
@@ -49,11 +49,11 @@ $listLayanan = $queryLayanan->fetchAll(PDO::FETCH_ASSOC);
     </section>
 
     <!-- [ INSTANSI & ALAMAT ] -->
-    <section class="w-full flex justify-start items-start ">
+    <section class="w-full flex justify-start items-start">
         <div class="w-[70%] mr-3 pr-5">
             <!-- alamat -->
             <label for="alamat" class="block text-slate-800 font-semibold px-1 pb-2">Alamat Instansi/Pribadi</label>
-            <input required type="text" name="alamat" placeholder="Alamat..." class="w-full rounded-md px-4 py-1 mb-4 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400">
+            <input type="text" name="alamat" id="alamat" placeholder="Alamat..." class="w-full rounded-md px-4 py-1 mb-4 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400">
         </div>
         <div class="w-[30%]">
             <!-- instansi/pribadi -->
@@ -67,14 +67,14 @@ $listLayanan = $queryLayanan->fetchAll(PDO::FETCH_ASSOC);
 
     <!-- telepon -->
     <section class="w-full mb-3 flex justify-between">
-        <div class=" mr-3 pr-5 min-w-[60%]">
-            <label for="telephone" class="block text-slate-800 font-semibold px-1 pb-2">Nomor HP/Telephone</label>
-            <input required type="text" name="telepon" placeholder="No. Aktif..." id="telepon" onkeypress="validateNumberInput(event)" class="w-[80%] rounded-md px-4 py-1 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400">
+        <div class="mr-3 pr-5 min-w-[60%]">
+            <label for="telepon" class="block text-slate-800 font-semibold px-1 pb-2">Nomor HP/Telephone</label>
+            <input type="text" name="telepon" id="telepon" placeholder="No. Aktif..." onkeypress="validateNumberInput(event)" class="w-[80%] rounded-md px-4 py-1 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400">
         </div>
 
-        <div class=" text-sm font-semibold pt-9 min-w-[30%] ">
-            <a id="dropdownButton" class="w-full px-3 py-2 mb-10 rounded-md border border-gray-300 hover:cursor-pointer focus:outline-none focus:ring-1 focus:ring-emerald-400">
-                Layanan <i class="fa-solid fa-chevron-down ml-2"></i>
+        <div class="text-sm font-semibold pt-9 min-w-[30%]">
+            <a id="dropdownButton" onclick="togglePopup()" class="w-full px-3 py-2 mb-10 rounded-md border border-gray-300 hover:cursor-pointer focus:outline-none focus:ring-1 focus:ring-emerald-400">
+                Input Layanan <i class="fa-solid fa-chevron-down ml-2"></i>
             </a>
             <div id="dropdownMenu" class="hidden absolute mt-3 z-10 bg-white min-w-[150px] border border-gray-300 rounded-md shadow-lg">
                 <ul>
@@ -83,28 +83,77 @@ $listLayanan = $queryLayanan->fetchAll(PDO::FETCH_ASSOC);
                     <?php } ?>
                 </ul>
             </div>
-            <input type="hidden" name="layanan" id="kepentinganID" />
+            <input type="hidden" name="layanan" id="kepentinganID" required />
         </div>
-
     </section>
 
     <!-- KEPERLUAN -->
     <!-- TEXT AREA -->
     <label for="keperluan" class="block text-slate-800 font-semibold px-1 pb-2">Deskripsi</label>
-    <textarea required name="deskripsi" id="keperluan" placeholder="Masukkan teks..." rows="10" class=" resize-none rounded-md px-4 py-1 mb-3 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400"></textarea>
+    <textarea name="deskripsi" id="keperluan" placeholder="Masukkan teks..." rows="10" class="resize-none rounded-md px-4 py-1 mb-3 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400"></textarea>
 
-    <section class=" flex justify-between">
-        <a href="../../index.php" class="  hover:bg-slate-100 text-green-800 font-semibold border border-slate-400 px-4 py-2 rounded-md transition-all duration-300"><i class="fa-solid fa-chevron-left mr-3"></i>Kembali</a>
-        <!-- <a href="#" class=" text-slate-100 text-center font-semibold bg-green-800 hover:bg-green-950 px-4 py-2 rounded-md transition-all duration-300">Submit<i class="fa-solid fa-chevron-right ml-3"></i></a> -->
-        <button type="" name="submit" class=" text-slate-100 text-center font-semibold bg-green-800 hover:bg-green-950 px-4 py-2 rounded-md transition-all duration-300">Submit<i class="fa-solid fa-chevron-right ml-3"></i></button>
+    <div id="error-message" class="hidden text-red-500 mb-3 text-center"></div>
+
+    <section class="flex justify-between">
+        <a href="../../index.php" class="hover:bg-slate-100 text-green-800 font-semibold border border-slate-400 px-4 py-2 rounded-md transition-all duration-300"><i class="fa-solid fa-chevron-left mr-3"></i>Kembali</a>
+        <button type="submit" name="submit" class="text-slate-100 text-center font-semibold bg-green-800 hover:bg-green-950 px-4 py-2 rounded-md transition-all duration-300">Submit<i class="fa-solid fa-chevron-right ml-3"></i></button>
     </section>
 </form>
 <script src="./script.js"></script>
 <script>
-    function validateNumberInput(evt) {
-    var charCode = (evt.which) ? evt.which : evt.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-        evt.preventDefault();
+    function togglePopup() {
+        var popup = document.getElementById("popup-form");
+        popup.classList.toggle("hidden");
+        popup.classList.toggle("flex");
     }
-}
+    // document.getElementById('dropdownButton').addEventListener('click', function() {
+    //     document.getElementById('dropdownMenu').classList.toggle('hidden');
+    // });
+
+    document.querySelectorAll('#dropdownMenu li').forEach(function(item) {
+        item.addEventListener('click', function() {
+            const selectedValue = this.getAttribute('data-value');
+            document.getElementById('kepentinganID').value = selectedValue;
+            document.getElementById('dropdownButton').textContent = this.textContent;
+            document.getElementById('dropdownMenu').classList.add('hidden');
+        });
+    });
+
+
+    document.getElementById('myForm').addEventListener('submit', function(event) {
+        // Prevent form submission
+        event.preventDefault();
+
+        // Clear any previous error messages
+        const errorMessage = document.getElementById('error-message');
+        errorMessage.classList.add('hidden');
+        errorMessage.textContent = '';
+
+        // Get form inputs
+        const nama = document.getElementById('nama').value.trim();
+        const umur = document.getElementById('umur').value.trim();
+        const gender = document.querySelector('input[name="gender"]:checked');
+        const alamat = document.getElementById('alamat').value.trim();
+        const instansi = document.querySelector('input[name="instansi"]:checked');
+        const telepon = document.getElementById('telepon').value.trim();
+        const layanan = document.getElementById('kepentinganID').value.trim();
+        const deskripsi = document.getElementById('keperluan').value.trim();
+
+        // Validate inputs
+        if (!nama || !umur || !gender || !alamat || !instansi || !telepon || !layanan || !deskripsi) {
+            errorMessage.textContent = 'Pastikan semua kolom input terisi !!';
+            errorMessage.classList.remove('hidden');
+            return;
+        }
+
+        // If validation passes, submit the form
+        this.submit();
+    });
+
+    function validateNumberInput(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            evt.preventDefault();
+        }
+    }
 </script>

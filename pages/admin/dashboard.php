@@ -9,29 +9,29 @@ if (!isset($_SESSION['pegawai'])) {
     exit();
 }
 
-// Query untuk menghitung jumlah responden berdasarkan tanggal dan jumlah gender
-$query = $pdo->prepare("
-    SELECT
-        COUNT(*) AS total_visitors,
-        SUM(CASE WHEN tanggal = CURDATE() THEN 1 ELSE 0 END) AS daily_visitor,
-        SUM(CASE WHEN YEARWEEK(tanggal, 1) = YEARWEEK(CURDATE(), 1) THEN 1 ELSE 0 END) AS weekly_visitor,
-        SUM(CASE WHEN MONTH(tanggal) = MONTH(CURDATE()) AND YEAR(tanggal) = YEAR(CURDATE()) THEN 1 ELSE 0 END) AS monthly_visitor,
-        SUM(CASE WHEN jenis_kelamin = 'pria' THEN 1 ELSE 0 END) AS males,
-        SUM(CASE WHEN jenis_kelamin = 'wanita' THEN 1 ELSE 0 END) AS females,
-        SUM(CASE WHEN progres = 'unassigned' THEN 1 ELSE 0 END) AS new_entries
-    FROM pengunjung
-");
-$query->execute();
-$resultCountVisitor = $query->fetch(PDO::FETCH_ASSOC);
+// // Query untuk menghitung jumlah responden berdasarkan tanggal dan jumlah gender
+// $query = $pdo->prepare("
+//     SELECT
+//         COUNT(*) AS total_visitors,
+//         SUM(CASE WHEN tanggal = CURDATE() THEN 1 ELSE 0 END) AS daily_visitor,
+//         SUM(CASE WHEN YEARWEEK(tanggal, 1) = YEARWEEK(CURDATE(), 1) THEN 1 ELSE 0 END) AS weekly_visitor,
+//         SUM(CASE WHEN MONTH(tanggal) = MONTH(CURDATE()) AND YEAR(tanggal) = YEAR(CURDATE()) THEN 1 ELSE 0 END) AS monthly_visitor,
+//         SUM(CASE WHEN jenis_kelamin = 'pria' THEN 1 ELSE 0 END) AS males,
+//         SUM(CASE WHEN jenis_kelamin = 'wanita' THEN 1 ELSE 0 END) AS females,
+//         SUM(CASE WHEN progres = 'unassigned' THEN 1 ELSE 0 END) AS new_entries
+//     FROM pengunjung
+// ");
+// $query->execute();
+// $resultCountVisitor = $query->fetch(PDO::FETCH_ASSOC);
 
-// Mengambil jumlah responden dari hasil query
-$totalVisitors = $resultCountVisitor['total_visitors']; //jml total pengunjung
-$weeklyCount = $resultCountVisitor['weekly_visitor']; //jml total pengunjung mingguan
-$monthlyCount = $resultCountVisitor['monthly_visitor']; //jml total pengunjung bulanan
-$dailyCount = $resultCountVisitor['daily_visitor']; //jml total pengunjung harian
-$maleCount = $resultCountVisitor['males']; //pengunjung pria
-$femaleCount = $resultCountVisitor['females']; //pengunjung wanita
-$newEntriesCount = $resultCountVisitor['new_entries']; //formulir baru
+// // Mengambil jumlah responden dari hasil query
+// $totalVisitors = $resultCountVisitor['total_visitors']; //jml total pengunjung
+// $weeklyCount = $resultCountVisitor['weekly_visitor']; //jml total pengunjung mingguan
+// $monthlyCount = $resultCountVisitor['monthly_visitor']; //jml total pengunjung bulanan
+// $dailyCount = $resultCountVisitor['daily_visitor']; //jml total pengunjung harian
+// $maleCount = $resultCountVisitor['males']; //pengunjung pria
+// $femaleCount = $resultCountVisitor['females']; //pengunjung wanita
+// $newEntriesCount = $resultCountVisitor['new_entries']; //formulir baru
 $sessionAdmin = $_SESSION['pegawai'];
 
 ?>
@@ -53,27 +53,13 @@ $sessionAdmin = $_SESSION['pegawai'];
                 </div>
             </div>
         </section>
-        <section class="w-full flex px-10 pb-6">
+        <section class="w-full flex px-10 pb-6 hidden">
             <div class="grid grid-cols-4 gap-3 w-[80%]">
-                <div class="flex items-center p-4 rounded-md shadow-md">
-                    <i class="fa-solid fa-user-group text-xl mr-3 p-4 rounded-[50%] border border-slate-300"></i>
-                    <div class="flex flex-col">
-                        <p class="text-xl text-slate-800 font-bold "><?= $dailyCount ?> orang</p>
-                        <p class="text-sm text-slate-400">Pengunjung hari ini</p>
-                    </div>
-                </div>
                 <div class="flex items-center p-4 rounded-md shadow-md">
                     <i class="fa-solid fa-layer-group text-xl mr-3 p-4 rounded-[50%] border border-slate-300"></i>
                     <div class="flex flex-col">
                         <p class="text-xl text-slate-800 font-bold "><?= $newEntriesCount ?> form</p>
                         <p class="text-sm text-slate-400">Formulir tanpa bidang</p>
-                    </div>
-                </div>
-                <div class="flex items-center p-4 rounded-md shadow-md">
-                    <i class="fa-solid fa-layer-group text-xl mr-3 p-4 rounded-[50%] border border-slate-300"></i>
-                    <div class="flex flex-col">
-                        <p class="text-xl text-slate-800 font-bold "><?= $weeklyCount ?> orang</p>
-                        <p class="text-sm text-slate-400">Jumlah pengunjung minggu ini</p>
                     </div>
                 </div>
                 <div class="flex items-center p-4 rounded-md shadow-md">

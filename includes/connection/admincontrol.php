@@ -18,13 +18,11 @@ $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $currentPage = 0;
 $start = ($page - 1) * $limit;
 
-
 // [ GET ] list layanan
 $layanan = "SELECT * FROM layanan";
 $queryLayanan = $pdo->prepare($layanan);
 $queryLayanan->execute();
 $listLayanan = $queryLayanan->fetchAll(PDO::FETCH_ASSOC);
-
 
 // [ GET ] list bidang
 $bidang = "SELECT * FROM bidang";
@@ -32,10 +30,29 @@ $queryBidang = $pdo->prepare($bidang);
 $queryBidang->execute();
 $listBidang = $queryBidang->fetchAll(PDO::FETCH_ASSOC);
 
+// [ UPDATE ] update value kolom bidang
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['id_pengunjung']) && isset($_POST['selectedOption'])) {
+        $id_pengunjung = $_POST['id_pengunjung'];
+        $selectedOption = $_POST['selectedOption'];
 
-// [ POST ] list layanan
-// [ UPDATE ] list bidang
-// [ UPDATE ] list layanan
+        $sql = "UPDATE pengunjung SET bidang = :selectedOption, progres = 'assigned' WHERE id_pengunjung = :id_pengunjung";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            ':selectedOption' => $selectedOption,
+            ':id_pengunjung' => $id_pengunjung,
+        ]);
+
+        // Check if update was successful
+        if ($stmt->rowCount() > 0) {
+            $location = 'Location: ../../pages/admin/dashboard.php?page=' . $page;
+            header($location);
+            exit;
+        } else {
+            echo "Update failed.";
+        }
+    }
+}
 
 // [ QUERY ] base query
 $sql =
@@ -110,31 +127,30 @@ $total_stmt->execute();
 $total_rows = $total_stmt->fetchColumn();
 $total_pages = ceil($total_rows / $limit);
 
-
 //Menghitung Jarak informasi row yang ditampilkan
 $start_row = $start + 1;
-$end_row = min($start+$limit, $total_rows);
+$end_row = min($start + $limit, $total_rows);
 
-// [ UPDATE ] update value kolom bidang
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['id_pengunjung']) && isset($_POST['selectedOption'])) {
-        $id_pengunjung = $_POST['id_pengunjung'];
-        $selectedOption = $_POST['selectedOption'];
+// Query untuk menghitung jumlah responden berdasarkan tanggal dan jumlah gender
+$query = $pdo->prepare("
+    SELECT
+        COUNT(*) AS total_visitors,
+        SUM(CASE WHEN tanggal = CURDATE() THEN 1 ELSE 0 END) AS daily_visitor,
+        SUM(CASE WHEN YEARWEEK(tanggal, 1) = YEARWEEK(CURDATE(), 1) THEN 1 ELSE 0 END) AS weekly_visitor,
+        SUM(CASE WHEN MONTH(tanggal) = MONTH(CURDATE()) AND YEAR(tanggal) = YEAR(CURDATE()) THEN 1 ELSE 0 END) AS monthly_visitor,
+        SUM(CASE WHEN jenis_kelamin = 'pria' THEN 1 ELSE 0 END) AS males,
+        SUM(CASE WHEN jenis_kelamin = 'wanita' THEN 1 ELSE 0 END) AS females,
+        SUM(CASE WHEN progres = 'unassigned' THEN 1 ELSE 0 END) AS new_entries
+    FROM pengunjung
+");
+$query->execute();
+$resultCountVisitor = $query->fetch(PDO::FETCH_ASSOC);
 
-        $sql = "UPDATE pengunjung SET bidang = :selectedOption, progres = 'assigned' WHERE id_pengunjung = :id_pengunjung";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([
-            ':selectedOption' => $selectedOption,
-            ':id_pengunjung' => $id_pengunjung,
-        ]);
-
-        // Check if update was successful
-        if ($stmt->rowCount() > 0) {
-            $location = 'Location: ../../pages/admin/dashboard.php?page=' . $page;
-            header($location);
-            exit;
-        } else {
-            echo "Update failed.";
-        }
-    }
-}
+// Mengambil jumlah responden dari hasil query
+$totalVisitors = $resultCountVisitor['total_visitors']; //jml total pengunjung
+$weeklyCount = $resultCountVisitor['weekly_visitor']; //jml total pengunjung mingguan
+$monthlyCount = $resultCountVisitor['monthly_visitor']; //jml total pengunjung bulanan
+$dailyCount = $resultCountVisitor['daily_visitor']; //jml total pengunjung harian
+$maleCount = $resultCountVisitor['males']; //pengunjung pria
+$femaleCount = $resultCountVisitor['females']; //pengunjung wanita
+$newEntriesCount = $resultCountVisitor['new_entries']; //formulir baru

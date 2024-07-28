@@ -96,7 +96,7 @@ $dataGender = $queryGender->fetchAll(PDO::FETCH_ASSOC);
 
 <body class="min-h-[100vh] px-10">
     <section>
-        <form method="GET" action="" class="flex px-5 py-3 my-5 text-slate-600 rounded-md shadow-lg w-[350px]">
+        <form method="GET" action="" class="  px-5 py-3 my-5 text-slate-600 rounded-md shadow-lg w-[350px]">
             <select id="month" name="month" class="pl-3 py-2 border border-slate-400 rounded-md hover:cursor-pointer hover:bg-slate-200 transition-all duration-300">
                 <option value="this_month" class="" <?php if (isset($_GET['month']) && $_GET['month'] == 'this_month') echo 'selected'; ?>>Bulan Ini</option>
                 <option value="last_month" <?php if (isset($_GET['month']) && $_GET['month'] == 'last_month') echo 'selected'; ?>>Bulan Kemarin</option>
@@ -106,11 +106,30 @@ $dataGender = $queryGender->fetchAll(PDO::FETCH_ASSOC);
         <div class="scroll-container py-3">
             <div class="flex space-x-6 ">
                 <div class="w-[450px] p-5 rounded-md shadow-lg flex-shrink-0">
-                    <h3 class="text-lg text-slate-700 font-bold">Grafik Harian</h3>
+                    <section class=" flex justify-between mb-5">
+                        <h3 class="text-lg text-slate-700 font-bold">Grafik Harian</h3>
+                        <a id="btnDetailPengunjung" class=" text-slate-400 text-sm font-semibold hover:cursor-pointer">See Details</a>
+                    </section>
                     <canvas id="dailyChart"></canvas>
+                    <div id="detailPengunjung" class=" flex justify-between mt-3 hidden">
+                        <div class="flex items-center px-2 py-3 text-xs">
+                            <i class="fa-solid fa-user mr-3 "></i>
+                            <div class="flex flex-col ">
+                                <p class=" text-slate-400 font-semibold">PENGUNJUNG HARI INI</p>
+                                <p class=" text-slate-800 font-bold "><?= $dailyCount ?> Orang</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center px-2 py-3 text-xs">
+                            <i class="fa-solid fa-user-group mr-3 "></i>
+                            <div class="flex flex-col">
+                                <p class=" text-slate-400 font-semibold">TOTAL PENGUNJUNG</p>
+                                <p class=" text-slate-800 font-bold "><?= $totalVisitors ?> Orang</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="w-[450px] p-5 rounded-md shadow-lg flex-shrink-0 hidden">
+                <div class="w-[450px] p-5 rounded-md shadow-lg flex-shrink-0 ">
                     <h3 class="text-lg text-slate-700 font-bold">Grafik Mingguan</h3>
                     <canvas id="weeklyChart"></canvas>
                 </div>
@@ -135,30 +154,41 @@ $dataGender = $queryGender->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </section>
     <script>
-        // Data from PHP
+        // TOGGLE FUNCTION
+        function toggleVisibility(element) {
+            element.classList.toggle("hidden");
+        }
+
+        // Attach event listener to the dropdown filter button
+        document.getElementById("btnDetailPengunjung").addEventListener("click", function() {
+            const dropdownMenu = document.getElementById("detailPengunjung");
+            toggleVisibility(dropdownMenu);
+        });
+
+        // [ GET ] Data from PHP
         const dataDailyFromPHP = <?php echo json_encode($dataDaily); ?>;
         const dataWeeklyFromPHP = <?php echo json_encode($dataWeekly); ?>;
         const dataMonthlyFromPHP = <?php echo json_encode($dataMonthly); ?>;
         const dataYearlyFromPHP = <?php echo json_encode($dataYearly); ?>;
         const dataGenderFromPHP = <?php echo json_encode($dataGender); ?>;
 
-        // Process daily data for Chart.js
+        // [ GET ] Fetch data pengunjung harian
         const dailyLabels = dataDailyFromPHP.map(item => item.day_name);
         const dailyData = dataDailyFromPHP.map(item => item.visitors_count);
 
-        // Process weekly data for Chart.js
+        // [ GET ] Fetch data pengunjung mingguan
         const weeklyLabels = dataWeeklyFromPHP.map(item => 'Week ' + item.week_number);
         const weeklyData = dataWeeklyFromPHP.map(item => item.visitors_count);
 
-        // Process monthly data for Chart.js
+        // [ GET ] Fetch data pengunjung bulanan
         const monthlyLabels = dataMonthlyFromPHP.map(item => item.month_name);
         const monthlyData = dataMonthlyFromPHP.map(item => item.visitors_count);
 
-        // Process yearly data for Chart.js
+        // // [ GET ] Fetch data pengunjung tahunan
         const yearlyLabels = dataYearlyFromPHP.map(item => item.year);
         const yearlyData = dataYearlyFromPHP.map(item => item.visitors_count);
 
-        // Process gender data for Chart.js
+        // // [ GET ] Fetch data jenis kelamin
         const genderLabels = dataGenderFromPHP.map(item => item.gender === 'pria' ? 'Pria' : 'Wanita');
         const genderData = dataGenderFromPHP.map(item => item.visitors_count);
 
