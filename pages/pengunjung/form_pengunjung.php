@@ -3,13 +3,12 @@ include '../../includes/connection/connection.php';
 include '../../includes/header.php';
 
 if (isset($_POST['submit'])) {
-    include '../../includes/connection/connection.php';
     $currentDate = date('Y-m-d');
 
     $query = $pdo->prepare("INSERT INTO pengunjung (tanggal, nama, jenis_kelamin, umur, instansi, alamat, nomor_hp, layanan, deskripsi) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
     $query->execute([$currentDate, $_POST['nama'], $_POST['gender'], $_POST['umur'], $_POST['instansi'], $_POST['alamat'], $_POST['telepon'], $_POST['layanan'], $_POST['deskripsi']]);
 
-    // // REDIRECT ke halaman utama
+    // Redirect to homepage
     header("Location: ../../index.php");
     exit();
 }
@@ -19,13 +18,11 @@ $layanan = "SELECT * FROM layanan";
 $queryLayanan = $pdo->prepare($layanan);
 $queryLayanan->execute();
 $listLayanan = $queryLayanan->fetchAll(PDO::FETCH_ASSOC);
-
 ?>
 
 <form action="" method="POST" id="myForm" class="flex flex-col">
     <!-- [ BIODATA ] -->
     <section class="w-full flex justify-start mt-3">
-        <!-- [ INPUT ] NAMA LENGKAP -->
         <div class="w-full">
             <label for="nama" class="block text-slate-800 font-semibold px-1 pb-2">Nama Lengkap</label>
             <input type="text" name="nama" id="nama" placeholder="Nama lengkap..." class="w-full rounded-md px-4 py-1 mb-4 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400">
@@ -34,12 +31,10 @@ $listLayanan = $queryLayanan->fetchAll(PDO::FETCH_ASSOC);
 
     <section class="w-full flex justify-start">
         <div class="w-[70%] mr-3 pr-5">
-            <!-- umur -->
             <label for="umur" class="block text-slate-800 font-semibold px-1 pb-2">Umur</label>
             <input type="number" name="umur" id="umur" min="1" max="100" placeholder="Umur..." class="w-full rounded-md px-4 py-1 mb-4 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400">
         </div>
         <div class="w-[30%]">
-            <!-- jenis kelamin -->
             <label for="gender" class="block text-slate-800 font-semibold px-1 pb-2">Jenis Kelamin</label>
             <input type="radio" name="gender" id="pria" value="pria">
             <label for="pria">Pria</label>
@@ -48,15 +43,12 @@ $listLayanan = $queryLayanan->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </section>
 
-    <!-- [ INSTANSI & ALAMAT ] -->
     <section class="w-full flex justify-start items-start">
         <div class="w-[70%] mr-3 pr-5">
-            <!-- alamat -->
             <label for="alamat" class="block text-slate-800 font-semibold px-1 pb-2">Alamat Instansi/Pribadi</label>
             <input type="text" name="alamat" id="alamat" placeholder="Alamat..." class="w-full rounded-md px-4 py-1 mb-4 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400">
         </div>
         <div class="w-[30%]">
-            <!-- instansi/pribadi -->
             <label for="Instansi/pribadi" class="block text-slate-800 font-semibold px-1 pb-3">Instansi/Pribadi</label>
             <input type="radio" name="instansi" value="instansi" id="instansi">
             <label for="instansi">Instansi</label>
@@ -65,7 +57,6 @@ $listLayanan = $queryLayanan->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </section>
 
-    <!-- telepon -->
     <section class="w-full mb-3 flex justify-between">
         <div class="mr-3 pr-5 min-w-[60%]">
             <label for="telepon" class="block text-slate-800 font-semibold px-1 pb-2">Nomor HP/Telephone</label>
@@ -87,8 +78,6 @@ $listLayanan = $queryLayanan->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </section>
 
-    <!-- KEPERLUAN -->
-    <!-- TEXT AREA -->
     <label for="keperluan" class="block text-slate-800 font-semibold px-1 pb-2">Deskripsi</label>
     <textarea name="deskripsi" id="keperluan" placeholder="Masukkan teks..." rows="10" class="resize-none rounded-md px-4 py-1 mb-3 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400"></textarea>
 
@@ -99,16 +88,11 @@ $listLayanan = $queryLayanan->fetchAll(PDO::FETCH_ASSOC);
         <button type="submit" name="submit" class="text-slate-100 text-center font-semibold bg-green-800 hover:bg-green-950 px-4 py-2 rounded-md transition-all duration-300">Submit<i class="fa-solid fa-chevron-right ml-3"></i></button>
     </section>
 </form>
-<script src="./script.js"></script>
 <script>
     function togglePopup() {
-        var popup = document.getElementById("popup-form");
-        popup.classList.toggle("hidden");
-        popup.classList.toggle("flex");
+        var dropdownMenu = document.getElementById("dropdownMenu");
+        dropdownMenu.classList.toggle("hidden");
     }
-    // document.getElementById('dropdownButton').addEventListener('click', function() {
-    //     document.getElementById('dropdownMenu').classList.toggle('hidden');
-    // });
 
     document.querySelectorAll('#dropdownMenu li').forEach(function(item) {
         item.addEventListener('click', function() {
@@ -119,11 +103,7 @@ $listLayanan = $queryLayanan->fetchAll(PDO::FETCH_ASSOC);
         });
     });
 
-
     document.getElementById('myForm').addEventListener('submit', function(event) {
-        // Prevent form submission
-        event.preventDefault();
-
         // Clear any previous error messages
         const errorMessage = document.getElementById('error-message');
         errorMessage.classList.add('hidden');
@@ -141,13 +121,11 @@ $listLayanan = $queryLayanan->fetchAll(PDO::FETCH_ASSOC);
 
         // Validate inputs
         if (!nama || !umur || !gender || !alamat || !instansi || !telepon || !layanan || !deskripsi) {
+            event.preventDefault(); // Prevent form submission
             errorMessage.textContent = 'Pastikan semua kolom input terisi !!';
             errorMessage.classList.remove('hidden');
             return;
         }
-
-        // If validation passes, submit the form
-        this.submit();
     });
 
     function validateNumberInput(evt) {
