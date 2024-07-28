@@ -100,23 +100,21 @@ $listBidang = $query->fetchAll(PDO::FETCH_ASSOC);
                 </thead>
                 <tbody>
                     <?php if ($queryBidang->rowCount() > 1) : ?>
-                        <?php foreach ($listBidang as $index => $list) : ?>
-                            <?= $index == 0 ? '' :
-                                '<tr class="hover:bg-gray-100 px-2 py-2 text-md text-black">
-                                    <td class=" ">' . $list['bidang'] . '</td>
-                                    <td class=" px-5"> ' . $list['deskripsi'] . ' </td>
+                        <?php foreach (array_slice($listBidang, 1) as $data) { ?>
+                                <tr class="hover:bg-gray-100 px-2 py-2 text-md text-black">
+                                    <td class=" "><?= htmlspecialchars($data['bidang'])?></td>
+                                    <td class=" px-5"><?= htmlspecialchars($data['deskripsi'])?></td>
                                     <td class=" px-3 py-1 text-slate-800 text-xs">
                                         <form action="" method="POST" class=" flex">
                                             <button onclick="" class=" px-2 py-1 border border-slate-400 rounded-md hover:bg-slate-200 transition-all duration-300"><i class="fa-solid fa-pen-to-square"></i></button>
-                                            <input type="hidden" name="id_bidang" value="' . $list['id_bidang'] . '">
+                                            <input type="hidden" name="id_bidang" value="<?=$data['id_bidang']?>">
                                             <button type="submit" class=" px-2 py-1 border border-slate-400 rounded-md bg-red-500 hover:bg-red-700 transition-all duration-300">
                                                 <i class="fa-solid fa-ban"></i>
                                             </button>
                                         </form>
                                     </td>
-                                </tr>'; ?>
-
-                        <?php endforeach; ?>
+                                </tr> 
+                        <?php } ?>
                     <?php else : ?>
                         <tr>
                             <td colspan="10" class="py-2 px-4 text-center text-gray-700">Daftar bidang masih kosong, mohon isi terlebih dahulu</td>

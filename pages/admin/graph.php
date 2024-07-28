@@ -108,7 +108,7 @@ $dataGender = $queryGender->fetchAll(PDO::FETCH_ASSOC);
                 <div class="w-[450px] p-5 rounded-md shadow-lg flex-shrink-0">
                     <section class=" flex justify-between mb-5">
                         <h3 class="text-lg text-slate-700 font-bold">Grafik Harian</h3>
-                        <a id="btnDetailPengunjung" class=" text-slate-400 text-sm font-semibold hover:cursor-pointer">See Details</a>
+                        <a id="btnDetailPengunjung" class=" text-slate-400 text-sm font-semibold hover:cursor-pointer">Lihat Detail<i class="fa-solid fa-chevron-down ml-2"></i></a>
                     </section>
                     <canvas id="dailyChart"></canvas>
                     <div id="detailPengunjung" class=" flex justify-between mt-3 hidden">

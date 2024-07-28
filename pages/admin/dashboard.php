@@ -8,30 +8,6 @@ if (!isset($_SESSION['pegawai'])) {
     header("Location: ../../index.php");
     exit();
 }
-
-// // Query untuk menghitung jumlah responden berdasarkan tanggal dan jumlah gender
-// $query = $pdo->prepare("
-//     SELECT
-//         COUNT(*) AS total_visitors,
-//         SUM(CASE WHEN tanggal = CURDATE() THEN 1 ELSE 0 END) AS daily_visitor,
-//         SUM(CASE WHEN YEARWEEK(tanggal, 1) = YEARWEEK(CURDATE(), 1) THEN 1 ELSE 0 END) AS weekly_visitor,
-//         SUM(CASE WHEN MONTH(tanggal) = MONTH(CURDATE()) AND YEAR(tanggal) = YEAR(CURDATE()) THEN 1 ELSE 0 END) AS monthly_visitor,
-//         SUM(CASE WHEN jenis_kelamin = 'pria' THEN 1 ELSE 0 END) AS males,
-//         SUM(CASE WHEN jenis_kelamin = 'wanita' THEN 1 ELSE 0 END) AS females,
-//         SUM(CASE WHEN progres = 'unassigned' THEN 1 ELSE 0 END) AS new_entries
-//     FROM pengunjung
-// ");
-// $query->execute();
-// $resultCountVisitor = $query->fetch(PDO::FETCH_ASSOC);
-
-// // Mengambil jumlah responden dari hasil query
-// $totalVisitors = $resultCountVisitor['total_visitors']; //jml total pengunjung
-// $weeklyCount = $resultCountVisitor['weekly_visitor']; //jml total pengunjung mingguan
-// $monthlyCount = $resultCountVisitor['monthly_visitor']; //jml total pengunjung bulanan
-// $dailyCount = $resultCountVisitor['daily_visitor']; //jml total pengunjung harian
-// $maleCount = $resultCountVisitor['males']; //pengunjung pria
-// $femaleCount = $resultCountVisitor['females']; //pengunjung wanita
-// $newEntriesCount = $resultCountVisitor['new_entries']; //formulir baru
 $sessionAdmin = $_SESSION['pegawai'];
 
 ?>

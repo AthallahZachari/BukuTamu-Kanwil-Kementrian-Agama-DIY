@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </section>
 
-        <table class="text-sm overflow-x-auto table-auto">
+        <table class="text-sm overflow-x-auto table-auto w-full">
             <!-- Tabel header -->
             <thead>
                 <tr>
@@ -108,11 +108,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     </a>
                                     <div id="listDropdownBidang-<?= $row['id_pengunjung']; ?>" class="listDropdownBidang hidden absolute mt-3 z-9 bg-white border border-gray-300 rounded-md shadow-lg">
                                         <ul class="text-left">
-                                            <?php foreach ($listBidang as $index => $data) { ?>
-                                                <li class="px-4 py-2 cursor-pointer hover:bg-gray-100" data-value="<?= $data['id_bidang']; ?>">
-                                                    <?= $index == 0 ? '' : htmlspecialchars($data['bidang']); ?>
+                                            <?php foreach (array_slice($listBidang, 1) as $data) { ?>
+                                                <li class="px-4 py-2 cursor-pointer hover:bg-gray-100" data-value="<?= htmlspecialchars($data['id_bidang']); ?>">
+                                                    <?= htmlspecialchars($data['bidang']); ?>
                                                 </li>
                                             <?php } ?>
+
                                         </ul>
                                     </div>
                                     <input type="hidden" name="selectedOption" class="bidangID">
