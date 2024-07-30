@@ -118,20 +118,21 @@ $listBidang = $query->fetchAll(PDO::FETCH_ASSOC);
                 </thead>
                 <tbody>
                     <?php if ($query->rowCount() > 1) : ?>
-                        <?php foreach (array_slice($listBidang, 1) as $data) { ?>
+                        <?php foreach (array_slice($listBidang, 1) as $data) {
+                            $idBidang = $data['id_bidang'];
+                        ?>
                             <tr class="hover:bg-gray-100 px-2 py-2 text-md text-black">
                                 <td class=""><?= htmlspecialchars($data['bidang']) ?></td>
                                 <td class="px-5"><?= htmlspecialchars($data['deskripsi']) ?></td>
                                 <td class=" flex px-3 py-1 text-slate-800 text-xs">
-                                    <button onclick="showEditFormBidang(<?= $data['id_bidang'] ?>, '<?= htmlspecialchars($data['bidang']) ?>', '<?= htmlspecialchars($data['deskripsi']) ?>')" class="px-2 py-1 border border-slate-400 rounded-md hover:bg-slate-200 transition-all duration-300">
+
+                                    <!-- TOMBOL EDIT BIDANG -->
+                                    <button onclick="showEditFormBidang(<?= $idBidang ?>, '<?= htmlspecialchars($data['bidang']) ?>', '<?= htmlspecialchars($data['deskripsi']) ?>')" class="px-2 py-1 border border-slate-400 rounded-md hover:bg-slate-200 transition-all duration-300">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
-                                    <form action="" method="POST" class="inline">
-                                        <input type="hidden" name="delete_bidang" value="<?= $data['id_bidang'] ?>">
-                                        <button type="submit" class="px-2 py-1 border border-slate-400 rounded-md bg-red-500 hover:bg-red-700 transition-all duration-300">
-                                            <i class="fa-solid fa-ban"></i>
-                                        </button>
-                                    </form>
+
+                                    <!-- TOMBOL DELETE BIDANG -->
+                                    <button onClick="showWarningBidang(<?= $idBidang?>)" class=" px-2 py-1 ml-2 bg-red-500 hover:bg-red-700 border border-slate-400 rounded-md transition-all duration-300"><i class="fa-solid fa-ban"></i></button>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -180,20 +181,23 @@ $listBidang = $query->fetchAll(PDO::FETCH_ASSOC);
                 </thead>
                 <tbody>
                     <?php if ($queryLayanan->rowCount() > 0) : ?>
-                        <?php foreach (array_slice($listLayanan, 1) as $layanan) { ?>
+                        <?php foreach (array_slice($listLayanan, 1) as $layanan) {
+                            $idLayanan = $layanan['id_layanan'];
+                        ?>
+
                             <tr class="hover:bg-gray-100 px-2 py-2 text-md text-black">
                                 <td class=""><?= htmlspecialchars($layanan['layanan']) ?></td>
                                 <td class=" px-5"><?= htmlspecialchars($layanan['deskripsi']) ?></td>
                                 <td class=" flex justify-end px-3 py-1 text-slate-800 text-xs ">
+
+                                    <!-- EDIT BUTTON -->
                                     <button onclick="showEditFormLayanan(<?= $layanan['id_layanan'] ?>, '<?= htmlspecialchars($layanan['layanan']) ?>', '<?= htmlspecialchars($layanan['deskripsi']) ?>')" class="px-2 py-1 border border-slate-400 rounded-md hover:bg-slate-200 transition-all duration-300">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
-                                    <form action="" method="POST" class="inline">
-                                        <input type="hidden" name="delete_layanan" value="<?= $layanan['id_layanan'] ?>">
-                                        <button type="submit" class="px-2 py-1 border border-slate-400 rounded-md bg-red-500 hover:bg-red-700 transition-all duration-300">
-                                            <i class="fa-solid fa-ban"></i>
-                                        </button>
-                                    </form>
+
+                                    <!-- DELETE BUTTON -->
+                                    <button onClick="showWarning(<?= $layanan['id_layanan'] ?>)" class=" px-2 py-1 ml-2 bg-red-500 hover:bg-red-700 border border-slate-400 rounded-md transition-all duration-300"><i class="fa-solid fa-ban"></i></button>
+
                                 </td>
                             </tr>
                         <?php } ?>
@@ -225,20 +229,39 @@ $listBidang = $query->fetchAll(PDO::FETCH_ASSOC);
 </body>
 
 <!-- Form Editing Bidang -->
-<div id="modalEditBidang" class="fixed inset-0 flex  items-center justify-center bg-black bg-opacity-50 hidden">
+<div id="modalEditBidang" class="fixed inset-0 flex z-50 items-center justify-center bg-black bg-opacity-50 hidden">
     <div class="bg-white rounded-lg p-5 min-w-[40%]">
-        <h2 class="text-xl font-semibold mb-4">Edit Bidang</h2>
+        <h2 class="text-2xl text-slate-700 font-semibold py-5 mb-4">Edit Bidang</h2>
         <form action="" method="POST" id="formEditBidang" class=" ">
             <input type="hidden" name="edit_id_bidang" id="edit_id_bidang">
             <label for="edit_bidang" class=" mb-2 px-2 block text-sm font-medium text-gray-700">Bidang</label>
             <input type="text" name="edit_bidang" id="edit_bidang" class=" w-full rounded-md px-4 py-2 mb-4 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400">
             <label for="edit_deskripsi" class=" mb-2 px-2 block text-sm font-medium text-gray-700">Deskripsi</label>
             <input type="text" name="edit_deskripsi" id="edit_deskripsi" class=" w-full rounded-md px-4 py-2 mb-4 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400">
-            <div class="flex ">
-                <button type="button" class="px-4 py-2 mr-3 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100" onclick="hideEditForm('modalEditBidang')">Cancel</button>
-                <button type="submit" name="submitEditBidang" class="px-4 py-2 bg-green-700 text-white rounded-md hover:bg-green-900">Save</button>
+            <div class="grid grid-cols-2">
+                <button type="button" class=" px-4 py-2 mr-3 border border-gray-300 rounded-md text-slate-600 hover:bg-gray-100" onclick="hideEditForm('modalEditBidang')">Cancel</button>
+                <button type="submit" name="submitEditBidang" class=" px-4 py-2 bg-green-700 text-white rounded-md hover:bg-green-900">Save</button>
             </div>
         </form>
+    </div>
+</div>
+
+<!-- Warning Sign on Delete Bidang -->
+<div id="bidangDeleteWarning" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class=" bg-red-100 rounded-lg p-5 min-w-[35%]">
+        <h2 class="text-2xl text-slate-800 font-bold mb-2"><i class="fa-solid fa-circle-exclamation text-red-500 mr-3"></i>Hapus Bidang</h2>
+        <p class=" text-sm text-slate-600">Bidang akan dihapus dari daftar, dan formulir dengan bidang terkait akan ikut terhapus</p>
+        <p class=" text-sm text-slate-600 mb-5">Anda yakin menghapus?</p>
+        <section class="  w-[40%] grid grid-cols-2">
+            <button onclick="hideEditForm('bidangDeleteWarning')" class="p-5 py-2 mr-2 text-slate-800 font-semibold rounded-md bg-white hover:bg-slate-200 transition-all duration-300">Batal</button>
+            <form action="" method="POST" class="inline">
+                <input type="hidden" name="delete_bidang" value="<?= $idBidang ?>">
+                <button type="submit" class="p-3 text-slate-800 font-semibold rounded-md bg-red-500 hover:bg-red-700 w-full transition-all duration-300">
+                    Hapus
+                </button>
+            </form>
+        </section>
+
     </div>
 </div>
 
@@ -252,11 +275,30 @@ $listBidang = $query->fetchAll(PDO::FETCH_ASSOC);
             <input type="text" name="edit_layanan" id="edit_layanan" class=" w-full rounded-md px-4 py-2 mb-4 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400">
             <label for="edit_layanan" class="px-2 mb-2 block text-sm font-medium text-gray-700">Deskripsi</label>
             <input type="text" name="edit_deskripsi_layanan" id="edit_deskripsi_layanan" class=" w-full rounded-md px-4 py-2 mb-4 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-400">
-            <div class="flex justify-end">
-                <button type="button" class="px-4 py-2 mr-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100" onclick="hideEditForm('modalEditLayanan')">Cancel</button>
-                <button type="submit" name="submitEditLayanan" class="px-4 py-2 bg-green-700 text-white rounded-md hover:bg-green-900">Save</button>
+            <div class="grid grid-cols-2">
+                <button type="button" class=" px-4 py-2 mr-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100" onclick="hideEditForm('modalEditLayanan')">Cancel</button>
+                <button type="submit" name="submitEditLayanan" class=" px-4 py-2 bg-green-700 text-white rounded-md hover:bg-green-900">Save</button>
             </div>
         </form>
+    </div>
+</div>
+
+<!-- Warning Sign on Delete Layanan -->
+<div id="layananDeleteWarning" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30 hidden">
+    <div class=" bg-red-100 rounded-lg p-5 min-w-[35%]">
+        <h2 class="text-2xl text-slate-800 font-bold mb-2"><i class="fa-solid fa-circle-exclamation text-red-500 mr-3"></i>Hapus Layanan</h2>
+        <p class=" text-sm text-slate-600">Layanan akan terhapus dari daftar, dan formulir dengan layanan terkait akan ikut terhapus</p>
+        <p class=" text-sm text-slate-600 mb-5">Anda yakin menghapus?</p>
+        <section class="  w-[40%] grid grid-cols-2">
+            <button onclick="hideEditForm('layananDeleteWarning')" class="p-2 mr-2 text-slate-800 font-semibold rounded-md border border-gray-300 bg-white hover:bg-slate-200 transition-all duration-300">Batal</button>
+            <form action="" method="POST" class="inline">
+                <input type="hidden" name="delete_layanan" value="<?= $idLayanan ?>">
+                <button type="submit" class="p-2 text-slate-800 font-semibold rounded-md bg-red-500 hover:bg-red-700 w-full transition-all duration-300">
+                    Hapus
+                </button>
+            </form>
+        </section>
+
     </div>
 </div>
 
@@ -291,7 +333,20 @@ $listBidang = $query->fetchAll(PDO::FETCH_ASSOC);
         document.getElementById('modalEditLayanan').classList.remove('hidden');
     }
 
+    function showWarningBidang(id) {
+        document.getElementById('edit_id_bidang').value = id;
+        document.getElementById('bidangDeleteWarning').classList.remove('hidden');
+    }
+
+    function showWarning(id) {
+        document.getElementById('edit_id_layanan').value = id;
+        document.getElementById('layananDeleteWarning').classList.remove('hidden');
+    }
+
     function hideEditForm(modalId) {
         document.getElementById(modalId).classList.add('hidden');
     }
+    document.querySelectorAll('#btnShowWarning').addEventListener('click', () => {
+        document.getElementById('layananDeleteWarning').classList.remove('hidden');
+    });
 </script>
