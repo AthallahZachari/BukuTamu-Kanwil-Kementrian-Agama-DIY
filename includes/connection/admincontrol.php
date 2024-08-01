@@ -7,7 +7,7 @@ include 'connection.php';
 // [ SET ] jumlah halaman
 $limit = 10;
 
-// [ REQ ] params URL
+// [ REQ ] SEARCHBOX & FILTER LAYANAN from params URL
 $searchbox = isset($_GET['searchbox']) ? $_GET['searchbox'] : '';
 $filter = isset($_GET['filter']) ? $_GET['filter'] : 'all';
 $filterLayanan = isset($_POST['filterLayanan']) ? $_POST['filterLayanan'] : '';
@@ -32,9 +32,10 @@ $listBidang = $queryBidang->fetchAll(PDO::FETCH_ASSOC);
 
 // [ UPDATE ] update value kolom bidang
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['id_pengunjung']) && isset($_POST['selectedOption'])) {
+    if (isset($_POST['id_pengunjung']) && isset($_POST['selectedOption']) && $_POST['current_page']) {
         $id_pengunjung = $_POST['id_pengunjung'];
         $selectedOption = $_POST['selectedOption'];
+        $setPage = $_POST['current_page'];
 
         $sql = "UPDATE pengunjung SET bidang = :selectedOption, progres = 'assigned' WHERE id_pengunjung = :id_pengunjung";
         $stmt = $pdo->prepare($sql);
@@ -45,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Check if update was successful
         if ($stmt->rowCount() > 0) {
-            $location = 'Location: ../../pages/admin/dashboard.php?page=' . $page;
+            $location = 'Location: ../../pages/admin/dashboard.php?page=' . $setPage;
             header($location);
             exit;
         } else {
@@ -77,7 +78,7 @@ switch ($filter) {
         break;
 }
 
-// [ FILTER ] Filter bidang jika ada
+// [ FILTER ] Filter layanan jika ada
 if (!empty($filterLayanan)) {
     $sql .= " AND pengunjung.layanan = :filterLayanan";
 }
@@ -131,7 +132,11 @@ $total_pages = ceil($total_rows / $limit);
 $start_row = $start + 1;
 $end_row = min($start + $limit, $total_rows);
 
-// Query untuk menghitung jumlah responden berdasarkan tanggal dan jumlah gender
+
+// [ GET ]
+// - Jml Pengunjung harian, mingguan, bulanan
+// - Jml pengunjung pria/wanita
+// - Jml formulir baru masuk
 $query = $pdo->prepare("
     SELECT
         COUNT(*) AS total_visitors,

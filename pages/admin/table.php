@@ -2,30 +2,6 @@
 include '../../includes/connection/admincontrol.php';
 include '../../includes/header.php';
 
-// [ UPDATE ] update value kolom bidang
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['id_pengunjung']) && isset($_POST['selectedOption'])) {
-        $id_pengunjung = $_POST['id_pengunjung'];
-        $selectedOption = $_POST['selectedOption'];
-
-        $sql = "UPDATE pengunjung SET bidang = :selectedOption, progres = 'assigned' WHERE id_pengunjung = :id_pengunjung";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([
-            ':selectedOption' => $selectedOption,
-            ':id_pengunjung' => $id_pengunjung,
-        ]);
-
-        // Check if update was successful
-        if ($stmt->rowCount() > 0) {
-            $location = 'Location: ../../pages/admin/dashboard.php?page=' . $page;
-            header($location);
-            exit;
-        } else {
-            echo "Update failed.";
-        }
-    }
-}
-
 ?>
 
 <!-- Tampilkan form pencarian -->
@@ -33,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <!-- Tampilkan tabel dengan hasil pencarian -->
     <div class="shadow-xl rounded-lg py-6 px-5 my-5">
         <section class="my-4 w-full flex justify-between items-center">
-            <form method="GET" action="" class="w-[80%] flex items-center ">
+            <form method="GET" action="" class="w-[70%] flex items-center ">
                 <select name="filter" id="filter" class="appearance-none rounded-tl-lg rounded-bl-md px-4 py-[4.0px] border border-gray-300 hover:cursor-pointer hover:bg-slate-100 transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-emerald-400">
                     <option value="" disabled <?= $filter === 'all' ? 'selected' : '' ?>>Filter</option>
                     <option value="all" <?= $filter === 'all' ? 'selected' : '' ?>>Semua</option>
@@ -46,13 +22,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </form>
+            <input type="date" name="filter" id="">
             <div class="flex justify-between items-center">
                 <form id="filterBidang" method="POST" action="">
                     <nav class="text-sm text-slate-900">
                         <a id="dropdownButton" class="dropdownButton w-full px-3 py-2 rounded-md border border-gray-300 hover:bg-slate-100 transition-all duration-300 hover:cursor-pointer focus:outline-none focus:ring-1 focus:ring-emerald-400">
                             Filter Layanan<i class="fa-solid fa-chevron-down ml-2"></i>
                         </a>
-                        <div id="dropdownMenu" class="hidden absolute mt-2 z-10 bg-white border border-gray-300 rounded-md shadow-lg">
+                        <div id="dropdownMenu" class="hidden absolute mt-3 z-10 bg-white border border-gray-300 rounded-md shadow-lg">
                             <ul>
                                 <?php foreach ($listLayanan as $list) { ?>
                                     <li class="px-4 py-2 cursor-pointer hover:bg-gray-100" data-value="<?= $list['id_layanan']; ?>"><?= $list['layanan']; ?></li>
@@ -67,11 +44,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </a>
             </div>
         </section>
-
         <table class="text-sm overflow-x-auto table-auto w-full">
             <!-- Tabel header -->
             <thead>
                 <tr>
+                    <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-[5%]">Tanggal Masuk</th>
                     <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-[12.5%]">Nama</th>
                     <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-[5%]">Gender</th>
                     <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-auto">Umur</th>
@@ -87,13 +64,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <tbody>
                 <?php if ($query->rowCount() > 0) : ?>
                     <?php foreach ($rows as $row) : ?>
-                        <?php $bgClass = ($row['progres'] == 'unassigned' ? 'bg-red-500 mt-3' : '') ?>
-                        <tr class="hover:bg-gray-100 px-2 py-2 text-md text-black" id="row-<?= $row['id_pengunjung']; ?>">
+                        <?php 
+                        $bgClass = ($row['progres'] == 'unassigned' ? 'bg-red-500 mt-3' : '');
+                        $date = DateTime::createFromFormat('Y-m-d', $row["tanggal"]);
+                        $formattedDate = $date->format('d-m-Y');
+                         ?>
+                        <tr class="hover:bg-gray-100 px-2 py-2 text-md text-black odd:bg-slate-100" id="row-<?= $row['id_pengunjung']; ?>">
                             <input type="hidden" name="id_pengunjung" value="<?= htmlspecialchars($row["id_pengunjung"]); ?>">
+                            <td class="px-2 align-text-top rounded-s-lg"><?= htmlspecialchars($formattedDate); ?></td>
                             <td class="px-2 align-text-top"><?= htmlspecialchars($row["nama"]); ?></td>
                             <td class="px-2 align-text-top"><?= htmlspecialchars($row["jenis_kelamin"]); ?></td>
                             <td class="text-center align-text-top"><?= htmlspecialchars($row["umur"]); ?></td>
-                            <td class="px-2 align-text-top text-center"><?= htmlspecialchars($row["instansi"]); ?></td>
+                            <td class="px-1 align-text-top text-center"><?= htmlspecialchars($row["instansi"]); ?></td>
                             <td class="align-text-top"><?= htmlspecialchars($row["alamat"]); ?></td>
                             <td class="p-2 align-text-top"><?= htmlspecialchars($row["nomor_hp"]); ?></td>
                             <td class="p-2 align-text-top"><?= htmlspecialchars($row["layanan"]); ?></td>
@@ -101,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <div class="p-2 rounded-md <?= $bgClass ?>"><?= htmlspecialchars($row["bidang"]); ?></div>
                             </td>
                             <td class="px-2 py-2 text-md align-text-top text-left text-black"><?= htmlspecialchars($row["deskripsi"]); ?></td>
-                            <td class="py-5 text-sm text-center align-text-top">
+                            <td class="py-5 pr-1 text-sm text-center align-text-top rounded-e-lg">
                                 <form action="../../includes/connection/admincontrol.php" method="post">
                                     <a id="btnDropdownBidang-<?= $row['id_pengunjung']; ?>" class="btnDropdownBidang px-3 py-2 rounded-md text-slate-200 bg-green-700 hover:bg-green-800 transition-all duration-300 hover:cursor-pointer focus:outline-none focus:ring-1 focus:ring-emerald-">
                                         Tambah Bidang <i class="fa-solid fa-chevron-down ml-2"></i>
@@ -118,6 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     </div>
                                     <input type="hidden" name="selectedOption" class="bidangID">
                                     <input type="hidden" name="id_pengunjung" value="<?= $row['id_pengunjung'] ?>" />
+                                    <input type="hidden" name="current_page" value="<?= $page ?>" />
                                 </form>
                             </td>
                         </tr>
@@ -139,6 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <i class="fa-solid fa-chevron-left mr-3"></i>Prev
                 </a>
                 <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
+                    <?php $page = $i;?>
                     <a href="dashboard.php?page=<?= $i; ?>" class="px-3 py-2 font-semibold rounded-md border border-slate-400 hover:bg-gray-200 transition-all duration-300"><?= $i; ?></a>
                 <?php endfor; ?>
                 <a href="dashboard.php?page=<?= min($total_pages, $page + 1); ?>" class="bg-green-700 hover:bg-green-800 text-slate-100 font-semibold border border-slate-400 px-4 py-2 ml-3 rounded-md transition-all duration-300">

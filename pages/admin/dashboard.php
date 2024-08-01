@@ -18,10 +18,16 @@ $sessionAdmin = $_SESSION['pegawai'];
     <div>
         <?php include 'navbar_admin.php' ?>
         <section class="min-h-[20vh] flex justify-between items-start px-10 pt-6">
-            <div>
-                <p class="text-slate-500"><?php echo date('l, F j, Y'); ?></p>
-                <h1 class="text-5xl font-bold">Dashboard</h1>
-            </div>
+            <section class=" flex items-center">
+
+                <div>
+                    <p class="text-slate-500"><?php echo date('l, F j, Y'); ?></p>
+                    <h1 class="text-5xl font-bold">Dashboard</h1>
+                </div>
+
+
+
+            </section>
             <div class="flex items-center">
                 <h1 class="text-xl font-semibold">Hi, <?php echo $sessionAdmin ?>!</h1>
                 <div class="bg-slate-100 rounded-[50%] min-h-[30px] min-w-[30px] items-center ml-3">
@@ -29,6 +35,16 @@ $sessionAdmin = $_SESSION['pegawai'];
                 </div>
             </div>
         </section>
+        <!-- Show New Entries banner -->
+        <?php if ($newEntriesCount > 0) : ?>
+            <div class=" px-3 py-2 my-3 ml-10 w-[250px] text-slate-700 rounded-md shadow-lg border-l-8 border-yellow-400">
+                <div class=" flex items-center">
+                    <i class="fa-solid fa-bell text-xl mr-3"></i>
+                    <h1 class=" font-bold text-lg">Notifikasi</h1>
+                </div>
+                <h1 class=" text-slate-500 text-sm"> <?= $newEntriesCount ?> formulir baru</h1>
+            </div>
+        <?php endif; ?>
         <section class="w-full flex px-10 pb-6 hidden">
             <div class="grid grid-cols-4 gap-3 w-[80%]">
                 <div class="flex items-center p-4 rounded-md shadow-md">
@@ -48,7 +64,7 @@ $sessionAdmin = $_SESSION['pegawai'];
             </div>
         </section>
         <section class="px-10">
-            <?php include './graph.php';?>
+            <?php include './graph.php'; ?>
         </section>
         <section class=" px-10">
             <?php include './table.php'; ?>
