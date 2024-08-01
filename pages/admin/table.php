@@ -64,11 +64,11 @@ include '../../includes/header.php';
             <tbody>
                 <?php if ($query->rowCount() > 0) : ?>
                     <?php foreach ($rows as $row) : ?>
-                        <?php 
+                        <?php
                         $bgClass = ($row['progres'] == 'unassigned' ? 'bg-red-500 mt-3' : '');
                         $date = DateTime::createFromFormat('Y-m-d', $row["tanggal"]);
                         $formattedDate = $date->format('d-m-Y');
-                         ?>
+                        ?>
                         <tr class="hover:bg-gray-100 px-2 py-2 text-md text-black odd:bg-slate-100" id="row-<?= $row['id_pengunjung']; ?>">
                             <input type="hidden" name="id_pengunjung" value="<?= htmlspecialchars($row["id_pengunjung"]); ?>">
                             <td class="px-2 align-text-top rounded-s-lg"><?= htmlspecialchars($formattedDate); ?></td>
@@ -121,15 +121,31 @@ include '../../includes/header.php';
                 <a href="dashboard.php?page=<?= max(1, $page - 1); ?>" class="hover:bg-slate-200 text-green-800 font-semibold border border-slate-400 px-4 py-2 mr-3 rounded-md transition-all duration-300">
                     <i class="fa-solid fa-chevron-left mr-3"></i>Prev
                 </a>
-                <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
-                    <?php $page = $i;?>
-                    <a href="dashboard.php?page=<?= $i; ?>" class="px-3 py-2 font-semibold rounded-md border border-slate-400 hover:bg-gray-200 transition-all duration-300"><?= $i; ?></a>
+                <?php if ($page > 3) : ?>
+                    <a href="dashboard.php?page=1" class="px-3 py-2 font-semibold rounded-md border border-slate-400 hover:bg-gray-200 transition-all duration-300">1</a>
+                    <?php if ($page > 4) : ?>
+                        <span class="px-3 py-2 font-semibold">...</span>
+                    <?php endif; ?>
+                <?php endif; ?>
+
+                <?php for ($i = max(1, $page - 2); $i <= min($total_pages, $page + 2); $i++) : ?>
+                    <a href="dashboard.php?page=<?= $i; ?>" class="px-3 py-2 font-semibold rounded-md border border-slate-400 hover:bg-gray-200 transition-all duration-300 <?= $i == $page ? 'bg-green-700 text-slate-100' : '' ?>"><?= $i; ?></a>
                 <?php endfor; ?>
+
+                <?php if ($page < $total_pages - 2) : ?>
+                    <?php if ($page < $total_pages - 3) : ?>
+                        <span class="px-3 py-2 font-semibold">...</span>
+                    <?php endif; ?>
+                    <a href="dashboard.php?page=<?= $total_pages; ?>" class="px-3 py-2 font-semibold rounded-md border border-slate-400 hover:bg-gray-200 transition-all duration-300"><?= $total_pages; ?></a>
+                <?php endif; ?>
+
                 <a href="dashboard.php?page=<?= min($total_pages, $page + 1); ?>" class="bg-green-700 hover:bg-green-800 text-slate-100 font-semibold border border-slate-400 px-4 py-2 ml-3 rounded-md transition-all duration-300">
                     Next<i class="fa-solid fa-chevron-right ml-3"></i>
                 </a>
             </div>
         </section>
+
+
     </div>
 </div>
 
