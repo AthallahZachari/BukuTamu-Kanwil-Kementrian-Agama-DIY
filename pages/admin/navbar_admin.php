@@ -7,7 +7,7 @@ if (!isset($_SESSION['pegawai'])) {
 
 $sessionAdmin = $_SESSION['pegawai'];
 ?>
-<div class=" sticky top-0 z-50 bg-glass-bg backdrop-blur-lg shadow-lg w-full m-auto px-10 py-4 flex justify-between items-center">
+<div class=" sticky top-0 z-40 bg-glass-bg backdrop-blur-lg shadow-lg w-full m-auto px-10 py-4 flex justify-between items-center">
     <div class=" flex align-middle items-center">
         <div class="w-[40px] h-[40px] mr-2 bg-cover bg-center ">
             <img src="https://gunungkidul.kemenag.go.id/asset/file_info/LOGO_KEMENAG.png" alt="logo" class=" w-full h-full object-cover ">
@@ -18,7 +18,7 @@ $sessionAdmin = $_SESSION['pegawai'];
         <ul class="flex">
             <li><a href="./dashboard.php" class=" text-sm px-3 text-slate-600 hover:text-black hover:font-semibold">Dashboard</a></li>
             <li><a href="./admin_edit.php" class=" text-sm px-3 text-slate-600 hover:text-black hover:font-semibold">Edit Menu</a></li>
-            <li><a href="#" onclick="togglePopup()" class=" hover:bg-slate-100 text-green-800 font-semibold border hover:border-slate-400 px-4 py-2 ml-2 rounded-md transition-all duration-300"><i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
+            <li><a href="#" onclick="togglePopup()" class=" hover:bg-slate-100 text-green-800 font-semibold border hover:border-slate-400 px-3 py-2 ml-2 rounded-md transition-all duration-300"><i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
         </ul>
     </nav>
 </div>

@@ -1,79 +1,9 @@
 <?php
 include '../../includes/connection/connection.php';
 include '../../includes/connection/admincontrol.php';
+include '../../includes/connection/graphcontrol.php';
 include '../../includes/header.php';
 
-// Menentukan bulan dan tahun berdasarkan pilihan
-$month = isset($_GET['month']) ? $_GET['month'] : 'this_month';
-if ($month == 'last_month') {
-    $monthCondition = "MONTH(tanggal) = MONTH(CURDATE() - INTERVAL 1 MONTH) AND YEAR(tanggal) = YEAR(CURDATE() - INTERVAL 1 MONTH)";
-} else {
-    $monthCondition = "MONTH(tanggal) = MONTH(CURDATE()) AND YEAR(tanggal) = YEAR(CURDATE())";
-}
-
-// Query untuk mengambil data pengunjung per hari dalam seminggu untuk bulan yang dipilih
-$queryDaily = $pdo->prepare("
-    SELECT
-        DAYNAME(tanggal) AS day_name,
-        COUNT(*) AS visitors_count
-    FROM pengunjung
-    WHERE $monthCondition
-    GROUP BY DAYOFWEEK(tanggal)
-    ORDER BY DAYOFWEEK(tanggal)
-");
-$queryDaily->execute();
-$dataDaily = $queryDaily->fetchAll(PDO::FETCH_ASSOC);
-
-// Query untuk mengambil data pengunjung per minggu untuk bulan yang dipilih
-$queryWeekly = $pdo->prepare("
-    SELECT
-        WEEK(tanggal) AS week_number,
-        COUNT(*) AS visitors_count
-    FROM pengunjung
-    WHERE $monthCondition
-    GROUP BY WEEK(tanggal)
-    ORDER BY WEEK(tanggal)
-");
-$queryWeekly->execute();
-$dataWeekly = $queryWeekly->fetchAll(PDO::FETCH_ASSOC);
-
-// Query untuk mengambil data pengunjung per bulan untuk tahun ini
-$queryMonthly = $pdo->prepare("
-    SELECT
-        MONTHNAME(tanggal) AS month_name,
-        COUNT(*) AS visitors_count
-    FROM pengunjung
-    WHERE YEAR(tanggal) = YEAR(CURDATE())
-    GROUP BY MONTH(tanggal)
-    ORDER BY MONTH(tanggal)
-");
-$queryMonthly->execute();
-$dataMonthly = $queryMonthly->fetchAll(PDO::FETCH_ASSOC);
-
-// Query untuk mengambil data pengunjung per tahun untuk beberapa tahun terakhir
-$queryYearly = $pdo->prepare("
-    SELECT
-        YEAR(tanggal) AS year,
-        COUNT(*) AS visitors_count
-    FROM pengunjung
-    WHERE YEAR(tanggal) BETWEEN YEAR(CURDATE()) - 5 AND YEAR(CURDATE())
-    GROUP BY YEAR(tanggal)
-    ORDER BY YEAR(tanggal)
-");
-$queryYearly->execute();
-$dataYearly = $queryYearly->fetchAll(PDO::FETCH_ASSOC);
-
-// Query to get the number of visitors by gender
-$queryGender = $pdo->prepare("
-    SELECT
-        jenis_kelamin AS gender,
-        COUNT(*) AS visitors_count
-    FROM pengunjung
-    WHERE $monthCondition
-    GROUP BY jenis_kelamin
-");
-$queryGender->execute();
-$dataGender = $queryGender->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
@@ -96,7 +26,7 @@ $dataGender = $queryGender->fetchAll(PDO::FETCH_ASSOC);
 
 <body class="min-h-[100vh] px-10">
     <section>
-        <form method="GET" action="" class="  px-5 py-3 my-5 text-slate-600 rounded-md shadow-lg w-[350px]">
+        <form method="GET" action="" class="hidden px-5 py-3 my-5 text-slate-600 rounded-md shadow-lg w-[350px]">
             <select id="month" name="month" class="pl-3 py-2 border border-slate-400 rounded-md hover:cursor-pointer hover:bg-slate-200 transition-all duration-300">
                 <option value="this_month" class="" <?php if (isset($_GET['month']) && $_GET['month'] == 'this_month') echo 'selected'; ?>>Bulan Ini</option>
                 <option value="last_month" <?php if (isset($_GET['month']) && $_GET['month'] == 'last_month') echo 'selected'; ?>>Bulan Kemarin</option>
@@ -105,13 +35,15 @@ $dataGender = $queryGender->fetchAll(PDO::FETCH_ASSOC);
         </form>
         <div class="scroll-container py-3">
             <div class="flex space-x-6 ">
-                <div class="w-[450px] p-5 rounded-md shadow-lg flex-shrink-0">
+
+                <!-- PENGUNJUNG HARIAN -->
+                <div class="w-[450px] h-[300px] p-5 rounded-md shadow-lg flex-shrink-0">
                     <section class=" flex justify-between mb-5">
                         <h3 class="text-lg text-slate-700 font-bold">Grafik Harian</h3>
                         <a id="btnDetailPengunjung" class=" text-slate-400 text-sm font-semibold hover:cursor-pointer">Lihat Detail<i class="fa-solid fa-chevron-down ml-2"></i></a>
                     </section>
                     <canvas id="dailyChart"></canvas>
-                    <div id="detailPengunjung" class=" flex justify-between mt-3 hidden">
+                    <div id="detailPengunjung" class="grid grid-cols-2 mt-3 hidden">
                         <div class="flex items-center px-2 py-3 text-xs">
                             <i class="fa-solid fa-user mr-3 "></i>
                             <div class="flex flex-col ">
@@ -126,25 +58,33 @@ $dataGender = $queryGender->fetchAll(PDO::FETCH_ASSOC);
                                 <p class=" text-slate-800 font-bold "><?= $totalVisitors ?> Orang</p>
                             </div>
                         </div>
+                        <div class="flex items-center px-2 py-3 text-xs">
+                            <i class="fa-solid fa-user-group mr-3 "></i>
+                            <div class="flex flex-col">
+                                <p class=" text-slate-400 font-semibold">AVG</p>
+                                <p class=" text-slate-800 font-bold "><?= $averageDailyVisitors ?> Orang</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="w-[450px] p-5 rounded-md shadow-lg flex-shrink-0 ">
+                <!-- PENGUNJUNG MINGGUAN -->
+                <div class="w-[450px] h-[300px] p-5 rounded-md shadow-lg flex-shrink-0 ">
                     <h3 class="text-lg text-slate-700 font-bold">Grafik Mingguan</h3>
                     <canvas id="weeklyChart"></canvas>
                 </div>
 
-                <div class="w-[450px] p-5 rounded-md shadow-lg flex-shrink-0 ">
+                <div class="w-[450px] h-[300px] p-5 rounded-md shadow-lg flex-shrink-0 ">
                     <h3 class="text-lg text-slate-700 font-bold">Grafik Bulanan</h3>
                     <canvas id="monthlyChart"></canvas>
                 </div>
 
-                <div class="w-[450px] p-5 rounded-md shadow-lg flex-shrink-0 hidden">
+                <div class="w-[450px] h-[300px] p-5 rounded-md shadow-lg flex-shrink-0 hidden">
                     <h3 class="text-lg text-slate-700 font-bold">Grafik Tahunan</h3>
                     <canvas id="yearlyChart"></canvas>
                 </div>
 
-                <div class="w-[450px] p-5 rounded-md shadow-lg flex-shrink-0">
+                <div class="w-[450px] h-[300px] p-5 rounded-md shadow-lg flex-shrink-0">
                     <h3 class="text-lg text-slate-700 font-bold">Pengunjung</h3>
                     <div class=" w-[200px] mx-auto">
                         <canvas id="genderChart"></canvas>

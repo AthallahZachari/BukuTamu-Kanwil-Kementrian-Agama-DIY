@@ -40,18 +40,3 @@ body{
     background-color: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
   }
-
-
-  /* WARNA JENIS BIDANG */
-  .bidang-keagamaan {
-    color: red;
-    
-  }
-  
-  .bidang-umum {
-    color: yellow;
-  }
-  
-  .bidang-administratif {
-    color: green;
-  }

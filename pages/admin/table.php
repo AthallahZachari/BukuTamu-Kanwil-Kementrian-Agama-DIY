@@ -8,8 +8,11 @@ include '../../includes/header.php';
 <div class="min-h-[60vh] mx-auto ">
     <!-- Tampilkan tabel dengan hasil pencarian -->
     <div class="shadow-xl rounded-lg py-6 px-5 my-5">
+
+        <!-- [ FILTER ] -->
         <section class="my-4 w-full flex justify-between items-center">
-            <form method="GET" action="" class="w-[70%] flex items-center ">
+            <!-- [ FILTER ] Filter Harian, Bulanan, Tahunan -->
+            <form method="GET" action="" class="w-[65%] flex items-center ">
                 <select name="filter" id="filter" class="appearance-none rounded-tl-lg rounded-bl-md px-4 py-[4.0px] border border-gray-300 hover:cursor-pointer hover:bg-slate-100 transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-emerald-400">
                     <option value="" disabled <?= $filter === 'all' ? 'selected' : '' ?>>Filter</option>
                     <option value="all" <?= $filter === 'all' ? 'selected' : '' ?>>Semua</option>
@@ -22,8 +25,18 @@ include '../../includes/header.php';
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </form>
-            <input type="date" name="filter" id="">
-            <div class="flex justify-between items-center">
+
+            <div class=" w-[35%] flex justify-end items-center">
+                <!-- [ FILTER ] Tanggal -->
+                <form method="GET" action="" id="dateFilterForm">
+                    <input type="date" name="filterDate" id="filterDateInput" class="mr-2 px-3 py-1 rounded-md border border-gray-300 hover:cursor-pointer">
+                    
+                    <!-- <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-md transition-all duration-300">
+                        Apply
+                    </button> -->
+                </form>
+
+                <!-- [ FILTER ] Layanan -->
                 <form id="filterBidang" method="POST" action="">
                     <nav class="text-sm text-slate-900">
                         <a id="dropdownButton" class="dropdownButton w-full px-3 py-2 rounded-md border border-gray-300 hover:bg-slate-100 transition-all duration-300 hover:cursor-pointer focus:outline-none focus:ring-1 focus:ring-emerald-400">
@@ -44,6 +57,7 @@ include '../../includes/header.php';
                 </a>
             </div>
         </section>
+
         <table class="text-sm overflow-x-auto table-auto w-full">
             <!-- Tabel header -->
             <thead>
@@ -150,6 +164,10 @@ include '../../includes/header.php';
 </div>
 
 <script>
+    document.getElementById('filterDateInput').addEventListener('change', function() {
+        document.getElementById('dateFilterForm').submit();
+    });
+
     // Function to toggle the visibility of an element
     function toggleVisibility(element) {
         if (element) {
