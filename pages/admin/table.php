@@ -62,7 +62,7 @@ include '../../includes/header.php';
             <!-- Tabel header -->
             <thead>
                 <tr>
-                    <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-[5%]">Tanggal Masuk</th>
+                    <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-[5%]">Tanggal</th>
                     <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-[12.5%]">Nama</th>
                     <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-[5%]">Gender</th>
                     <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-auto">Umur</th>
@@ -72,7 +72,7 @@ include '../../includes/header.php';
                     <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-auto">Layanan</th>
                     <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-auto">Bidang</th>
                     <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-auto">Deskripsi</th>
-                    <th class="py-4 px-2 font-medium border-y border-slate-400 text-slate-500 w-[150px]">Action</th>
+                    <th class="py-4 px-2 font-medium border-y border-slate-400 text-slate-500 w-[160px]">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -97,7 +97,7 @@ include '../../includes/header.php';
                                 <div class="p-2 rounded-md <?= $bgClass ?>"><?= htmlspecialchars($row["bidang"]); ?></div>
                             </td>
                             <td class="px-2 py-2 text-md align-text-top text-left text-black"><?= htmlspecialchars($row["deskripsi"]); ?></td>
-                            <td class="py-5 pr-1 text-sm text-center align-text-top rounded-e-lg">
+                            <td class="py-5 text-sm text-center align-text-top rounded-e-lg w-auto">
                                 <form action="../../includes/connection/admincontrol.php" method="post">
                                     <a id="btnDropdownBidang-<?= $row['id_pengunjung']; ?>" class="btnDropdownBidang px-3 py-2 rounded-md text-slate-200 bg-green-700 hover:bg-green-800 transition-all duration-300 hover:cursor-pointer focus:outline-none focus:ring-1 focus:ring-emerald-">
                                         Tambah Bidang <i class="fa-solid fa-chevron-down ml-2"></i>
@@ -168,7 +168,9 @@ include '../../includes/header.php';
         document.getElementById('dateFilterForm').submit();
     });
 
-    // Function to toggle the visibility of an element
+    
+    // [ TOGGLE ] tombol dropdown
+    // 
     function toggleVisibility(element) {
         if (element) {
             element.classList.toggle("hidden");
@@ -177,7 +179,9 @@ include '../../includes/header.php';
         }
     }
 
-    // Function to handle dropdown selection
+
+    // [ HANDLER ] to handle dropdown selection
+    // 
     function handleDropdownSelection(e) {
         const selectedValue = e.target.getAttribute("data-value");
         const dropdownButton = document.getElementById("dropdownButton");
@@ -195,18 +199,24 @@ include '../../includes/header.php';
         }
     }
 
-    // Attach event listener to the dropdown filter button
+
+    // [ TOGGLE ] Filter Layanan
+    // 
     document.getElementById("dropdownButton").addEventListener("click", function() {
         const dropdownMenu = document.getElementById("dropdownMenu");
         toggleVisibility(dropdownMenu);
     });
 
-    // Attach event listeners to the dropdown menu items
+
+    // [ HANDLER ] Pilihan layanan
+    // 
     document.querySelectorAll("#dropdownMenu li").forEach(function(item) {
         item.addEventListener("click", handleDropdownSelection);
     });
 
-    // Handle btnDropdownBidang click
+
+    // [ HANDLE ] Menu Bidang
+    // 
     document.querySelectorAll(".btnDropdownBidang").forEach(function(button) {
         button.addEventListener("click", function(e) {
             e.preventDefault();
@@ -216,7 +226,9 @@ include '../../includes/header.php';
         });
     });
 
-    // Handle dropdown items for btnDropdownBidang
+
+    // [ HANDLE ] Pilihan Bidang
+    // 
     document.querySelectorAll(".listDropdownBidang li").forEach(function(item) {
         item.addEventListener("click", function(e) {
             const selectedValue = e.target.getAttribute("data-value");

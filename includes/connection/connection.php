@@ -16,4 +16,3 @@ try {
     die("Could not connect to database $db: " . $e->getMessage());
 }
 ?>
-<!-- data diri, umur, kelamin, keperluan -->

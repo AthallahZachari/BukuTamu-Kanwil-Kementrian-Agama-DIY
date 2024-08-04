@@ -37,7 +37,7 @@ include '../../includes/header.php';
             <div class="flex space-x-6 ">
 
                 <!-- PENGUNJUNG HARIAN -->
-                <div class="w-[450px] h-[300px] p-5 rounded-md shadow-lg flex-shrink-0">
+                <div class="w-[450px] h-auto p-5 rounded-md shadow-lg flex-shrink-0">
                     <section class=" flex justify-between mb-5">
                         <h3 class="text-lg text-slate-700 font-bold">Grafik Harian</h3>
                         <a id="btnDetailPengunjung" class=" text-slate-400 text-sm font-semibold hover:cursor-pointer">Lihat Detail<i class="fa-solid fa-chevron-down ml-2"></i></a>
