@@ -47,7 +47,7 @@
         </div>
     </div>
     <hr class="my-3 border-t-1 border-gray-300">
-    <div class="text-slate-50 text-xs font-extralight text-center">
+    <div class="text-slate-50 text-xs font-extralight text-center lg:text-end">
         <p>&copy; <?php echo date("Y") ?> Copyrights Mutiara & Naufal. All rights reserved.</p>
     </div>
 </footer>

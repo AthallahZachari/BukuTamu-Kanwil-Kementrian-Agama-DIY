@@ -9,9 +9,9 @@ include '../../includes/header.php';
     <!-- Tampilkan tabel dengan hasil pencarian -->
     <div class="shadow-xl rounded-lg py-6 px-5 my-5">
 
-        <!-- [ FILTER ] -->
+        <!-- [ TOOLBAR ] -->
         <section class="my-4 w-full flex justify-between items-center">
-            <!-- [ FILTER ] Filter Harian, Bulanan, Tahunan -->
+            <!-- [ FILTER &  SEARCH ] Filter Harian, Bulanan, Tahunan. Search by name -->
             <form method="GET" action="" class="w-[65%] flex items-center ">
                 <select name="filter" id="filter" class="appearance-none rounded-tl-lg rounded-bl-md px-4 py-[4.0px] border border-gray-300 hover:cursor-pointer hover:bg-slate-100 transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-emerald-400">
                     <option value="" disabled <?= $filter === 'all' ? 'selected' : '' ?>>Filter</option>
@@ -30,10 +30,6 @@ include '../../includes/header.php';
                 <!-- [ FILTER ] Tanggal -->
                 <form method="GET" action="" id="dateFilterForm">
                     <input type="date" name="filterDate" id="filterDateInput" class="mr-2 px-3 py-1 rounded-md border border-gray-300 hover:cursor-pointer">
-                    
-                    <!-- <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-md transition-all duration-300">
-                        Apply
-                    </button> -->
                 </form>
 
                 <!-- [ FILTER ] Layanan -->
@@ -52,14 +48,16 @@ include '../../includes/header.php';
                         <input type="hidden" name="filterLayanan" id="kepentinganID" />
                     </nav>
                 </form>
-                <a href="" class="text-green-700 text-sm ml-2 px-3 py-2 border border-gray-300 hover:bg-slate-100 rounded-md transition-all duration-300">
+
+                <!-- [ EXPORT ] Export to Excel -->
+                <a href="export_excel.php" class="text-green-700 text-sm ml-2 px-3 py-2 border border-gray-300 hover:bg-slate-100 rounded-md transition-all duration-300">
                     <i class="fa-solid fa-file-export"></i>
                 </a>
             </div>
         </section>
 
+        <!-- [ TABLE ] -->
         <table class="text-sm overflow-x-auto table-auto w-full">
-            <!-- Tabel header -->
             <thead>
                 <tr>
                     <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-[5%]">Tanggal</th>
