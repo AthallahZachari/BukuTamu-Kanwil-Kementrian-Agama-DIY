@@ -23,6 +23,7 @@ $queryDaily = $pdo->prepare("
 $queryDaily->execute();
 $dataDaily = $queryDaily->fetchAll(PDO::FETCH_ASSOC);
 
+// Query untuk menghitung jumlah hari unik dengan pengunjung dalam bulan yang dipilih
 $queryUniqueDays = $pdo->prepare("
     SELECT COUNT(DISTINCT DATE(tanggal)) AS unique_days
     FROM pengunjung
