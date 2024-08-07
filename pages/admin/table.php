@@ -53,6 +53,12 @@ include '../../includes/header.php';
                 <a href="export_excel.php" class="text-green-700 text-sm ml-2 px-3 py-2 border border-gray-300 hover:bg-slate-100 rounded-md transition-all duration-300">
                     <i class="fa-solid fa-file-export"></i>
                 </a>
+                
+                <!-- [ DELETE ] Tombol hapus row -->
+                <form id="deleteForm" action="" method="post" class=" text-sm ml-2">
+                    <input type="hidden" name="deleteIds" id="deleteIds">
+                    <button type="submit" class="px-3 py-2 rounded-md border border-slate-300"><i class="fa-solid fa-trash"></i></button>
+                </form>
             </div>
         </section>
 
@@ -71,6 +77,7 @@ include '../../includes/header.php';
                     <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-auto">Bidang</th>
                     <th class="py-4 px-2 text-left font-medium border-y border-slate-400 text-slate-500 w-auto">Deskripsi</th>
                     <th class="py-4 px-2 font-medium border-y border-slate-400 text-slate-500 w-[160px]">Action</th>
+                    <th class="py-4 px-2 text-center font-medium border-y border-slate-400 text-slate-500 w-[30px] "><input type="checkbox" id="selectAll"></th>
                 </tr>
             </thead>
             <tbody>
@@ -115,11 +122,12 @@ include '../../includes/header.php';
                                     <input type="hidden" name="current_page" value="<?= $page ?>" />
                                 </form>
                             </td>
+                            <td class=" align-text-top text-center "><input type="checkbox" name="deleteRow[]" class="delete-checkbox" value="<?= $row['id_pengunjung'] ?>"></td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else : ?>
                     <tr>
-                        <td colspan="10" class="py-2 px-4 text-center text-gray-700">No results found</td>
+                        <td colspan="12" class="py-2 px-4 text-center text-gray-700">No results found</td>
                     </tr>
                 <?php endif; ?>
             </tbody>
@@ -162,11 +170,30 @@ include '../../includes/header.php';
 </div>
 
 <script>
+    document.getElementById('selectAll').addEventListener('click', function() {
+        let checkboxes = document.querySelectorAll('.delete-checkbox');
+        for (let checkbox of checkboxes) {
+            checkbox.checked = this.checked;
+        }
+    });
+
+    document.getElementById('deleteForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        let selectedIds = [];
+        let checkboxes = document.querySelectorAll('.delete-checkbox:checked');
+        for (let checkbox of checkboxes) {
+            selectedIds.push(checkbox.value);
+        }
+        document.getElementById('deleteIds').value = selectedIds.join(',');
+        this.submit();
+    });
+
+
     document.getElementById('filterDateInput').addEventListener('change', function() {
         document.getElementById('dateFilterForm').submit();
     });
 
-    
+
     // [ TOGGLE ] tombol dropdown
     // 
     function toggleVisibility(element) {
