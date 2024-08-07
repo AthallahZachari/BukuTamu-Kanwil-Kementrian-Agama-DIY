@@ -23,11 +23,9 @@ $queryDaily = $pdo->prepare("
 $queryDaily->execute();
 $dataDaily = $queryDaily->fetchAll(PDO::FETCH_ASSOC);
 
-// Query untuk menghitung jumlah hari unik dengan pengunjung dalam bulan yang dipilih
 $queryUniqueDays = $pdo->prepare("
     SELECT COUNT(DISTINCT DATE(tanggal)) AS unique_days
     FROM pengunjung
-    WHERE $monthCondition
 ");
 $queryUniqueDays->execute();
 $uniqueDays = $queryUniqueDays->fetch(PDO::FETCH_ASSOC)['unique_days'];
@@ -35,6 +33,7 @@ $uniqueDays = $queryUniqueDays->fetch(PDO::FETCH_ASSOC)['unique_days'];
 // Hitung rata-rata pengunjung harian
 if ($uniqueDays > 0) {
     $averageDailyVisitors = $totalVisitors / $uniqueDays;
+    $averageDailyVisitors = round($averageDailyVisitors);
 } else {
     $averageDailyVisitors = 0;
 }
@@ -84,7 +83,6 @@ $queryGender = $pdo->prepare("
         jenis_kelamin AS gender,
         COUNT(*) AS visitors_count
     FROM pengunjung
-    WHERE $monthCondition
     GROUP BY jenis_kelamin
 ");
 $queryGender->execute();

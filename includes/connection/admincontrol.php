@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($stmt->rowCount() > 0) {
         header('Location: ../../pages/admin/dashboard.php');
-        exit;
+        exit;   
     } else {
         echo "Tidak ada baris yang dipilih.";
     }
