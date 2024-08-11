@@ -10,6 +10,27 @@ if (!isset($_SESSION['pegawai'])) {
 }
 $sessionAdmin = $_SESSION['pegawai'];
 
+// [ DELETE ] Hapus row
+// 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['deleteIds']) && !empty($_POST['deleteIds'])) {
+        $ids = explode(',', $_POST['deleteIds']);
+
+        // Menghapus baris yang dipilih dari database
+        $idsString = implode(',', array_map('intval', $ids));
+        $sql = "DELETE FROM pengunjung WHERE id_pengunjung IN ($idsString)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+    }
+
+    if ($stmt->rowCount() > 0) {
+        header('Location: ../../pages/admin/dashboard.php');
+        exit;
+    } else {
+        echo "Tidak ada baris yang dipilih.";
+    }
+}
+
 ?>
 
 </head>

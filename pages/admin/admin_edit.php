@@ -187,7 +187,7 @@ $listBidang = $query->fetchAll(PDO::FETCH_ASSOC);
 
                             <tr class="hover:bg-gray-100 px-2 py-2 text-md text-black">
                                 <td class=""><?= htmlspecialchars($layanan['layanan']) ?></td>
-                                <td class=" px-5"><?= htmlspecialchars($layanan['deskripsi']) ?></td>
+                                <td class=" px-5"><?=$layanan['deskripsi'] ?></td>
                                 <td class=" flex justify-end px-3 py-1 text-slate-800 text-xs ">
 
                                     <!-- EDIT BUTTON -->
