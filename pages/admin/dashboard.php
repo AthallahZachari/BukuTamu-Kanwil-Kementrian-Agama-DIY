@@ -21,14 +21,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sql = "DELETE FROM pengunjung WHERE id_pengunjung IN ($idsString)";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
+        
+        if ($stmt->rowCount() > 0) {
+            header('Location: ../../pages/admin/dashboard.php');
+            exit;
+        } else {
+            echo "Tidak ada baris yang dipilih.";
+        }
     }
 
-    if ($stmt->rowCount() > 0) {
-        header('Location: ../../pages/admin/dashboard.php');
-        exit;
-    } else {
-        echo "Tidak ada baris yang dipilih.";
-    }
 }
 
 ?>
